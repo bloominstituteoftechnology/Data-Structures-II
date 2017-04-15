@@ -8,10 +8,9 @@ describe('Tree', () => {
     tree = new Tree(true);
   });
 
-  it('should have methods named "addChild" and "contains", and a property named "value"', () => {
+  it('should have methods named "addChild" and "contains"', () => {
     expect(typeof tree.addChild).toBe('function');
     expect(typeof tree.contains).toBe('function');
-    expect(tree.value === undefined).toBe(false);
   });
 
   it('should add children to the tree', () => {

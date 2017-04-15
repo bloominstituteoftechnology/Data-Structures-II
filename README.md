@@ -2,37 +2,38 @@
 
 Topics:
 
- * Trees
- * Graphs
- * Queues
- * Linked Lists
- * Hash Tables
-
+ * Tree
+ * Graph
+ * Binary Search Tree
 
 
 #### Trees
 
- * Should have the methods: `add`, `remove`, and a getter for the property `size`
- * `add` should accept a value and place it on top of the stack.
- * `remove` should remove and return the top value off of the stack.
- * `size` should return how many items are on the stack.
-
-#### Graphs
-
- * Should have the methods: `enqueue`, `dequeue`, and a getter for the property `size`
- * `enqueue` should add an item to the back of the queue.
- * `dequeue` should remove an item from the front of the queue.
- * `size` should return the number of items in the queue.
+  * Should have the methods: `addChild`, and `contains`
+  * Each node on the tree should have a `value` property and a `children` array.
+  * `addChild(value)` should accept a value and add it to that node's `children` array.
+  * `contains(value)` should return `true` if the tree or its children the given value.
+  * When you add nodes to the `children` array use `new Tree(value)` to create the node.
+  * You can instantiate the `Tree` class inside of itself.
 
 #### Binary Search Tree
 
- * Should have the methods: `addToTail`, `removeHead`, and `contains`.
- * `addToTail` replaces the tail with a new value that is passed in.
- * `removeHead` removes and returns the head node.
- * `contains` should searth through the linked list and return true if a matching value is found.
- * The `head` property is a reference to the first node and the `tail` property is a reference to the last node.  These are the only two properties that you need to keep track of an infinite number of nodes.  Build your nodes with objects.
+  * Should have the methods: `insert`, `contains`, and `depthFirstForEach`.
+  * `insert(value)` inserts the new value at the correct location in the tree.
+  * `contains(value)` searches the tree and returns `true` if the the tree contains the specified value.
+  * `depthFirstForEach(cb)` should iterate over the tree using DPS and passes each node of the tree to the given callback function.
+
+#### Graphs
+
+  * should have methods named `addNode`, `contains`, `removeNode`, `addEdge`, `getEdge`, and `removeEdge`
+  * `addNode(newNode, toNode)` should add a new item to the graph.  If `toNode` is given then the new node should share an edge with an existing node `toNode`.
+  * `contains(value)` should return true if the graph contains the given value.
+  * `removeNode(value)` should remove the specified value from the graph.
+  * `addEdge(fromNode, toNode)` should add an edge between the two specified nodes.
+  * `getEdge(fromNode, toNode)` should return `true` if an edge exists between the two specified graph nodes.
+  * `removeEdge(fromNode, toNode)` should remove the edge between the two specified nodes.
+
 
 ### Extra Credit
 
- * Uncomment the final test in `hash-table.test.js` and make the hash-table rebalance.  As a hash table increases in size the associated storage table will typically double in size once it reaches a certain capacity.  Change the hash table so that it doubles the size of the storage table once it is 75% full.
- * Make the linked-list a doubly linked list.
+ * Add a method to the `Graph` class that searches through the graph using edges.  Make this search first as a depth first search and then refactor to a breadth first search.
