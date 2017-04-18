@@ -21,7 +21,7 @@ Topics:
   * Should have the methods: `insert`, `contains`, and `depthFirstForEach`.
   * `insert(value)` inserts the new value at the correct location in the tree.
   * `contains(value)` searches the tree and returns `true` if the the tree contains the specified value.
-  * `depthFirstForEach(cb)` should iterate over the tree using DPS and passes each node of the tree to the given callback function.
+  * `depthFirstForEach(cb)` should iterate over the tree using DFS and passes each node of the tree to the given callback function.
 
 #### Graphs
 
