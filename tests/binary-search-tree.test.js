@@ -14,6 +14,11 @@ describe('BinarySearchTree', () => {
     expect(typeof binarySearchTree.depthFirstForEach).toBe('function');
   });
 
+  it('(easy mode) should insert values at the correct location in the tree', () => {
+    binarySearchTree.insert(2);
+    expect(binarySearchTree.left.value).toBe(2);
+  });
+
   it('should insert values at the correct location in the tree', () => {
     binarySearchTree.insert(2);
     binarySearchTree.insert(3);
