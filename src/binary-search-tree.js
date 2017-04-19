@@ -28,9 +28,49 @@ class BinarySearchTree {
     }
   }
 
-  contains() {}
+  contains(value) {
+    // search tree and return true if tree contains specified value
+    let currentNode = this;
 
-  depthFirstForEach() {}
+    while (currentNode) {
+      if (currentNode.value === value) return true;
+
+      if (currentNode.value > value) {
+        if (currentNode.left) {
+          currentNode = currentNode.left;
+        } else {
+          return false;
+        }
+      }
+      if (currentNode.value < value) {
+        if (currentNode.right) {
+          currentNode = currentNode.right;
+        } else {
+          return false;
+        }
+      }
+    }
+  }
+
+  depthFirstForEach(cb) {
+    // iterate over tree using DPS and passes each node of the tree to the given cb
+    let currentNode = this;
+    const exploredNodes = [];
+
+    while (currentNode) {
+      if (currentNode.left) {
+        exploredNodes.push(currentNode.value);
+        currentNode = currentNode.left;
+      }
+      if (currentNode.right) {
+        exploredNodes.push(currentNode.value);
+        currentNode = currentNode.right;
+      }
+      exploredNodes.push(currentNode.value);
+      break;
+    }
+    exploredNodes.forEach(node => cb(node));
+  }
 }
 
 module.exports = BinarySearchTree;
