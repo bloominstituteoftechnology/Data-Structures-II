@@ -43,18 +43,32 @@ class BinarySearchTree {
   }
 
   depthFirstForEach(cb) {
-    const currentNode = this;
+    // console.log(node)
+    const depthFirstSearch = (node) => {
+      if (node) {
+        // console.log(node.value) // --> 5 --> 3 --> 4
+        cb(node.value);
+        depthFirstSearch(node.left);
+        depthFirstSearch(node.right);
+      }
+    };
+    const node = this;
+    depthFirstSearch(node);
   }
 }
 
-const binarySearchTree = new BinarySearchTree(5)
-binarySearchTree.insert(2);
-binarySearchTree.insert(3);
-binarySearchTree.insert(7);
-//console.log(binarySearchTree)
-console.log(binarySearchTree.contains(3));
-console.log(binarySearchTree.contains(8));
-// console.log(binarySearchTree)
+// const binarySearchTree = new BinarySearchTree(5)
+// binarySearchTree.insert(2);
+// binarySearchTree.insert(3);
+// binarySearchTree.insert(7);
+// //console.log(binarySearchTree)
+// // console.log(binarySearchTree.contains(3));
+// // console.log(binarySearchTree.contains(8));
+//
+// //const foo = value => ((array.push(value)));
+// //binarySearchTree.depthFirstForEach(foo);
+// binarySearchTree.depthFirstForEach();
+// //console.log(binarySearchTree)
 
 
 module.exports = BinarySearchTree;
