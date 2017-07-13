@@ -10,22 +10,22 @@ class Graph {
   }
 
   noEdges(i) {
+    // returns true if this graph has no edges
     return this.graph.nodes[i].edges.length === 0;
   }
 
   addNode(...values) {
-    const initialSize = this.size;
-    for (let i = 0; i < values.length; i++) {
-      const value = values[i];
-      this.graph.nodes.push({name: value, edges: []});
-      // add an edge if this node was the second to be added
-      if (this.size === 2) {
-        this.addEdge(this.graph.nodes[0].name, this.graph.nodes[1].name);
-      }
+    const value = values[0];
+    this.graph.nodes.push({name: value, edges: []});
+
+    // automatically create an edge if there was only one node in the graph
+    if (this.size === 2) {
+      this.addEdge(this.graph.nodes[0].name, this.graph.nodes[1].name);
     }
-    // also add an edge if two nodes were added at the same time
-    if (values.length === 2) {
-      this.addEdge(this.graph.nodes[this.size - 2].name, this.graph.nodes[this.size - 1].name);
+
+    // add an edge if this method was called with two values
+    if (values.length == 2) {
+      this.addEdge(values[0], values[1]);
     }
   }
 
@@ -77,6 +77,7 @@ class Graph {
 
     // find indices of the edge nodes
     const i3 = this.graph.nodes[i1].edges.findIndex(v => v === v2);
+    // remove an existing edge
     if (i3 != -1) this.graph.nodes[i1].edges.splice(i3, 1);
 
     const i4 = this.graph.nodes[i2].edges.findIndex(v => v === v1);
