@@ -57,4 +57,19 @@ describe('Graph', () => {
     graph.removeEdge('A', 'B');
     expect(graph.contains('A') || graph.contains('B')).toBe(false);
   });
+
+  it('should find an edge', () => {
+    graph.addNode('Seattle');
+    graph.addNode('San Francisco');
+    graph.addNode('Los Angeles', 'Seattle');
+    expect(graph.searchUsingEdges('Seattle', 'Los Angeles')).toBe(true);
+  });
+
+  it('should not find an edge', () => {
+    graph.addNode('Seattle');
+    graph.addNode('San Francisco');
+    graph.addNode('Los Angeles', 'Seattle');
+    graph.addNode('Vancouver', 'San Francisco');
+    expect(graph.searchUsingEdges('Seattle', 'Vancouver')).toBe(false);
+  });
 });

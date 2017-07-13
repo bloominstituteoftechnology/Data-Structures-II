@@ -89,6 +89,12 @@ class Graph {
     const i5 = this.graph.nodes.findIndex(n => n.name === v2);
     if (this.noEdges(i5)) this.removeNode(v2);
   }
+
+  searchUsingEdges(v1, v2) {
+    const i1 = this.graph.nodes.findIndex(n => n.name === v1);
+    if (this.graph.nodes[i1].edges.find(v => v === v2)) return true;
+    return false;
+  }
 }
 
 module.exports = Graph;
