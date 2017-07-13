@@ -14,8 +14,11 @@ class Tree {
     this.children[this.children.length] = node;// = [{ value, node }];
   }
   // node.addChild();
-  contains() {
-    return this;
+  contains(param) {
+    if (this.value === param) {
+      return true;
+    }
+    return false;
   }
 }
 
