@@ -17,4 +17,11 @@ class BinarySearchTree {
   }
 }
 
+const binTest = new BinarySearchTree;
+console.log(binTest);
+console.log(binTest.insert());
+console.log(binTest.contains());
+console.log(binTest.depthFirstForEach());
+
+
 module.exports = BinarySearchTree;
