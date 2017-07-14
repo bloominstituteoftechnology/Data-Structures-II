@@ -1,15 +1,15 @@
 // https://msdn.microsoft.com/en-us/library/aa289150(v=vs.71).aspx
 class BinarySearchTree {
-  constructor(value) {
-    this.value = value;
+  constructor() { // <-- parameter is the function PARAMETER
+    this.value = [];
     this.left  = null;
     this.right = null;
-    this.arr   = [];
+    // this.arr   = parameter;
   }
-  // Should have the methods: `insert`, `contains`, and `depthFirstForEach`
-  insert(value) {
+  insert(val) {
+    // should insert values at the correct location in the tree
     const node = new BinarySearchTree;
-    this.left = value;
+    this.value = node;
   }
   contains() {
     return this;
@@ -19,7 +19,7 @@ class BinarySearchTree {
   }
 }
 
-const binTest = new BinarySearchTree;
+const binTest = new BinarySearchTree('abc'); // 'abc' is the ARGUMENT we pass in to the function.
 // console.log(`binTest is a instance of class BinarySearchTree: ${binTest}`);
 console.log(binTest);
 // insert()
