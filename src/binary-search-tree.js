@@ -18,10 +18,10 @@ class BinarySearchTree {
 }
 
 const binTest = new BinarySearchTree;
-console.log(binTest);
-console.log(binTest.insert());
-console.log(binTest.contains());
-console.log(binTest.depthFirstForEach());
+console.log(`binTest is a instance of class BinarySearchTree: ${binTest}`);
+console.log("The method binTest.insert() results in: ", binTest.insert());
+console.log("The method binTest.contains() results in:", binTest.contains());
+console.log("The method binTest.depthFirstForEach() results in:", binTest.depthFirstForEach());
 
 
 module.exports = BinarySearchTree;
