@@ -39,7 +39,11 @@ class Graph {
     }
     return false;
   }
-  removeEdge() {}
+  removeEdge() {
+    // remove edge
+    
+    // check for nodes without edges and call remove node
+  }
 }
 
 module.exports = Graph;
