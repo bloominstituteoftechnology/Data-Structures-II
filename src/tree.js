@@ -8,21 +8,14 @@ class Tree {
   }
 
   contains(thing) {
+    let counter = 0;
     if (this.value === thing) {
-      return true;
+      counter++;
     }
     for (let i = 0; i < this.children.length; i++) {
-      if (this.children[i].value === thing) {
-        return true;
-      }
-      if (this.children[i].children.length > 0) {
-        for (let j = 0; j < this.children[i].children.length; j++) {
-          this.children[j].contains(thing);
-	}
-        return true;
-      }
+      counter += this.children[i].contains(thing);
     }
-    return false;
+    return (counter > 0);
   }
 }
 
