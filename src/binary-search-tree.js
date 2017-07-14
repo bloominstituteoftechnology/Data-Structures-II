@@ -18,9 +18,13 @@ class BinarySearchTree {
     }
   }
   contains(searchValue) {
-    for (let i = 0; i < this.storage.length; i++) {
-      if (this.storage[i] === searchValue) return true;
-    } return false;
+    if (searchValue === this.value) return true;
+    if (searchValue < this.value) {
+      if (this.left) return this.left.contains(searchValue);
+    } else if (searchValue > this.value) {
+      if (this.right) return this.right.contains(searchValue);
+      return false;
+    }
   }
   depthFirstForEach(cb) {
     return this.storage.forEach(i => cb(i));
