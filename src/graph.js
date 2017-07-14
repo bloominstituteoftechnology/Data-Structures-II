@@ -3,8 +3,7 @@ class Graph {
   constructor() {
     this.graph = {
       nodes: [],
-      edges: [],
-      numberOfEdges: 0
+      edges: []
     }
   }
   addNode(newNode, toNode = undefined) {
@@ -39,10 +38,23 @@ class Graph {
     }
     return false;
   }
-  removeEdge() {
+  removeEdge(fromNode, toNode) {
     // remove edge
-    
+    if (this.getEdge(fromNode, toNode)) {
+      let index = this.graph.edges[fromNode[toNode]];
+      this.graph.edges[fromNode].splice(index, 1);
+    }
+    if (this.getEdge(toNode, fromNode)) {
+      let index = this.graph.edges[toNode[fromNode]];
+      this.graph.edges[toNode].splice(index, 1);
+    }
     // check for nodes without edges and call remove node
+    if (this.graph.edges[fromNode].length === 0) {
+      this.removeNode(fromNode);
+    }
+    if (this.graph.edges[toNode].length === 0) {
+      this.removeNode(toNode);
+    }
   }
 }
 
