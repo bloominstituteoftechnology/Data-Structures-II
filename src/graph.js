@@ -53,6 +53,12 @@ class Graph {
       delete this.graph[fromNode][toNode];
       delete this.graph[toNode][fromNode];
     }
+    if (Object.keys(this.graph[fromNode]).length === 0) {
+      delete this.graph[fromNode]
+    }
+    if (Object.keys(this.graph[toNode]).length === 0) {
+      delete this.graph[toNode]
+    }
     return 'Not possible';
   }
 }
@@ -61,4 +67,4 @@ class Graph {
 // graph.addNode('PS3');
 // graph.removeEdge('sony', 'PS3');
 // console.log(graph);
-// module.exports = Graph;
+module.exports = Graph;
