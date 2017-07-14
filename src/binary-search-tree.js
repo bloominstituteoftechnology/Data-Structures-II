@@ -5,6 +5,16 @@ class BinarySearchTree {
     this.left = null;
     this.right = null;
   }
+  // Should have the methods: `insert`, `contains`, and `depthFirstForEach`
+  insert() {
+    return this;
+  }
+  contains() {
+    return this;
+  }
+  depthFirstForEach() {
+    return this;
+  }
 }
 
 module.exports = BinarySearchTree;
