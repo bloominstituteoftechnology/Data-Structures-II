@@ -1,43 +1,34 @@
 class Tree {
-  constructor(value) {
-    this.value = value;
+  constructor(firstUndefined) {
+    this.value = firstUndefined;
     this.children = [];
   }
-  // Should have the methods: `addChild`, and `contains`
-  addChild(val) {
-    // When you add nodes to the `children` array
-    // use `new Tree(value)` to create the node.
-    // const node = new Tree();
-    // const value = this.value;
-    const node = new Tree(val);
-    // children[0].value
-    this.children[this.children.length] = node;// = [{ value, node }];
+  addChild(stork) {
+    const node = new Tree(stork);
+    this.children[this.children.length] = node;
   }
-  // node.addChild();
-  contains(param) {
-    if (this.value === param) {
+  contains(love) {
+    if (this.value === love) {
       return true;
+    }
+    for (let i = 0; i < this.children.length; i++) {
+      if (this.children[i].contains(love)) {
+        return true;
+      }
     }
     return false;
   }
 }
 
-module.exports = Tree;
+// const testTree1 = new Tree;
+// console.log(testTree1);
+// testTree1.addChild('Alice');
+// console.log(testTree1);
+// testTree1.addChild('Fred');
+// console.log(testTree1);
+// testTree1.addChild('Anshuman');
+// console.log(testTree1);
+// console.log(`Q: does Tree contain Donnie Brasco? A: ${testTree1.contains('Donnie Brasco')}`) //---> false
+// console.log(`Q: does Tree contain Anshuman? A: ${testTree1.contains('Anshuman')}`) //---> true
 
-// const tree = {
-//   value: 5,
-//   children: [
-//     {
-//       value: 10,
-//       children: []
-//     },
-//     {
-//       value: 12,
-//       children: []
-//     },
-//     {
-//       value: 2,
-//       children: []
-//     }
-//   ]
-// };
+module.exports = Tree;
