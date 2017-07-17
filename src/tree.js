@@ -19,8 +19,8 @@ class Tree {
   }
 }
 
-//const thisIsaTree = new Tree(7);
-//console.log(thisIsaTree);
-//console.log(thisIsaTree.addChild(27));
+// const thisIsaTree = new Tree(7);
+// console.log(thisIsaTree);
+// console.log(thisIsaTree.addChild(27));
 
 module.exports = Tree;

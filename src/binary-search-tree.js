@@ -6,31 +6,42 @@ class BinarySearchTree {
     this.right = null;
   }
   insert(stuff) {
-    let node = new BinarySearchTree(stuff);
-	  
+    const node = new BinarySearchTree(stuff);
     function recurse(bst) {
-      if (stuff < this.value && this.left === null) {
-        console.log('1st conditional');
-        this.left = node;
-      }
-      if (stuff < this.value) {
-        recurse(this.left);
-        console.log('2nd conditional');
-      }
-      if (stuff > this.value && this.right === null) {
-        this.right = node;
-        console.log('3rd conditional');
-      }
-      if (stuff > this.value) {
-        recurse(this.right)
-        console.log('4th conditional');
+      if (stuff < bst.value && bst.left === null) {
+        bst.left = node;
+      } else if (stuff < bst.value) {
+        recurse(bst.left);
+      } else if (stuff > bst.value && bst.right === null) {
+        bst.right = node;
+      } else if (stuff > bst.value) {
+        recurse(bst.right);
       }
     }
     recurse(this);
   }
-  contains(value) {}
-  depthFirstForEach() {}
+  contains(value) {
+    if (value === this.value) {
+      return true;
+    } else if (value > this.value && this.right !== null) {
+      return this.right.contains(value);
+    } else if (value > this.value && this.right === null) {
+      return false;
+    } else if (value < this.value && this.left !== null) {
+      return this.left.contains(value);
+    } else if (value < this.value && this.left === null) {
+      return false;
+    }
+  }
+  depthFirstForEach(cb) {
   // pass each node to cb
+    cb(this.value);
+    if (this.left !== null) {
+      return this.left.depthFirstForEach(cb);
+    } else if (this.right !== null) {
+      return this.right.depthFirstForEach(cb);
+    }
+  }
 }
 
 module.exports = BinarySearchTree;

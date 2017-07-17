@@ -2,6 +2,7 @@
 class Node {
   constructor(name) {
     this.name = name;
+    this.edges = [];
   }
 }
 class Edge {
