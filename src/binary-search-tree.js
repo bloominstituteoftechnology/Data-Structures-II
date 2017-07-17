@@ -19,8 +19,18 @@ class BinarySearchTree {
     }
   }
   // `contains(value)` searches the tree and returns `true` if the the tree contains the specified value.
-  contains() {
-    return this;
+  contains(searchTerm) {
+    if (searchTerm === this.value) {
+      return true;
+    } else if (searchTerm > this.value && this.right !== null) {
+      return this.right.contains(searchTerm);
+    } else if (searchTerm > this.value && this.right === null) {
+      return false;
+    } else if (searchTerm < this.value && this.left !== null) {
+      return this.left.contains(searchTerm);
+    } else if (searchTerm < this.value && this.left === null) {
+      return false;
+    }
   }
   // `depthFirstForEach(cb)` should iterate over the tree using DFS and passes each node of the tree to the given callback function.
   depthFirstForEach() {
