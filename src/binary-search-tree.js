@@ -1,5 +1,5 @@
 // https://msdn.microsoft.com/en-us/library/aa289150(v=vs.71).aspx
-class BinarySearchTree {
+class BinarySearchTree { // BST is invoked with a given argument, e.g. `const x - new BinarySearcTree(y);`
   constructor(parameter) { // <-- parameter is the function PARAMETER
     this.value = parameter;
     this.left = null;
@@ -10,25 +10,30 @@ class BinarySearchTree {
   insert(something) {
     // this.anArray.push(something);
     const node = new BinarySearchTree(something);
+    // FIRST SEARCH FOR VALUES LESS THAN (OR EQUAL TO INITIAL VALUE)
     if (something <= this.value) {
-      if (!this.left) this.left = node;
-      else this.left.insert(something);
+      if (!this.left) this.left = node; // check if there's already a less than in left
+      else this.left.insert(something); // recursive placement
+    // THEN SEARCH FOR VALUES GREATER THAN SEARCH TERM
     } else if (something > this.value) {
-      if (!this.right) this.right = node;
-      else this.right.insert(something);
+      if (!this.right) this.right = node; // check if there's already a greater than in right
+      else this.right.insert(something); // recursive placement
     }
   }
   // `contains(value)` searches the tree and returns `true` if the the tree contains the specified value.
   contains(searchTerm) {
-    if (searchTerm === this.value) {
+    // IF EQUAL TO INITIAL VALUE - true!
+    if (searchTerm === this.value) { // <--- BASE CASE
       return true;
-    } else if (searchTerm > this.value && this.right !== null) {
-      return this.right.contains(searchTerm);
-    } else if (searchTerm > this.value && this.right === null) {
+    // FIRST SEARCH FOR VALUES LESS THAN SEARCH TERM
+    } else if (searchTerm < this.value && this.left !== null) { // if searchTerm LESS THAN currnet/this.value AND this.left isn't null
+      return this.left.contains(searchTerm); // <--- recursive search
+    } else if (searchTerm < this.value && this.left === null) { // <--- BASE CASE
       return false;
-    } else if (searchTerm < this.value && this.left !== null) {
-      return this.left.contains(searchTerm);
-    } else if (searchTerm < this.value && this.left === null) {
+    // THEN SEARCH FOR VALUES GREATER THAN SEARCH TERM
+    } else if (searchTerm > this.value && this.right !== null) { // if searchTerm GREATER THAN currnet/this.value AND this.right isn't null
+      return this.right.contains(searchTerm); // <--- recursive search
+    } else if (searchTerm > this.value && this.right === null) { // <--- BASE CASE
       return false;
     }
   }
