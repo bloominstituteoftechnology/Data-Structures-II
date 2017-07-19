@@ -1,40 +1,51 @@
-class Tree {
+/* eslint-disable */
+class Node {
+  constructor(label) {
+    this.label = label;
+    this.adj = [];
+  }
+}
+
+class Graph {
   constructor(value) {
-    this.value = value;
-    this.children = [];
+    this.graph = {};
+    this.edges = 0;
   }
-  addChild(value) {
-    const newTree = new Tree(value);
-    this.children.push(newTree);
+  addNode(newNode, toNode) {
+    const newNode = new Node(newNode);
+    this.graph[newNode];
+    if (toNode) {
+      const newToNode = new Node(toNode);
+      this.graph[newToNode];
+      addEdge(newNode, newToNode);
+      return;
+    }
+    else if (this.edges === 1) {
+      addEdge(this.graph[], newNode)
+    }
+    return;
   }
-  contains(arg) {
+  contains(value) {
     let bool = false;
-    this.children.forEach((item) => {
-      for (let i = 0; i < item.children.length; i++) {
-        let currentChildren = item.children[i];
-        console.log(item.children[i]);
-        while (currentChildren !== undefined) {
-          console.log(currentChildren);
-          if (currentChildren.value === arg) {
-            bool = true;
-            return true;
-          }
-          currentChildren = currentChildren.children;
-        }
-      }
-      if (item.value === arg) {
-        bool = true;
-        return 0;
+    Object.keys(this.graph).forEach((prop) => {
+      for (let i = 0; i < this.graph[prop].adj.length; i++) {
+        if (this.graph[prop].adj[i] === value) bool = true;
       }
     });
     return bool;
   }
+  removeNode(value) {
+    return;
+  }
+  addEdge(fromNode, toNode) {
+    return;
+  }
+  getEdge(fromNode, toNode) {
+    return true;
+  }
+  removeEdge(fromNode, toNode) {
+    return;
+  }
 }
 
-const tree = new Tree();
-tree.addChild(5);
-tree.addChild(6);
-tree.children[0].addChild(7);
-tree.children[1].addChild(8);
-console.log(tree.contains(7));
-console.log(tree.contains(9));
+module.exports = Graph;
