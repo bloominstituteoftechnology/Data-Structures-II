@@ -23,8 +23,8 @@ class Graph {
     delete this.graph[value];
   }
   addEdge(fromNode, toNode) {
-    this.graph[fromNode].push(toNode);
-    this.graph[toNode].push(fromNode);
+    if (!this.getEdge(fromNode, toNode)) this.graph[fromNode].push(toNode);
+    if (!this.getEdge(toNode, fromNode)) this.graph[toNode].push(fromNode);
   }
   getEdge(fromNode, toNode) {
     let bool = false;
