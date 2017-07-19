@@ -13,17 +13,11 @@ class Tree {
       for (let i = 0; i < item.children.length; i++) {
         let currentChildren = item.children[i];
         while (currentChildren !== undefined) {
-          if (currentChildren.value === arg) {
-            bool = true;
-            return true;
-          }
+          if (currentChildren.value === arg) return bool = true;
           currentChildren = currentChildren.children;
         }
       }
-      if (item.value === arg) {
-        bool = true;
-        return 0;
-      }
+      if (item.value === arg) return bool = true;
     });
     return bool;
   }
