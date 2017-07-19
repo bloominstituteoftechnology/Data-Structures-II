@@ -1,22 +1,16 @@
 class Graph {
   constructor() {
     this.graph = {};
-    this.count = 0;
   }
   addNode(newNode, toNode) {
     this.graph[newNode] = [];
     if (toNode) {
       this.graph[toNode] = [];
-      this.count++;
       this.addEdge(newNode, toNode);
-    } else if (this.count === 1) {
-      const tempProp = [];
-      Object.keys(this.graph).forEach((prop) => {
-        tempProp.push(prop);
-      });
+    } else if (Object.keys(this.graph).length === 2) {
+      const tempProp = Object.keys(this.graph);
       this.addEdge(tempProp[0], newNode);
     }
-    this.count++;
   }
   contains(value) {
     let bool = false;
@@ -27,7 +21,6 @@ class Graph {
   }
   removeNode(value) {
     delete this.graph[value];
-    this.count--;
   }
   addEdge(fromNode, toNode) {
     this.graph[fromNode].push(toNode);
