@@ -3,19 +3,17 @@ class Tree {
     this.value = value;
     this.children = [];
   }
-
   addChild(value) {
-     const node = {
-       value: value,
-       children: [],
-     };
-     this.children.push(node);
+    const node = new Tree(value);
+    this.children.push(node);
   }
-
   contains(value) {
-    if (this.value === value) return true;
-    for (let i = 0; i < this.children; i++) {
-      if (this.children[i].value !== value) this.contains.value;
+    let kids = [this];
+    for (let i = 0; i < kids.length; i++) {
+      if (kids[i].value === value) return true;
+      else if (kids[i].children.length > 0) {
+        kids = kids.concat(kids[i].children);
+      }
     }
     return false;
   }
