@@ -1,6 +1,6 @@
 // Copied this from a classmate.
 // It serves well to observe / understand best practice.
-// QUESTION: Is 'parent' null only for the root? 
+// QUESTION: Is 'parent' null only for the root?
 
 class Tree {
 
