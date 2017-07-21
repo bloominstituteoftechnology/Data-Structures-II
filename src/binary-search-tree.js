@@ -11,10 +11,8 @@ class BinarySearchTree {
       if (n.value < level.value) {
         if (!level.left) level.left = n;
         else place(n, level.left);
-      } else {
-        if (!level.right) level.right = n;
-        else place(n, level.right);
-      }
+      } else if (!level.right) level.right = n;
+      else place(n, level.right);
     };
     place(node, this);
   }
