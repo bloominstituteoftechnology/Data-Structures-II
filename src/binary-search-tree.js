@@ -5,18 +5,27 @@ class BinarySearchTree {
     this.left = null;
     this.right = null;
   }
-  insert(x) {
-    const node = new BinarySearchTree(x);
-    const place = (n, level) => {
-      if (n.value < level.value) {
-        if (!level.left) level.left = n;
-        else place(n, level.left);
-      } else if (!level.right) level.right = n;
-      else place(n, level.right);
+  insert(value) {
+    const node = new BinarySearchTree(value);
+    const plant = (tree, row) => {
+      if (tree.value < row.value) {
+        if (!row.left) row.left = tree;
+        else plant(tree, row.left);
+      } else if (!row.right) row.right = tree;
+      else plant(tree, row.right);
     };
-    place(node, this);
+    plant(node, this);
   }
-  contains() {}
+  contains(value) {
+    let collection = [this];
+    for (let i = 0; i < collection.length; i++) {
+      const node = collection[i];
+      if (node.value === value) return true;
+      if (node.left) collection = collection.concat(node.left);
+      if (node.right) collection = collection.concat(node.right);
+    }
+    return false;
+  }
   depthFirstForEach() {}
 }
 
