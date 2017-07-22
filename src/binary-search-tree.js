@@ -17,16 +17,23 @@ class BinarySearchTree {
     plant(node, this);
   }
   contains(value) {
-    let collection = [this];
-    for (let i = 0; i < collection.length; i++) {
-      const node = collection[i];
-      if (node.value === value) return true;
-      if (node.left) collection = collection.concat(node.left);
-      if (node.right) collection = collection.concat(node.right);
+    let harvest = [this];
+    for (let i = 0; i < harvest.length; i++) {
+      const tree = harvest[i];
+      if (tree.value === value) return true;
+      if (tree.left) harvest = harvest.concat(tree.left);
+      if (tree.right) harvest = harvest.concat(tree.right);
     }
     return false;
   }
-  depthFirstForEach() {}
+  depthFirstForEach(cb) {
+    const delve = (tree) => {
+      cb.call(tree, tree.value);
+      if (tree.left) delve(tree.left);
+      if (tree.right) delve(tree.right);
+    };
+    delve(this);
+  }
 }
 
 module.exports = BinarySearchTree;
