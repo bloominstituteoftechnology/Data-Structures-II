@@ -16,20 +16,27 @@ class BinarySearchTree {
       this.right.insert(val);
     }
   }
-  contains(val) {
-    if (val === null) {
-      return false;
-    } else if (val === this.value) {
+  contains(y) {
+    if (this.value === y) {
       return true;
-    } else if (val > this.value) {
-      return this.right.contains(val);
-    } else if (val < this.value) {
-      return this.left.contains(val);
+    } else if (y > this.value && this.right !== null) {
+      return this.right.contains(y);
+    } else if (y < this.value && this.left !== null) {
+      return this.left.contains(y);
     }
     return false;
   }
-  depthFirstForEach() {
-
+  depthFirstForEach(cb) {
+    function recurr(bst) {
+      cb.call(bst, bst.value);
+      if (bst.left !== null) {
+        recurr(bst.left);
+      }
+      if (bst.right !== null) {
+        recurr(bst.right);
+      }
+    }
+    recurr(this);
   }
 }
 
