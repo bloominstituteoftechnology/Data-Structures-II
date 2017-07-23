@@ -11,7 +11,7 @@ class Graph {
     this.graph[value] = node;
     if (!toNode) {
       const keys = Object.keys(this.graph);
-      if (keys.length === 2) toNode = this.graph[keys[0].value;
+      if (keys.length >= 2) toNode = this.graph[keys[0]].value;
     }
     if (toNode) this.addEdge(value, toNode);
   }
@@ -51,6 +51,40 @@ class Graph {
       }
       delete this.graph[value];
     } else return `${value} does not exist in this graph`;
+  }
+  depthFirstSearch(start, value) {
+    const first = this.graph[start];
+    const set = new Set();
+    let flag = false;
+    const dfs = (obj) => {
+      if (!set.has(obj.value)) {
+        if (obj.value === value) flag = true;
+        else {
+          set.add(obj.value);
+          if (obj.edges.length > 0) {
+            obj.edges.forEach((edge) => {
+              dfs(this.graph[edge]);
+            });
+          }
+        }
+      }
+    };
+    dfs(first);
+    return flag;
+  }
+  breadthFirstSearch(start, value) {
+    let queue = [start];
+    let flag = false;
+    for (let i = 0; i < queue.length; i++) {
+      const gval = queue[i];
+      if (this.graph[gval].value === value) flag = true;
+      else if (this.graph[gval].edges.length > 0) {
+        this.graph[gval].edges.forEach((edge) => {
+          if (queue.indexOf(edge) < 0) queue = queue.concat(edge);
+        });
+      }
+    }
+    return flag;
   }
 }
 
