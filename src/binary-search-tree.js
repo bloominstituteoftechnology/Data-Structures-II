@@ -7,17 +7,6 @@ class BinarySearchTree {
   }
   insert(value) {
     const node = new BinarySearchTree(value);
-    //---------------------------------------------------
-    // const recFunction = (obj) => {
-    //   if (value < obj.value) {
-    //     if (obj.left === null) obj.left = node;
-    //     recFunction(obj.left);
-    //   } else {
-    //     if (obj.right === null) obj.right = node;
-    //     recFunction(obj.right);
-    //   }
-    // };
-    //-----------------------------------------------------------
     const recFunction = (obj) => {
       if (value < obj.value && obj.left === null) obj.left = node;
       else if (value < obj.value) recFunction(obj.left);
