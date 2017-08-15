@@ -24,7 +24,7 @@ class BinarySearchTree {
   }
 
   contains(target) {
-    if (this.value === target){
+    if (this.value === target) {
       return true;
     }
     if (this.left) {
@@ -32,21 +32,37 @@ class BinarySearchTree {
         return true;
       }
     }
-    if (this.right){
-      if (this.right.contains(target)){
+    if (this.right) {
+      if (this.right.contains(target)) {
         return true;
       }
     }
     return false;
   }
 
-  depthFirstLog(cb) {
-    cb (this.value);
-    if (this.right){
-      this.right.depthFirstLog(cb);
+  depthFirstForEach(cb) {
+    cb(this.value);
+    if (this.left) {
+      this.left.depthFirstForEach(cb);
     }
-    if (this.left){
-      this.left.depthFirstLog(cb);
+    if (this.right) {
+      this.right.depthFirstForEach(cb);
+    }
+  }
+
+  /* eslint-disable global-require */
+  breadthFirstForEach(cb) {
+    const queue = require('./queue-helper');
+    queue.enqueue(this);
+    while (!queue.isEmpty()) {
+      const node = queue.dequeue();
+      if (node.left) {
+        queue.enqueue(node.left);
+      }
+      if (node.right) {
+        queue.enqueue(node.right);
+      }
+      cb(node.value);
     }
   }
 }
