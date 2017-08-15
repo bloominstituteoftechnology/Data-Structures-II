@@ -22,7 +22,7 @@ Topics:
   * `insert(value)` inserts the new value at the correct location in the tree.
   * `contains(value)` searches the tree and returns `true` if the the tree contains the specified value.
   * `depthFirstForEach(cb)` should iterate over the tree using DFS and passes each node of the tree to the given callback function.
-  * `breadthFirstForEach(cb)` should iterate over the tree using BFS and passes each node of the tree to the given callback function.
+  * `breadthFirstForEach(cb)` should iterate over the tree using BFS and passes each node of the tree to the given callback function (hint: you'll need to either re-implement or import a queue data structure for this).
 
 #### Graphs
 
