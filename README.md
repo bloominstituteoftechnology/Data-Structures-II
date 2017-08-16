@@ -34,6 +34,7 @@ Topics:
   * `getEdge(fromNode, toNode)` should return `true` if an edge exists between the two specified graph nodes.
   * `removeEdge(fromNode, toNode)` should remove the edge between the two specified nodes.
 
+AND EXAMPLE FROM PATRICK
 
 ### Extra Credit
 
