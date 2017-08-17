@@ -20,3 +20,22 @@ class Tree {
 }
 
 module.exports = Tree;
+
+/* Test
+const tree = new Tree();
+tree.addChild(5);
+tree.addChild(6);
+tree.children[0].addChild(7);
+tree.children[1].addChild(8);
+tree.contains(7);
+tree.contains(8);
+console.log(tree.children[1])
+console.dir(tree)
+
+ Tree
+ ├── 5
+ │   └── 7
+ └── 6
+     └── 8
+
+*/
