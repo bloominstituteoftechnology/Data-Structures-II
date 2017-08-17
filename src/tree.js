@@ -4,5 +4,4 @@ class Tree {
     this.children = [];
   }
 }
-
 module.exports = Tree;
