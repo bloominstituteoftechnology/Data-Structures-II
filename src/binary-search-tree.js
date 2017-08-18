@@ -46,26 +46,23 @@ class BinarySearchTree {
   depthFirstForEach(cb) {
     const values = [];
     const each = (node) => {
-      values.push(node.value);
+      cb(node.value);
       if (node.left) each(node.left);
       if (node.right) each(node.right);
     };
     each(this);
-    values.forEach(value => cb(value));
   }
 
   breadthFirstForEach(cb) {
     const queue = [];
-    const values = [];
     let node;
     queue.push(this);
     while (queue.length) {
       node = queue.shift();
-      values.push(node.value);
+      cb(node.value);
       if (node.left) queue.push(node.left);
       if (node.right) queue.push(node.right);
     }
-    values.forEach(value => cb(value));
   }
 }
 
