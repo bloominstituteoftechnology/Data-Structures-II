@@ -63,7 +63,6 @@ describe('Graph', () => {
     graph.addNode('A');
     graph.addNode('B');
     graph.removeEdge('A', 'B');
-    console.log(graph.graph)
     expect(graph.contains('A') || graph.contains('B')).toBe(false);
   });
 });
