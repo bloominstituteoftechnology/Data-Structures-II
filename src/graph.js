@@ -1,7 +1,6 @@
 /* eslint-disable */
 class Graph {
-  constructor() {
-  }
+  constructor() {}
   addNode(a, b) {
     this[a] = [b];
     if (b) this[b].push(a);
@@ -13,8 +12,8 @@ class Graph {
     }
   }
   contains(a) {
-    if (this[a] === undefined) return false;
-    else return this.hasOwnProperty(a);
+    if (this.hasOwnProperty(a)) return true;
+    return false;
   }
   removeNode(a) {
     delete this[a];
@@ -24,9 +23,9 @@ class Graph {
     this[b].push(a);
   }
   getEdge(a, b) {
-    const x = this[b];
-    const y = this[a];
-    if (x.find(i => i === a) === a && y.find(i => i === b) === b) return true;
+    const x = this[b],
+      y = this[a];
+    if (x.includes(a) && y.includes(b)) return true;
     return false;
   }
   removeEdge(a, b) {
@@ -44,9 +43,12 @@ module.exports = Graph;
 // graph.addNode('human');
 // graph.addNode('crocodile', 'human');
 // graph.addEdge('crocodile', 'monkey');
+// console.log(graph.contains('crocodile'))
+// console.log(graph.getEdge('crocodile', 'monkey'));
 // console.dir(graph);
 //
 //     Graph {
 //       monkey: [ 'human', 'crocodile' ],
 //       human: [ 'monkey', 'crocodile' ],
 //       crocodile: [ 'human', 'monkey' ] }
+//
