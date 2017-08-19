@@ -8,7 +8,7 @@ describe('BinarySearchTree', () => {
     binarySearchTree = new BinarySearchTree(5);
   });
 
-  it('should have methods named "insert", "contains", "depthFirstForEach", and "breadthFirstForEach"',  () => {
+  it('should have methods named "insert", "contains", "depthFirstForEach", and "breadthFirstForEach"', () => {
     expect(typeof binarySearchTree.insert).toBe('function');
     expect(typeof binarySearchTree.contains).toBe('function');
     expect(typeof binarySearchTree.depthFirstForEach).toBe('function');
