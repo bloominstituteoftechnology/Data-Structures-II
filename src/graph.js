@@ -1,13 +1,12 @@
 /* eslint-disable */
 class Graph {
-  constructor() {;
+  constructor() {
   }
   addNode(a, b) {
     this[a] = [b];
     if (b) this[b].push(a);
     if (Object.keys(this).length === 2) {
       for (let i = 0; i < 1; i++) {
-        console.log(this[a]);
         this[a] = [Object.keys(this)[i]];
         this[Object.keys(this)[i]] = [a];
       }
@@ -40,26 +39,14 @@ class Graph {
 
 module.exports = Graph;
 
-// const a = new Graph();
-// a.addNode('pineapple');
-// a.addNode('banana');
-// a.addNode('mango', 'pineapple');
-// console.log(a.getEdge('mango', 'pineapple')); // true
-// console.log(a.getEdge('mango', 'banana')); // false
-// a.removeNode('mango');
-// a.addNode('monkey');
-// a.addNode('human');
-// a.addNode('crocodile', 'human');
-// a.addEdge('crocodile', 'monkey');
-// console.log(a.getEdge('monkey', 'human'));
-// console.log(a.getEdge('crocodile', 'monkey'));
-// a.removeEdge('monkey', 'human');
-// a.addNode('A');
-// a.addNode('B');
-// a.removeEdge('A', 'B');
-// console.log(a.contains('A'));
-// console.log(a.contains('B'));
-// console.log(a);
-// console.dir(a);
-// console.log(Object.keys(a))
-// console.log(Object.keys(a).find(b => b));
+// const graph = new Graph();
+// graph.addNode('monkey');
+// graph.addNode('human');
+// graph.addNode('crocodile', 'human');
+// graph.addEdge('crocodile', 'monkey');
+// console.dir(graph);
+//
+//     Graph {
+//       monkey: [ 'human', 'crocodile' ],
+//       human: [ 'monkey', 'crocodile' ],
+//       crocodile: [ 'human', 'monkey' ] }
