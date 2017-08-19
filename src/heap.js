@@ -1,6 +1,6 @@
 class Heap {
   constructor() {
-    this.heap = [];
+    this.heap = [null];
   }
   insert(value) {
     this.heap.push(value);
