@@ -13,79 +13,67 @@
   * graph nodes.
   * `removeEdge(fromNode, toNode)` should remove the edge between the two specified nodes.
  */
-class Graph {
+
+class Node {
   constructor() {
-    this.graph = {
-      nodes: {},
-      edges: []
-    }
+    this.edges = [];
   }
-
-  nodesToEdge(node1, node2) {
-    const nodes = [node1, node2].sort();
-    return `${nodes[0]}<>${nodes[1]}`;
+  get hasEdges() {
+    return this.edges.length !== 0;
   }
-
-  nodesFromEdge(edge) {
-    const node1 = edge.slice(0, edge.indexOf('<'));
-    const node2 = edge.slice(edge.indexOf('>') + 1, edge.length);
-    return [node1, node2];
+  hasEdge(node) {
+    return this.edges.indexOf(node) !== -1;
   }
-
-  addNode(newNode, toNode) {
-    if (Object.keys(this.graph.nodes).length === 1 && !toNode) toNode = Object.keys(this.graph.nodes)[0];
-    if (toNode && this.graph.nodes[toNode]) {
-      this.graph.nodes[toNode].push(newNode);
-      this.graph.nodes[newNode] = [toNode];
-      this.graph.edges.push(this.nodesToEdge(newNode, toNode));
-    }
-    if (toNode && !this.graph.nodes[toNode]) {
-      this.graph.nodes[toNode] = [newNode];
-      this.graph.nodes[newNode] = [toNode];
-      this.graph.edges.push(this.nodesToEdge(newNode, toNode));
-    }
-    if (!toNode) {
-      this.graph.nodes[newNode] = [];
-    }
+  newEdge(node) {
+    this.edges.push(node);
   }
-
+  removeEdge(node) {
+    this.edges.splice(this.edges.indexOf(node), 1);
+  }
+}
+class Graph {
+  constructor(value) {
+    this.graph = {};
+  }
+  get keys() {
+    return Object.keys(this.graph);
+  }
+  get size() {
+    return this.keys.length;
+  }
   contains(node) {
-    if (this.graph.nodes[node] !== undefined) return true;
-    else return false;
+    return this.graph[node] ? true : false;
   }
-
+  addEdge(node1, node2) {
+    this.graph[node1].newEdge(node2);
+    this.graph[node2].newEdge(node1);
+  }
+  addNode(node1, node2) {
+    this.graph[node1] = new Node();
+    if (node2 && !this.graph[node2]) this.graph[node2] = new Node();
+    if (this.size === 2 && !node2) this.addEdge(node1, this.keys[0]);
+    if (node2) this.addEdge(node1, node2);
+  }
+  noEdgeDesctruct(node) {
+    if (!this.graph[node].hasEdges) delete this.graph[node];
+  }
   removeNode(node) {
-    const nodeEdges = this.graph.nodes[node]
-    nodeEdges.forEach((edge) => {
-      const edges = this.graph.nodes[edge];
-      const gEdges = this.graph.edges;
-      gEdges.splice(gEdges.indexOf(this.nodesToEdge(node, edge)), 1);
-      edges.splice(edges.indexOf(node), 1);
-      if (edges.length === 0) delete this.graph.nodes[edge];
+    const edges = this.graph[node].edges;
+    edges.forEach(edge => {
+      this.graph[edge].removeEdge(node)
+      this.noEdgeDesctruct[edge];
     });
-    delete this.graph.nodes[node];
+    delete this.graph[node];
   }
-
-  addEdge(fromNode, toNode) {
-    this.graph.nodes[fromNode].push(toNode);
-    this.graph.nodes[toNode].push(fromNode);
-    this.graph.edges.push(this.nodesToEdge(fromNode, toNode));
+  getEdge(node1, node2) {
+    return this.graph[node1].hasEdge(node2) || this.graph[node2].hasEdge(node1);
   }
-
-  getEdge(fromNode, toNode) {
-    const edge = this.nodesToEdge(fromNode, toNode);
-    return this.graph.edges.find(anEdge => anEdge === edge) ? true : false;
-  }
-
-  removeEdge(fromNode, toNode) {
-    const fromEdges = this.graph.nodes[fromNode];
-    const toEdges = this.graph.nodes[toNode];
-    fromEdges.splice(fromEdges.indexOf(toNode), 1);
-    toEdges.splice(toEdges.indexOf(fromNode), 1);
-    const edges = this.graph.edges;
-    edges.splice(this.nodesToEdge(fromNode, toNode), 1);
-    if (fromEdges.length === 0) delete this.graph.nodes[fromNode];
-    if (toEdges.length === 0) delete this.graph.nodes[toNode];
+  removeEdge(node1, node2) {
+    const nodes = [node1, node2];
+    nodes.forEach((node, i) => {
+      this.graph[node].removeEdge(i > 0 ? nodes[0] : nodes[1]);
+      this.noEdgeDesctruct(node);
+    });
   }
 }
 
