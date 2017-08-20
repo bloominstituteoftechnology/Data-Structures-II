@@ -39,7 +39,11 @@ describe('Tree', () => {
     tree.addChild(6);
     tree.children[0].addChild(7);
     tree.children[1].addChild(8);
+    tree.children[0].children[0].addChild(9);
+    tree.children[1].children[0].addChild(10);
     expect(tree.contains(7)).toBe(true);
     expect(tree.contains(8)).toBe(true);
+    expect(tree.contains(9)).toBe(true);
+    expect(tree.contains(10)).toBe(true);
   });
 });

@@ -24,7 +24,11 @@ describe('Graph', () => {
 
   it('should properly remove nodes', () => {
     graph.addNode('hi there');
+    graph.addNode('ho there');
+    graph.addNode('strawberry', 'bacon');
+    graph.addEdge('strawberry', 'ho there');
     graph.removeNode('hi there');
+    graph.removeNode('bacon');
     expect(graph.contains('hi there')).toBe(false);
   });
 
@@ -32,13 +36,17 @@ describe('Graph', () => {
     graph.addNode('pineapple');
     graph.addNode('banana');
     expect(graph.getEdge('pineapple', 'banana')).toBe(true);
+    expect(graph.getEdge('banana', 'pineapple')).toBe(true);
   });
 
   it('should create edges between two nodes', () => {
     graph.addNode('pineapple');
     graph.addNode('banana');
+    graph.addNode('orange');
     graph.addNode('mango', 'pineapple');
+    graph.addEdge('banana', 'orange');
     expect(graph.getEdge('mango', 'pineapple')).toBe(true);
+    expect(graph.getEdge('banana', 'orange')).toBe(true);
     expect(graph.getEdge('mango', 'banana')).toBe(false);
   });
 
