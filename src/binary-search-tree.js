@@ -6,13 +6,13 @@ class BinarySearchTree {
     this.right = null;
   }
   insert(data) {
-    const searchTree = (node) => {
-      if (data < node.value && node.left) searchTree(node.left);
+    const search = (node) => {
+      if (data < node.value && node.left) search(node.left);
       else if (data < node.value) node.left = new BinarySearchTree(data);
-      else if (data > node.value && node.right) searchTree(node.right);
+      else if (data > node.value && node.right) search(node.right);
       else if (data > node.value) node.right = new BinarySearchTree(data);
     };
-    searchTree(this);
+    search(this);
   }
   contains(data) {
     let flag = false;
