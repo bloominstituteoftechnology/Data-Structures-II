@@ -12,10 +12,10 @@ class Graph {
     }
   }
   contains(a) {
-    if (this.hasOwnProperty(a)) return true;
-    return false;
+    return this.hasOwnProperty(a);
   }
   removeNode(a) {
+    // need to fix –– search edges
     delete this[a];
   }
   addEdge(a, b) {
@@ -24,9 +24,8 @@ class Graph {
   }
   getEdge(a, b) {
     const x = this[b],
-      y = this[a];
-    if (x.includes(a) && y.includes(b)) return true;
-    return false;
+          y = this[a];
+    return x.includes(a) && y.includes(b);
   }
   removeEdge(a, b) {
     this[a] = this[a].filter(i => i != b);
