@@ -4,32 +4,56 @@ class BinarySearchTree {
     this.value = value;
     this.left = null;
     this.right = null;
-    this.root = this.root.add(value);
   }
   contains(value) {
-    let found = false;
-    let current = this.root;
-    while (!found && current) {
-      if (value < current.value) {
-        current = current.left;
-      } else if (value > current.value) {
-        current = current.right;
-      } else {
-        found = true;
-      }
+    if (value === this.value) {
+      return true;
+    } else if (value < this.value && this.left !== null) {
+      return this.left.contains(value);
+    } else if (this.left === null && this.value < value) {
+      return false;
+    } else if (value < this.value && this.right !== null) {
+      return this.right.contains(value);
+    } else if (value < this.value && this.right === null) {
+      return false;
     }
     return value;
   }
-  add(value) {
-    if (value < this.value) {
-      if (this.left) return this.left.has(value);
-    } else if (value > this.value) {
-      if (this.right) return this.right.has(value);
-    } else if (value === this.value) {
-      return true;
-    } else return false;
-  }
+  insert() {
+      const node = new BinarySearchTree(value);
+      if (value <= this.value) {
+        if (!this.left) {
+          this.left = node;
+        } else  {
+          this.left.insert(value);
+        } else if (value > this.value) {
+           if (!this.right) {
+          this.right = node;
+        }
+        } else {
+          this.right.insert(value);
+        }
+      }
+      }
+      depthFirstForEach(cb) {
+        this.value = cb(this.value);
+        if(this.right) {
+            this.right.depthFirstForEach(cb);
+        }
+        if(this.left) {
+        this.left.depthFirstForEach(cb);
+}
+} 
+BFS (cb) {
+  this.value = cb(this.value); 
+  while (this.value.length) { 
+    if (this.node.left) {
+      this.value.enque(this.node.left);
+    } else if (this.node.right) {
+      this.value.enque(this.node.right);
     }
-
+  }
+  return cb(this.value);
+}
 
 module.exports = BinarySearchTree;
