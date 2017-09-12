@@ -1,7 +1,7 @@
 /* eslint-disable */
 class Graph {
   constructor() {
-    this.graph = {};
+    this.graph = [];
   }
 }
 
