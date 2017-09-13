@@ -37,6 +37,6 @@ Topics:
 
 ### Extra Credit
 
- * Read up on [heaps](https://en.wikipedia.org/wiki/Heap_(data_structure)) here. Then implement one! The methods you'll need to implement are already present inside the file.
+ * Read up on [heaps](https://en.wikipedia.org/wiki/Heap_(data_structure)) here and watch [this](https://www.youtube.com/watch?v=WCm3TqScBM8) great introductory video. Then implement one! The methods you'll need to implement are already present inside the file.
  * Add a method to the `Graph` class that searches through the graph using edges. Make this search first as a depth first search and then refactor to a breadth first search.
  * Read up on [red-black trees](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree) here. Then implement one! No starter files or skeleton code here. If you've gotten this far, you're on your own! :)
