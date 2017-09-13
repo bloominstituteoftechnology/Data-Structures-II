@@ -1,5 +1,7 @@
 // https://msdn.microsoft.com/en-us/library/aa289150(v=vs.71).aspx
 /* eslint-disable global-require */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-trailing-spaces */
 class BinarySearchTree {
   constructor(value) {
     this.value = value;

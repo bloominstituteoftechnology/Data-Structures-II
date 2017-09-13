@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
+/* eslint-disable no-trailing-spaces */
 // Do not modify this GraphNode class
 // Use any of its methods as you see fit to implement your graph
 class GraphNode {
