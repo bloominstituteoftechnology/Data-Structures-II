@@ -1,5 +1,5 @@
+/* eslint-disable */
 // Queue helper class for binarySearchTree.breadthFirstForEach implementation
-
 class Queue {
     constructor() {
         this.storage = [];

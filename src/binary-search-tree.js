@@ -6,6 +6,8 @@ class BinarySearchTree {
     this.left = null;
     this.right = null;
   }
+  // Implement your methods here
+
 }
 
 module.exports = BinarySearchTree;
