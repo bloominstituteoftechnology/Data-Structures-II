@@ -26,17 +26,17 @@ Topics:
 
 #### Graphs
 
-  * Should have methods named `addNode`, `contains`, `removeNode`, `addEdge`, `getEdge`, and `removeEdge`
-  * `addNode(newNode, toNode)` should add a new item to the graph.  If `toNode` is given then the new node should share an edge with an existing node `toNode`.
-  * `contains(value)` should return true if the graph contains the given value.
-  * `removeNode(value)` should remove the specified value from the graph.
-  * `addEdge(fromNode, toNode)` should add an edge between the two specified nodes.
-  * `getEdge(fromNode, toNode)` should return `true` if an edge exists between the two specified graph nodes.
-  * `removeEdge(fromNode, toNode)` should remove the edge between the two specified nodes.
+  * Should have methods named `addvertex`, `contains`, `removeVertex`, `addEdge`, `checkIfEdgeExists`, and `removeEdge`
+  * `addVertex(value, edges)` should add a new vertex to the graph with the specified value.  If `edges` is given then the new vertex should share an edge with the given vertex.
+  * `contains(value)` should return true if the graph contains a vertex with the specified value.
+  * `removeVertex(value)` should remove the vertex with the specified value from the graph.
+  * `addEdge(fromVertex, toVertex)` should add an edge between the two specified vertices.
+  * `checkIfEdgeExists(fromVertex, toVertex)` should return `true` if an edge exists between the two specified vertices.
+  * `removeEdge(fromVertex, toVertex)` should remove the edge between the two specified vertices.
 
 
 ### Extra Credit
 
- * Add a method to the `Graph` class that searches through the graph using edges. Make this search first as a depth first search and then refactor to a breadth first search.
  * Read up on [heaps](https://en.wikipedia.org/wiki/Heap_(data_structure)) here. Then implement one! The methods you'll need to implement are already present inside the file.
+ * Add a method to the `Graph` class that searches through the graph using edges. Make this search first as a depth first search and then refactor to a breadth first search.
  * Read up on [red-black trees](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree) here. Then implement one! No starter files or skeleton code here. If you've gotten this far, you're on your own! :)
