@@ -1,48 +1,109 @@
 class Node {
-  constructor({parent, value = null, isBlack = true}) {
+  constructor({ parent, value = null, isBlack = false }) {
     this.value = value;
-    this._black = true;
-    this.left = null
+    this.black = isBlack;
+    this.left = null;
     this.right = null;
-    this.parent = parent
+    if (!this.isNullNode) {
+      this.left = new Node();
+      this.right = new Node();
+    } else {
+      this.black = true;
+    }
+    this.parent = parent;
   }
-  get grandParent() {
-    return this.parent.parent;
+  set value(value) {
+    if (value !== null && this.value === null) {
+      this.val = value;
+      this.left = new Node();
+      this.right = new Node();
+    }
+    return this.value;
   }
-  get aunt() {
-    return this.parent.left;
-  }
-  get uncle() {
-    return this.parent.right;
-  }
-  isBlack(isBlack = undefined) {
-    if (this.isRoot()) {
+  set isBlack(isBlack) {
+    if (this.isNullNode) {
       return true;
     }
-    if (typeof isBlack === 'boolean') {
-      this._black = isBlack;
-    }
-    return this._black;
+    this.black = isBlack;
+    return this.isBlack;
   }
-  isRed(isRed = undefined) {
-    if (this.isRoot()) {
+  set isRed(isRed) {
+    if (this.isNullNode) {
       return false;
     }
-    if (typeof isRed === 'boolean') {
-      this._black = !isRed;
-    }
-    return !this._black;
+    this.black = !isRed;
+    return this.isRed;
   }
-  isRoot() {
+  get value() {
+    return this.val;
+  }
+  get grandParent() {
+    if (this.hasGrandParent()) {
+      return this.parent.parent;
+    }
+  }
+  get uncle() {
+    if (this.hasGrandParent()) {
+      const gp = this.grandParent;
+      if (gp.left === this) {
+        return gp.right;
+      }
+      return gp.left;
+    }
+  }
+  get brother() {
+    if (this.parent.left === this) {
+      return this.parent.right;
+    }
+    return this.parent.left;
+  }
+  get isRoot() {
     return this.parent === undefined;
+  }
+  get isNullNode() {
+    return this.value === null;
+  }
+  get isBlack() {
+    if (this.isNullNode) {
+      return true;
+    }
+    return this.black;
+  }
+  get isRed() {
+    if (this.isNullNode) {
+      return false;
+    }
+    return !this.black;
+  }
+  hasParent() {
+    return !this.isRoot;
+  }
+  hasGrandParent() {
+    if (this.isRoot) {
+      return false;
+    }
+    return this.parent.parent !== undefined;
+  }
+  solveConflicts() {
+
+  }
+  rotateLeft() {
+
+  }
+  rotateRight() {
+
+  }
+  flipColor() {
+    this.grandParent.isRed = true;
+    this.grandParent.left.isBlack = true;
+    this.grandParent.right.isBlack = true;
+    this.grandParent.solveConflicts();
   }
 }
 
 class RedBlackTree {
   constructor(value) {
-    this.root = new Node({value});
-    this.root.left = new Node();
-    this.root.right = new Node();
+    this.root = new Node({ value, isBlack: true });
   }
   add(value) {
     let current = this.root;
@@ -53,35 +114,26 @@ class RedBlackTree {
         current = current.right;
       }
     }
-    current.isRed(true);
     current.value = value;
-    if (current.parent.isRed()) {
-      flipColors(current.parent);
-    }
+    current.isRed = true;
+    current.solveConflicts();
     return this.size();
   }
-  flipColors(node) {
-    node.isBlack(!node.isBlack());
-    if (node.left.value !== null) {
-      node.left.isBlack(!node.left.isBlack());
-    }
-    if (node.right.value !== null) {
-      node.right.isBlack(!node.right.isBlack());
-    }
-  }
-  rotateLeft(node) {
-
-  }
-  rotateRight(node) {
-
-  }
   contains(value) {
+    let found = false;
+    const exitPhrase = 'exitfromloop';
+    this.eachBFS((nodeValue) => {
+      if (value === nodeValue) {
+        found = true;
+        return exitPhrase;
+      }
+    }, exitPhrase);
+    return found;
+  }
+  eachDFS(cb, exitPhrase) {
 
   }
-  eachDFS(cb) {
-
-  }
-  eachBFS(cb) {
+  eachBFS(cb, exitPhrase) {
 
   }
   get size() {
