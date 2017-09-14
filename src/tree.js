@@ -14,6 +14,9 @@ class Tree {
   // have been checked
   contains(value) {
     let found = false;
+    if (this.value === value) {
+      found = true;
+    }
     const searchTree = (children) => {
       children.forEach((child) => {
         if (child.value === value) {
