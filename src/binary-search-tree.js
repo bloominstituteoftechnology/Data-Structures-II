@@ -30,7 +30,6 @@ class BinarySearchTree {
   // Applies the given callback to each tree node in the process
   // You'll need the queue-helper file for this. Or could you roll your own queue
   // again. Whatever floats your boat.
-  /* eslint-disable global-require */
   breadthFirstForEach(cb) {
 
   }
