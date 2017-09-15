@@ -2,7 +2,7 @@
 /* eslint-disable global-require */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
-const queue = require('./queue-helper');
+const Queue = require('./queue-helper');
 
 class BinarySearchTree {
   constructor(value) {
@@ -67,6 +67,7 @@ class BinarySearchTree {
   // again. Whatever floats your boat.
   /* eslint-disable global-require */
   breadthFirstForEach(cb) {
+    const queue = new Queue();
     queue.enqueue(this);
     while (!queue.isEmpty()) {
       const currentTree = queue.dequeue();
