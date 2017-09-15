@@ -18,4 +18,4 @@ class Queue {
     }
 }
 
-module.exports = new Queue();
+module.exports = new Queue;
