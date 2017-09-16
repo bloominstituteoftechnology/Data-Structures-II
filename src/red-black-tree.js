@@ -85,9 +85,15 @@ class Node {
     return this.leftChild.isNullNode && this.rightChild.isNullNode;
   }
   get isLeftChild() {
+    if (this.isRoot) {
+      return false;
+    }
     return this.parent.leftChild === this;
   }
   get isRightChild() {
+    if (this.isRoot) {
+      return false;
+    }
     return this.parent.rightChild === this;
   }
   get isBlack() {
@@ -149,61 +155,87 @@ class Node {
       return;
     }
     const flipColor = (node) => {
-      node.isRed = true;
-      node.leftChild.isBlack = true;
-      node.rightChild.isBlack = true;
+      node.isBlack = !node.isBlack;
+      node.leftChild.isBlack = !node.isBlack;
+      node.rightChild.isBlack = !node.isBlack;
+      node.solveConflicts();
     };
     const rotateRight = () => {
-      this.parent.leftChild = this.rightChild;
-      this.rightChild.parent = this.parent;
-      this.parent = this.grandParent;
-      if (!this.isRoot) {
-        if (this.parent.leftChild === this.leftChild.parent) {
-          this.parent.leftChild = this;
+      const gp = this.grandParent;
+      const parent = this.parent;
+      const rc = this.rightChild;
+      const isLeft = this.parent.isLeftChild;
+
+      this.parent = gp;
+
+      if (this.hasGrandParent()) {
+        console.log(this.grandParent);
+        if (isLeft) {
+          gp.leftChild = this;
         } else {
-          this.parent.rightChild = this;
+          gp.rightChild = this;
         }
-      }
-      this.rightChild.parent.parent = this;
-      this.rightChild = this.rightChild.parent;
-      flipColor(this);
+      } 
+
+      parent.parent = this;
+      parent.leftChild = rc;
+
+      this.rightChild = parent;
+
+      if (this.hasGrandParent())
+        console.log('RIGHT ', this.value, this.isRightChild, this.parent.value, this.rightChild.value, this.grandparent.value);
+      else if (this.hasParent())
+        console.log('RIGHT ', this.value, this.isRightChild, this.parent.value, this.rightChild.value);
+      else 
+        console.log('RIGHT ', this.value, this.rightChild.value);
+      this.solveConflicts();
     };
     const rotateLeft = () => {
-      this.parent.rightChild = this.leftChild;
-      this.leftChild.parent = this.parent;
-      this.parent = this.grandParent;
-      if (!this.isRoot) {
-        if (this.parent.leftChild === this.leftChild.parent) {
-          this.parent.leftChild = this;
+      const gp = this.grandParent;
+      const parent = this.parent;
+      const lc = this.leftChild;
+      const isLeft = this.parent.isLeftChild;
+
+      if (this.hasGrandParent()) {
+        this.parent = gp;
+        if (isLeft) {
+          gp.leftChild = this;
         } else {
-          this.parent.rightChild = this;
+          gp.rightChild = this;
         }
       }
-      this.leftChild.parent.parent = this;
-      this.leftChild = this.leftChild.parent;
-      rotateRight();
+
+      parent.parent = this;
+      parent.rightChild = lc;
+
+      this.leftChild = parent;
+
+      if (this.hasGrandParent())
+        console.log('LEFT ', this.value, this.isLeftChild, this.parent.value, this.leftChild.value, this.grandparent.value);
+      else if (this.hasParent())
+        console.log('LEFT ', this.value, this.isLeftChild, this.parent.value, this.leftChild.value);
+      else 
+        console.log('LEFT ', this.value, this.leftChild.value);
+      this.solveConflicts();
     };
     // find conflicts
     if (this.parent.isRed) {
       if (this.uncle.isRed) {
         flipColor(this.grandParent);
-      } else if (this.isLeftChild) {
-          rotateRight();
       } else {
         rotateLeft();
       }
-      console.log(`${this.isBlack ? 'Black' : 'Red'}: ${this.value}`);
-      this.solveConflicts();
-      return;
+    } else if (this.leftChild.isRed) {
+      rotateRight();
     }
-    if (this.leftChild.isRed) { // make sure everything was caught.
-      console.log(`${this.isBlack ? '~Black' : '~Red'}: ${this.leftChild.value}`);
-      this.leftChild.solveConflicts();
-    }
-    if (this.rightChild.isRed) { // make sure everything was caught.
-      console.log(`${this.isBlack ? 'Black~' : 'Red~'}: ${this.rightChild.value}`);
-      this.rightChild.solveConflicts();
-    }
+    // if (this.leftChild.isRed) { // make sure everything was caught.
+    //   console.log(`${this.isBlack ? '~Black' : '~Red'}: ${this.leftChild.value}`);
+    //   this.leftChild.solveConflicts();
+    // }
+    // if (this.rightChild.isRed) { // make sure everything was caught.
+    //   console.log(`${this.isBlack ? 'Black~' : 'Red~'}: ${this.rightChild.value}`);
+    //   this.rightChild.solveConflicts();
+    // }
   }
 }
 
@@ -230,16 +262,18 @@ class RedBlackTree {
   }
   add(value) {
     const node = this.getNode(value);
+    console.log(node.isNullNode + ' ' + value);
     if (!node.isNullNode) { // didn't add support for duplicates. same as my binary tree
       return false;
     }
     node.value = value;
     node.isRed = true;
     node.solveConflicts();
+    console.log('old root: ' + this.root.value);
     if (node.isRoot) {
       this.root = node;
+      console.log('new root: ' + node.value);
     }
-    console.log('Root: ' + this.root.value);
     return ++this.size;
   }
   remove(value) {
@@ -253,6 +287,8 @@ class RedBlackTree {
           return;
         }
       }
+    } else {
+      node.value = null;
     }
     --this.size;
     return node.value;
@@ -275,19 +311,41 @@ class RedBlackTree {
     searchBranch(node.rightChild);
   }
   eachBFS(cb) {
-    const queue = [];
+    if (this.root.isNullNode) {
+      return;
+    }
+    let cache = [this.root];
+    let currentLevelQueue = [];
+    let nextLevelQueue = [];
+    let layer = 1;
     const addToQueue = (branch) => {
       if (!branch.isNullNode) {
-        queue.push(branch);
+        if (cache.indexOf(branch.parent) < 0) {
+          console.log(`Isn't in cache:::: branch: ${branch.value}  parent: ${branch.parent.value}`);
+          currentLevelQueue.push(branch);
+          cache.push(branch);
+        } else {
+          console.log(`Is in cache:::: branch: ${branch.value}  parent: ${branch.parent.value}`);
+          nextLevelQueue.push(branch);
+        }
       }
     };
     let current;
     do {
-      current = queue.shift() || this.root;
-      cb(current.value, current);
+      current = currentLevelQueue.shift() || this.root;
+      console.log(`Node: ${current.value}  LeftChild: ${current.leftChild.value}  RightChild: ${current.rightChild.value}`);
+      // console.log(queue);
+      cb(current.value, current, layer);
       addToQueue(current.leftChild);
       addToQueue(current.rightChild);
-    } while (queue.length > 0);
+      if (currentLevelQueue.length === 0 && nextLevelQueue.length > 0) {
+        currentLevelQueue = nextLevelQueue;
+        nextLevelQueue = [];
+        console.log('CACHE CLEARED')
+        cache = [];
+        layer++;
+      }
+    } while (currentLevelQueue.length > 0);
   }
   set size(length) {
     this.s = length;
@@ -299,16 +357,16 @@ class RedBlackTree {
 }
 
 const rbt = new RedBlackTree(5);
-const array = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+const array = [1,2,3,4,5,6];
 array.forEach(num => rbt.add(num));
 console.log(rbt.size);
 console.log(rbt.contains(9));
 console.log(rbt.contains(10));
-rbt.eachBFS((value, node) => {
+rbt.eachBFS((value, node, layer) => {
   if (node.isBlack) {
-    console.log(`Black: ${value}`);
+    console.log(`Black: ${value}  Layer: ${layer}`);
   } else {
-    console.log(`Red: ${value}`);
+    console.log(`Red: ${value}  Layer: ${layer}`);
   }
 });
 /* correct answer
