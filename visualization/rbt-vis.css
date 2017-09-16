@@ -1,0 +1,86 @@
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+fieldset,
+input,
+textarea,
+p,
+blockquote,
+th,
+td {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #fff;
+}
+
+
+/* optional Container STYLES */
+
+.chart {
+    height: 90%;
+    width: 75%;
+    margin: 5px;
+    margin: 5px auto;
+    border: 3px solid #DDD;
+    border-radius: 3px;
+}
+
+.node {
+    color: #9CB5ED;
+    border: 2px solid #C8C8C8;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.node p {
+    font-size: 20px;
+    line-height: 20px;
+    height: 20px;
+    font-weight: bold;
+    padding: 3px;
+    margin: 0;
+}
+
+.node.black {
+	color: white;
+	background-color: rgba(0,0,0,0.6);
+}
+
+.node.red {
+	color: black;
+	background-color: rgba(255,0,0,0.6);
+}
+
+/*.node.tooltip {
+    position: relative;
+}
+
+.node.tooltip {
+    display: none;
+    color: #FFFFFF;
+}
+
+.node p:hover~span{
+    display: block;
+    position: absolute;
+    left: 100px;
+    top: -10px;
+    color: #FFFFFF;
+    padding: 0 5px;
+}*/
