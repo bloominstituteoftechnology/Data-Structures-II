@@ -59,4 +59,3 @@ describe('Graph', () => {
     expect(graph.contains('A') || graph.contains('b')).toBe(false);
   });
 });
-
