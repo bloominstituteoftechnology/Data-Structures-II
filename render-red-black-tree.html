@@ -3,7 +3,7 @@
     <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-	<title> Chart emulation </title>
+	<title> Red Black Tree Rendering </title>
 	<link rel="stylesheet" href="visualization/treant/Treant.css">
 	<link rel="stylesheet" href="visualization/rbt-vis.css">
 	<script src="visualization/treant/vendor/raphael.js"></script>
@@ -12,10 +12,22 @@
 	<script src="visualization/rbt-vis.js"></script>
 </head>
 <body>
-	<div class="chart" id="RedBlackTree">
+	<div class="container">
+		<div class="controls">
+			<label>Add Value: 
+				<input id="add" type="text" onkeypress="if (event.keyCode == 13) addClick()"/>
+				<button onclick="addClick();">Add</button>
+			</label>
+			<!-- <label>Remove Value: 
+				<input id="remove" type="text" onkeypress="if (event.keyCode == 13) removeClick()"/>
+				<button onclick="removeClick();">Remove</button>
+			</label> -->
+		</div>
+		<div class="chart" id="RedBlackTree">
+			<script>
+				window.treant = new Treant( rbt_config );
+			</script>
+		</div>
 	</div>
-	<script>
-		new Treant( rbt_config );
-	</script>
 </body>
 </html>

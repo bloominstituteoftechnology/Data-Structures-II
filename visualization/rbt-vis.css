@@ -27,18 +27,44 @@ td {
 
 body {
     background: #fff;
+    font-size: calc(9px + .5vmin);
 }
 
+label {
+    display: inline-block;
+    margin: 4px;
+}
 
-/* optional Container STYLES */
+label > input {
+    max-width: 20vmin;
+    font-size: calc(9px + .4vmin);
+    max-height: calc(9px + .5vmin)
+}
+
+label > button {
+    font-size: calc(9px + .4vmin);
+}
+
+.container {
+    /*min-width: 800px;*/
+    margin: 10%;
+    margin-top: 2%;
+}
 
 .chart {
-    height: 90%;
-    width: 75%;
-    margin: 5px;
-    margin: 5px auto;
+    min-height: 10px;
+    height: 80vh;
+    width: 100%;
     border: 3px solid #DDD;
     border-radius: 3px;
+    position: relative;
+    margin: 8px auto;
+    display: inline-block;
+}
+
+.controls {
+    display: block;
+    float: top;
 }
 
 .node {
@@ -46,6 +72,8 @@ body {
     border: 2px solid #C8C8C8;
     border-radius: 50%;
     padding: 5px;
+    min-width: 20px;
+    text-align: center;
 }
 
 .node p {
@@ -66,21 +94,3 @@ body {
 	color: black;
 	background-color: rgba(255,0,0,0.6);
 }
-
-/*.node.tooltip {
-    position: relative;
-}
-
-.node.tooltip {
-    display: none;
-    color: #FFFFFF;
-}
-
-.node p:hover~span{
-    display: block;
-    position: absolute;
-    left: 100px;
-    top: -10px;
-    color: #FFFFFF;
-    padding: 0 5px;
-}*/

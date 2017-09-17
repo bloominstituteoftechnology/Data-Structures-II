@@ -3,38 +3,73 @@ const config = {
   connectors: { type: 'straight' }
 };
 
-const rbt_config = [config];
+let rbt_config = [];
 
-const rbt = new RedBlackTree(3);
+const rbt = new RedBlackTree();
 
-const arr = [5]
-arr.forEach(item => rbt.add(item));
+function loadConfig() {
+  rbt_config.length = 0;
 
-const cache = {};
+  rbt_config.push(config);
+  
+  // const arr = [1,2]
+  // arr.forEach(item => rbt.add(item));
 
-rbt.eachBFS((value, node, layer) => {
-  console.log('\n==========');
-  console.log(value);
-  console.log(node);
-  var n = {
-    HTMLclass: node.isBlack ? 'black' : 'red',
-    text: { value: `${node.value}` }
-    // innerHTML: `<p class="node-value">1</p>` + 
-    //   '<p class="node tooltip">' +
-    //     `value: ${node.value}<br>`+
-    //     `Left Child: ${node.parent}<br>`+
-    //     `Left Child: ${node.leftChild}<br>`+
-    //     `Right Child: ${node.rightChild}<br>`+
-    //   '</p>'
-  };
-  if (!node.isRoot) {
-    n.parent = cache[node.parent.value];
+  const cache = {};
+
+  rbt.eachBFS((value, node, layer) => {
+    var n = {
+      HTMLclass: node.isBlack ? 'black' : 'red',
+      text: { value: `${node.value}` }
+    };
+    if (!node.isRoot) {
+      n.parent = cache[node.parent.value];
+    }
+    cache[node.value] = n;
+    rbt_config.push(n);
+  });
+}
+
+loadConfig();
+
+window.onresize = function() {
+  if (window.treant !== undefined) {
+    window.treant.tree.reload();
   }
-  cache[node.value] = n;
-  rbt_config.push(n);
-});
+}
 
-console.log(cache);
-console.log(Object.keys(cache).length);
+function addToTree(...numbers) {
+  numbers.forEach((num) => rbt.add(num));
+  loadConfig();
+  try {
+    window.treant = new Treant(rbt_config);
+  } catch (e) {
+    window.treant = new Treant(rbt_config);
+  }
+}
 
-console.log('RBT SIZE ' + rbt_config.length);
+// function removeFromTree(...numbers) {
+//   numbers.forEach((num) => rbt.remove(num));
+//   loadConfig();
+//   try {
+//     window.treant = new Treant(rbt_config);
+//   } catch (e) {
+//     window.treant = new Treant(rbt_config);
+//   }
+// }
+
+function addClick() {
+  let value = document.getElementById('add').value;
+  if (value !== null && value !== undefined && value !== '') {
+    addToTree(!isNaN(value) ? Number.parseFloat(value) : value);
+    document.getElementById('add').value = "";
+  }
+}
+
+// function removeClick() {
+//   let value = document.getElementById('remove').value;
+//   if (value !== null && value !== undefined && value !== '') {
+//     removeFromTree(!isNaN(value) ? Number.parseFloat(value) : value);
+//     document.getElementById('remove').value = "";
+//   }
+// }
