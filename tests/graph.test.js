@@ -38,6 +38,7 @@ describe('Graph', () => {
     const pineapple = graph.addVertex('pineapple');
     const banana = graph.addVertex('banana');
     const mango = graph.addVertex('mango', [pineapple]);
+
     expect(graph.checkIfEdgeExists(pineapple, banana)).toBe(true);
     expect(graph.checkIfEdgeExists(mango, banana)).toBe(false);
     expect(graph.checkIfEdgeExists(mango, pineapple)).toBe(true);
@@ -59,4 +60,3 @@ describe('Graph', () => {
     expect(graph.contains('A') || graph.contains('b')).toBe(false);
   });
 });
-
