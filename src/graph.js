@@ -40,7 +40,7 @@ class Graph {
   // Optionally accepts an array of other GraphNodes for the new vertex to be connected to
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
-    const vertex = new GraphNode({ value, edges: [] });
+    const vertex = new GraphNode({ value, edges });
 
     this.vertices.push(vertex);
     if (this.vertices.length === 2) {
@@ -99,7 +99,7 @@ class Graph {
   checkIfEdgeExists(fromVertex, toVertex) {
     const fromEdges = fromVertex.edges;
     const toEdges = toVertex.edges;
-    if (fromEdges.includes(this.getVertexIndex(toVertex)) && toEdges.includes(this.getVertexIndex(fromVertex))) {
+    if (fromEdges.includes(toVertex) && toEdges.includes(fromVertex)) {
       return true;
     }
     return false;
@@ -108,8 +108,8 @@ class Graph {
   // Again, an edge means both vertices reference the other 
   addEdge(fromVertex, toVertex) {
     if (!this.checkIfEdgeExists(fromVertex, toVertex)) {
-      fromVertex.pushToEdges(this.getVertexIndex(toVertex));
-      toVertex.pushToEdges(this.getVertexIndex(fromVertex));
+      fromVertex.pushToEdges(toVertex);
+      toVertex.pushToEdges(fromVertex);
     }
     return;
   }
@@ -119,11 +119,11 @@ class Graph {
     if (this.checkIfEdgeExists(fromVertex, toVertex)) {
       const fromEdges = fromVertex.edges;
       const toEdges = toVertex.edges;
-      let index = fromEdges.indexOf(this.getVertexIndex(toVertex));
+      let index = fromEdges.indexOf(toVertex);
       fromEdges.splice(index, 1);
       fromVertex.edges = fromEdges;
 
-      index = toEdges.indexOf(this.getVertexIndex(fromVertex));
+      index = toEdges.indexOf(fromVertex);
       toEdges.splice(index, 1);
       toVertex.edges = toEdges;
     }
