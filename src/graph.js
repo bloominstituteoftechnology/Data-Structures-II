@@ -49,6 +49,7 @@ class Graph {
   }
   // Checks the graph to see if a GraphNode with the specified value exists in the graph 
   // and removes the vertex if it is found
+  // This function should also handle the removing of all edge references for the removed vertex
   removeVertex(value) {
 
   }
@@ -67,6 +68,8 @@ class Graph {
   }
   // Removes the edge between the two given vertices if an edge already exists between them
   // After removing the edge, neither vertex should be referencing the other
+  // If a vertex would be left without any edges as a result of calling this function, those
+  // vertices should be removed as well
   removeEdge(fromVertex, toVertex) {
 
   }
