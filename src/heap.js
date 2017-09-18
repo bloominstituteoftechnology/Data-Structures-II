@@ -7,6 +7,7 @@ class Heap {
     // Inserts the given value in the heap
     // Calls bubbleUp in order to put the newly-inserted element in the right place in the heap
     insert(val) {
+        this.heap.push(value);
         
     }
     // Deletes the element located at the last index of the heap
