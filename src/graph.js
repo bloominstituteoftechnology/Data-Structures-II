@@ -35,40 +35,93 @@ class Graph {
     this.vertices = [];
   }
   // Wraps the input value in a new GraphNode and adds it to the array of vertices
-  // If there are only two nodes in the graph, they need to be automatically 
+  // If there are only two nodes in the graph, they need to be automatically
   // connected via an edge
   // Optionally accepts an array of other GraphNodes for the new vertex to be connected to
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
-
+    const newGraphNode = new GraphNode({ value, edges });
+    if (edges.length < 1) {
+      newGraphNode.edges = [];
+    }
+    if (this.vertices.length === 1) {
+      this.addEdge(this.vertices[0], newGraphNode);
+    }
+    this.vertices.push(newGraphNode);
+    return newGraphNode;
   }
   // Checks all the vertices of the graph for the target value
   // Returns true or false
   contains(value) {
-
+    let isInGraph = false;
+    this.vertices.forEach((vertex) => {
+      if (vertex.value === value) {
+        isInGraph = true;
+      }
+    });
+    return isInGraph;
   }
-  // Checks the graph to see if a GraphNode with the specified value exists in the graph 
+  // Checks the graph to see if a GraphNode with the specified value exists in the graph
   // and removes the vertex if it is found
   removeVertex(value) {
-
+    let vertexToRemove = {};
+    this.vertices.forEach((vertex) => {
+      if (vertex.value === value) {
+        vertexToRemove = vertex;
+      }
+    });
+    this.vertices.forEach((vertex) => {
+      this.removeEdge(vertex, vertexToRemove);
+    });
+    this.vertices.splice(this.vertices.indexOf(vertexToRemove), 1);
   }
   // Checks the two input vertices to see if each one references the other in their respective edges array
   // Both vertices must reference each other for the edge to be considered valid
   // If only one vertex references the other but not vice versa, should not return true
-  // Note: You'll need to store references to each vertex's array of edges so that you can use 
+  // Note: You'll need to store references to each vertex's array of edges so that you can use
   // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
   checkIfEdgeExists(fromVertex, toVertex) {
-
+    let haveEdge = false;
+    if (fromVertex && fromVertex.edges.length > 0) {
+      fromVertex.edges.forEach((edge) => {
+        if (edge === toVertex) {
+          haveEdge = true;
+          return;
+        }
+      });
+    }
+    return haveEdge;
   }
   // Adds an edge between the two given vertices if no edge already exists between them
-  // Again, an edge means both vertices reference the other 
+  // Again, an edge means both vertices reference the other
   addEdge(fromVertex, toVertex) {
-
+    if (this.checkIfEdgeExists(fromVertex, toVertex)) {
+      return;
+    }
+    fromVertex.pushToEdges(toVertex);
+    toVertex.pushToEdges(fromVertex);
   }
   // Removes the edge between the two given vertices if an edge already exists between them
   // After removing the edge, neither vertex should be referencing the other
   removeEdge(fromVertex, toVertex) {
-
+    if (fromVertex.edges.length > 0) {
+      fromVertex.edges.splice(fromVertex.edges.indexOf(toVertex), 1);
+    }
+    if (toVertex.edges.length > 0) {
+      toVertex.edges.splice(toVertex.edges.indexOf(fromVertex), 1);
+    }
+    this.removeLoneNodes();
+  }
+  removeLoneNodes() {
+    const graphNodesToRemove = [];
+    this.vertices.forEach((vertex) => {
+      if (vertex.edges.length < 1) {
+        graphNodesToRemove.push(this.vertices.indexOf(vertex));
+      }
+    });
+    graphNodesToRemove.forEach((graphNode) => {
+      this.vertices.splice(this.vertices.indexOf(graphNode, 1));
+    });
   }
 }
 
