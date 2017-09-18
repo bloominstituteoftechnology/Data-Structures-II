@@ -40,7 +40,15 @@ class Graph {
   // Optionally accepts an array of other GraphNodes for the new vertex to be connected to
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
-
+    const node = new GraphNode();
+    node._value = value;
+    node._edges = edges;
+    this.vertices.push(node);
+    if (this.vertices.length === 2) {
+      this.vertices[0]._edges.push(this.vertices[1]);
+      this.vertices[1]._edges.push(this.vertices[0]);
+    }
+    return node;
   }
   // Checks all the vertices of the graph for the target value
   // Returns true or false
@@ -58,12 +66,13 @@ class Graph {
   // Note: You'll need to store references to each vertex's array of edges so that you can use 
   // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
   checkIfEdgeExists(fromVertex, toVertex) {
-
+    
   }
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other 
   addEdge(fromVertex, toVertex) {
-
+    fromVertex._edges = toVertex;
+    toVertex._edges = fromVertex;
   }
   // Removes the edge between the two given vertices if an edge already exists between them
   // After removing the edge, neither vertex should be referencing the other
