@@ -10,7 +10,7 @@ class Queue {
     }
 
     dequeue() {
-        return this.storage.shift();
+       return this.storage.shift();
     }
 
     isEmpty() {
