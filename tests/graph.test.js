@@ -55,7 +55,9 @@ describe('Graph', () => {
   it('should remove nodes without any edges', () => {
     const A = graph.addVertex('A');
     const b = graph.addVertex('b');
+    expect(graph.checkIfEdgeExists(A, b)).toBe(true);
     graph.removeEdge(A, b);
+    expect(graph.checkIfEdgeExists(A, b)).toBe(false);
     expect(graph.contains('A') || graph.contains('b')).toBe(false);
   });
 });
