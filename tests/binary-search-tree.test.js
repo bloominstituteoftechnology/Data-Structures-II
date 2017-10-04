@@ -23,6 +23,12 @@ describe('BinarySearchTree', () => {
     expect(binarySearchTree.left.right.value).toBe(3);
     expect(binarySearchTree.right.left.value).toBe(6);
   });
+/*
+          5-1
+    2-2          7-4
+      3-3      6-5
+
+*/
 
   it('should have a working "contains" method', () => {
     binarySearchTree.insert(2);
