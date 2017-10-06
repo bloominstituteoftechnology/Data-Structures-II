@@ -1,4 +1,4 @@
 {
-    "presets": ["es6"]
-  }
+    "presets": ["env","stage-0"]
+}
   

@@ -8,10 +8,9 @@
 class Stack {
   constructor() {
     this.storage = []
-    console.log('Stack Constuctor')
   }
   get isEmpty() {
-    return this.storage.length > 0
+    return this.storage.length === 0
   }
   get size() {
     return this.storage.length

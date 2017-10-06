@@ -9,7 +9,7 @@ class Queue {
   constructor() {
     this.storage = []
   }
-  isEmpty() {
+  get isEmpty() {
     return this.storage.length === 0;
   }
   get size() {
