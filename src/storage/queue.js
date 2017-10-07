@@ -7,22 +7,22 @@
 /* eslint-disable no-throw-literal */
 class Queue {
   constructor() {
-    this.storage = []
+    this.storage = [];
   }
   get isEmpty() {
     return this.storage.length === 0;
   }
   get size() {
-    return this.storage.length
+    return this.storage.length;
   }
   enqueue(item) {
-    this.storage.push(item)
+    this.storage.push(item);
   }
   dequeue() {
     if (this.storage.length) {
-      return this.storage.shift()
+      return this.storage.shift();
     }
-    return undefined
+    return undefined;
   }
 }
 

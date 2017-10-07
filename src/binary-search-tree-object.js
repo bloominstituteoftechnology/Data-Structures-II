@@ -4,32 +4,50 @@
 /* eslint-disable no-trailing-spaces, import/no-extraneous-dependencies */
 const Stack = require('./storage/stack');
 const Queue = require('./storage/queue');
+const uuidv5 = require('uuid/v5');
+
+const nsUuid = uuidv5('https://lambdaschool.com/', uuidv5.URL); 
 
 const maxIterate = 10;
 let countIterate;
 let icb;
 /* eslint-disable no-console */
-class BinarySearchTree {
-  constructor(value) {
-    this.value = value;
+class BinarySearchTreeObject {
+  constructor(data) {
+    this.value = data.value;
+    this.data = data;
     this.left = null;
     this.right = null;
   }
   // Wraps the input value in a new BinarySearchTree and
   // assigns it to either the left or right subtree,
   // depending on its value
-  insert(value) {
-    const tree = new BinarySearchTree(value);
-    if (value < this.value) {
+  insert(data) {
+    const tree = new BinarySearchTreeObject(data);
+    if (data.value < this.value) {
       if (this.left === null) {
         this.left = tree;
       } else {
-        return this.left.insert(value);
+        return this.left.insertTree(tree);
       }
     } else if (this.right === null) {
       this.right = tree;
     } else {
-      return this.right.insert(value);
+      return this.right.insertTree(tree);
+    }
+  }
+  insertTree(tree) {
+    const value = tree.value;
+    if (value < this.value) {
+      if (this.left === null) {
+        this.left = tree;
+      } else {
+        return this.left.insertTree(tree);
+      }
+    } else if (this.right === null) {
+      this.right = tree;
+    } else {
+      return this.right.insertTree(tree);
     }
   }
 
@@ -131,4 +149,4 @@ endwhile
     this.bfsIterate(q, cb);
   }
 }
-module.exports = BinarySearchTree;
+module.exports = BinarySearchTreeObject;

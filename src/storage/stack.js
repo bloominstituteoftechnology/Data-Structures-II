@@ -7,24 +7,23 @@
 /* eslint-disable no-console */
 class Stack {
   constructor() {
-    this.storage = []
+    this.storage = [];
   }
   get isEmpty() {
-    return this.storage.length === 0
+    return this.storage.length === 0;
   }
   get size() {
-    return this.storage.length
+    return this.storage.length;
   }
   push(item) {
-    this.storage.push(item)
+    this.storage.push(item);
   }
   pop() {
     if (this.storage.length) {
-      return this.storage.pop()
+      return this.storage.pop();
     }
-    return undefined
+    return undefined;
   }
-
 }
 
 module.exports = Stack;
