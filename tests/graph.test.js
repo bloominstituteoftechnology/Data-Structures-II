@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+/* eslint-disable no-undef, no-unused-vars, comma-dangle */
 const Graph = require('../src/graph');
 
 describe('Graph', () => {
@@ -8,7 +8,7 @@ describe('Graph', () => {
     graph = new Graph();
   });
 
-  it('should have methods named "addVertex", "contains", "removeVertex", "addEdge", "checkIfEdgeExists", and "removeEdge"', () => {
+  it("should have methods named 'addVertex', 'contains', 'removeVertex', 'addEdge', 'checkIfEdgeExists', and 'removeEdge'", () => {
     expect(typeof graph.addVertex).toBe('function');
     expect(typeof graph.contains).toBe('function');
     expect(typeof graph.removeVertex).toBe('function');
@@ -50,6 +50,26 @@ describe('Graph', () => {
     graph.addEdge(crocodile, monkey);
     graph.removeEdge(monkey, human);
     expect(graph.checkIfEdgeExists(monkey, human)).toBe(false);
+  });
+
+  it('should be able DFS and BFS iterate over the edges', () => {
+    const array = [];
+    const foo = value => ((array.push(value)));
+    const pineapple = graph.addVertex('pineapple');
+    const banana = graph.addVertex('banana');
+    const mango = graph.addVertex('mango', [pineapple]);
+    const monkey = graph.addVertex('monkey');
+    const human = graph.addVertex('human');
+    const crocodile = graph.addVertex('crocodile', [human]);
+    const A = graph.addVertex('A');
+    const b = graph.addVertex('b');
+    graph.addEdge(crocodile, monkey);
+    expect(graph.setupVertex()).toEqual(['banana', 'mango', 'pineapple', 'monkey', 'human', 'crocodile', 'A', 'b']);
+    graph.bst.depthFirstForEach(foo);
+    expect(array).toEqual(['banana', 'A', 'b', 'mango', 'human', 'crocodile', 'pineapple', 'monkey']);
+    array.length = 0;
+    graph.bst.breadthFirstForEach(foo);
+    expect(array).toEqual(['banana', 'A', 'mango', 'b', 'human', 'pineapple', 'crocodile', 'monkey']);
   });
 
   it('should remove nodes without any edges', () => {

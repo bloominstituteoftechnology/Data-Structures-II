@@ -35,6 +35,7 @@ class GraphNode {
 class Graph {
   constructor() {
     this.vertices = [];
+    this.bst = new BinarySearchTreeObject();
   }
   // Wraps the input value in a new GraphNode and adds it to the array of vertices
   // If there are only two nodes in the graph, they need to be automatically
@@ -65,10 +66,23 @@ class Graph {
   }
   get vertexEdges() {
     return this.vertices.reduce((memo, v) => {
-      v.vertices.forEach(ver => memo.push(ver));
+      // console.log('v:', v);      
+      // console.log('v.edges:', v.edges);
+      v.edges.forEach(edge => memo.push(edge));
       return memo;
     }, []);
   }  
+  setupVertex() {
+    // console.log('>>>>edges:', this.vertexEdges);
+    const set = new Set(this.vertexEdges);
+    set.forEach(v => this.bst.insert(v));
+    const a = [];
+    set.forEach(v => {
+      a.push(v.value); 
+    });
+    return a;
+  }
+
   // Checks all the vertices of the graph for the target value
   // Returns true or false
   contains(value) {
