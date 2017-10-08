@@ -1,11 +1,11 @@
 /* eslint-disable no-undef, indent */
-const BinarySearchTree = require('../src/binary-search-tree');
+const BinarySearchTree = require('../src/binary-search-tree-object');
 
 describe('BinarySearchTree', () => {
     let binarySearchTree;
 
     beforeEach(() => {
-        binarySearchTree = new BinarySearchTree(5);
+        binarySearchTree = new BinarySearchTree();
     });
 
     it('should have methods named "insert", "contains", "depthFirstForEach", and "breadthFirstForEach"', () => {
@@ -16,10 +16,10 @@ describe('BinarySearchTree', () => {
     });
 
     it('should insert values at the correct location in the tree', () => {
-        binarySearchTree.insert(2);
-        binarySearchTree.insert(3);
-        binarySearchTree.insert(7);
-        binarySearchTree.insert(6);
+        binarySearchTree.insert({ value: 2 });
+        binarySearchTree.insert({ value: 3 });
+        binarySearchTree.insert({ value: 7 });
+        binarySearchTree.insert({ value: 6 });
         expect(binarySearchTree.left.right.value).toBe(3);
         expect(binarySearchTree.right.left.value).toBe(6);
     });
@@ -31,20 +31,20 @@ describe('BinarySearchTree', () => {
     */
 
     it('should have a working "contains" method', () => {
-        binarySearchTree.insert(2);
-        binarySearchTree.insert(3);
-        binarySearchTree.insert(7);
+        binarySearchTree.insert({ value: 2 });
+        binarySearchTree.insert({ value: 3 });
+        binarySearchTree.insert({ value: 7 });
         expect(binarySearchTree.contains(7)).toBe(true);
         expect(binarySearchTree.contains(8)).toBe(false);
     });
 
     it('should execute a callback on every value in the tree using "depthFirstForEach" in the correct order', () => {
         const array = [];
-        const foo = value => ((array.push(value)));
-        binarySearchTree.insert(2);
-        binarySearchTree.insert(3);
-        binarySearchTree.insert(7);
-        binarySearchTree.insert(9);
+        const foo = obj => ((array.push(obj.value)));
+        binarySearchTree.insert({ value: 2 });
+        binarySearchTree.insert({ value: 3 });
+        binarySearchTree.insert({ value: 7 });
+        binarySearchTree.insert({ value: 9 });
         binarySearchTree.depthFirstForEach(foo);
         expect(array).toEqual([5, 2, 3, 7, 9]);
     });
@@ -55,12 +55,12 @@ describe('BinarySearchTree', () => {
     */
     it('should execute a callback on every value in the tree using "breadthFirstForEach" in the correct order', () => {
         const array = [];
-        const foo = value => ((array.push(value)));
-        binarySearchTree.insert(3);
-        binarySearchTree.insert(4);
-        binarySearchTree.insert(10);
-        binarySearchTree.insert(9);
-        binarySearchTree.insert(11);
+        const foo = obj => ((array.push(obj.value)));
+        binarySearchTree.insert({ value: 3 });
+        binarySearchTree.insert({ value: 4 });
+        binarySearchTree.insert({ value: 10 });
+        binarySearchTree.insert({ value: 9 });
+        binarySearchTree.insert({ value: 11 });
         binarySearchTree.breadthFirstForEach(foo);
         expect(array).toEqual([5, 3, 10, 4, 9, 11]);
 

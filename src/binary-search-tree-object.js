@@ -1,35 +1,61 @@
 // https://msdn.microsoft.com/en-us/library/aa289150(v=vs.71).aspx
 /* eslint-disable global-require */
-/* eslint-disable no-unused-vars */
+/* eslint-disable no-unused-vars, no-console */
 /* eslint-disable no-trailing-spaces, import/no-extraneous-dependencies */
 const Stack = require('./storage/stack');
 const Queue = require('./storage/queue');
 
-const maxIterate = 10;
+// const maxIterate = 10;
 let countIterate;
 let icb;
 /* eslint-disable no-console */
-class BinarySearchTree {
-  constructor(value) {
-    this.value = value;
+class BinarySearchTreeObject {
+  constructor(obj = null) {
     this.left = null;
     this.right = null;
+    this.obj = obj;
   }
+
+  get value() {
+    // console.log('this.obj:', this.obj);
+    // console.log('this.obj.value:', this.obj.value);
+    return this.obj.value;
+  }
+
   // Wraps the input value in a new BinarySearchTree and
   // assigns it to either the left or right subtree,
   // depending on its value
-  insert(value) {
-    const tree = new BinarySearchTree(value);
-    if (value < this.value) {
+  insert(data) {
+    // console.log('>>>>>insert value:', data.value);
+    if (this.obj === null) {
+      this.obj = data;
+      return;
+    }
+    const tree = new BinarySearchTreeObject(data);
+    if (data.value < this.value) {
       if (this.left === null) {
         this.left = tree;
       } else {
-        return this.left.insert(value);
+        return this.left.insertTree(tree);
       }
     } else if (this.right === null) {
       this.right = tree;
     } else {
-      return this.right.insert(value);
+      return this.right.insertTree(tree);
+    }
+  }
+  insertTree(tree) {
+    const value = tree.value;
+    if (value < this.value) {
+      if (this.left === null) {
+        this.left = tree;
+      } else {
+        return this.left.insertTree(tree);
+      }
+    } else if (this.right === null) {
+      this.right = tree;
+    } else {
+      return this.right.insertTree(tree);
     }
   }
 
@@ -131,4 +157,4 @@ endwhile
     this.bfsIterate(q, cb);
   }
 }
-module.exports = BinarySearchTree;
+module.exports = BinarySearchTreeObject;
