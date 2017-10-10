@@ -3,8 +3,8 @@
 Topics:
 
  * Tree
- * Graph
  * Binary Search Tree
+ * Graph
 
 
 #### Trees
