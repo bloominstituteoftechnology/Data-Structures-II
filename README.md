@@ -19,7 +19,7 @@ Topics:
 #### Binary Search Tree
 
   * Should have the methods: `insert`, `contains`, `depthFirstForEach`, and `breadthFirstForEach`.
-  * `insert(value)` inserts the new value at the correct location in the tree.
+  * `insert(value)` inserts the new value at the correct location in the tree. For values that are equal to their parent, it doesn't matter whether those values go in the left subtree or the right subtree; just pick one and be consistent with it.
   * `contains(value)` searches the tree and returns `true` if the the tree contains the specified value.
   * `depthFirstForEach(cb)` should iterate over the tree using DFS and passes each node of the tree to the given callback function.
   * `breadthFirstForEach(cb)` should iterate over the tree using BFS and passes each node of the tree to the given callback function (hint: you'll need to either re-implement or import a queue data structure for this).
