@@ -1,5 +1,6 @@
-/* eslint-disable no-trailing-spaces */
+  /* eslint-disable no-trailing-spaces */
 /* eslint-disable no-unused-vars */
+/*
 class Tree {
   constructor(value) {
     this.value = value;
@@ -18,3 +19,4 @@ class Tree {
 }
 
 module.exports = Tree;
+*/
