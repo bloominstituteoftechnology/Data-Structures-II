@@ -7,7 +7,7 @@ class Tree {
   }
   // Adds a new Tree node with the input value to the current Tree node 
   addChild(value) {
-    console.log('Test changes in and then some git');
+    console.log('Test changes in and then some git dang lady. where are we? ');
 
   }
   // Checks this node's children to see if any of them matches the given value
