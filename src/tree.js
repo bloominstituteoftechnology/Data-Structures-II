@@ -14,7 +14,21 @@ class Tree {
   // Continues recursively until the value has been found or all of the children
   // have been checked
   contains(value) {
-
+    let found = false;
+    if (this.children.length === 0) return false;
+    // iterate array
+    this.children.forEach((child) => {
+      if (child.value === value) {
+        found = true;
+      } else {
+        const result = child.contains(value);
+        if (result === true) {
+          found = true;
+        }
+      }
+    });
+    return found;
+    // for each child check value, iterate through its childen
   }
 }
 
