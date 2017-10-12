@@ -54,7 +54,21 @@ class BinarySearchTree {
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
   depthFirstForEach(cb) {
-
+    if (this.value !== null) cb(this.value);
+    const dfs = (node, side) => {
+      if (node !== null) {
+        cb(node.value);        
+        dfs(node.left); // 2, 
+        dfs(node.right); // 3, 7,9
+      }
+    };
+    if (this.left !== null) {
+      dfs(this.left);
+    }
+    if (this.right !== null) {
+      // iterate through all right nodes
+      dfs(this.right);
+    }
   }
   // Traverses the tree in a breadth-first manner, i.e. in layers, starting
   // at the root node, going down to the root node's children, and iterating
@@ -66,5 +80,15 @@ class BinarySearchTree {
 
   }
 }
-
+const array = [];
+const foo = value => ((array.push(value)));
+const binarySearchTree = new BinarySearchTree(5);
+binarySearchTree.insert(2);
+binarySearchTree.insert(1);
+binarySearchTree.insert(3);
+binarySearchTree.insert(7);
+binarySearchTree.insert(8);
+binarySearchTree.insert(9);
+binarySearchTree.depthFirstForEach(foo);
+console.log(array);
 module.exports = BinarySearchTree;
