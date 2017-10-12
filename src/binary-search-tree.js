@@ -13,8 +13,25 @@ class BinarySearchTree {
   // assigns it to either the left or right subtree,
   // depending on its value
   insert(value) {
-
+    const child = new BinarySearchTree(value);
+    const compare = (val) => {
+      if (val >= this.value) {
+        if (this.right === null) {
+          this.right = child;
+        } else {
+          this.right.insert(val);
+        }
+      } else if (val < this.value) {
+        if (this.left === null) {
+          this.left = child;
+        } else {
+          this.left.insert(val);
+        }
+      }
+    };
+    compare(child.value);
   }
+
   // Checks the binary search tree for the input target
   // Can be written recursively or iteratively
   contains(target) {
@@ -25,7 +42,7 @@ class BinarySearchTree {
   depthFirstForEach(cb) {
 
   }
-  // Traverses the tree in a breadth-first manner, i.e. in layers, starting 
+  // Traverses the tree in a breadth-first manner, i.e. in layers, starting
   // at the root node, going down to the root node's children, and iterating
   // through all those nodes first before moving on to the next layer of nodes
   // Applies the given callback to each tree node in the process
