@@ -4,6 +4,7 @@
 /* eslint-disable class-methods-use-this */
 // Do not modify this GraphNode class
 // Use any of its methods as you see fit to implement your graph
+/* eslint-disable class-methods-use-this */
 class GraphNode {
   constructor({ value, edges }) {
     this._value = value;

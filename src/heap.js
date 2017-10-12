@@ -1,4 +1,5 @@
 /* eslint-disable */
+/* eslint-disable class-methods-use-this */
 class Heap {
     constructor() {
         this.storage = [null];

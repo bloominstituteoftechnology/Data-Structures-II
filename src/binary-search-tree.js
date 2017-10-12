@@ -21,12 +21,17 @@ class BinarySearchTree {
         return this.left = node;
       } return this.left.insert(value);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3fc14963ad2f5b58490ef51fc984f4f5c35a2535
     if (value >= this.value) {
       if (this.right === null) {
         return this.right = node;
       } return this.right.insert(value);
     }
   }
+
   // Checks the binary search tree for the input target
   // Can be written recursively or iteratively
   contains(target) {
