@@ -1,12 +1,13 @@
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable no-unused-vars */
-class Tree {
+class Tree { 
   constructor(value) {
     this.value = value;
     this.children = [];
   }
   // Adds a new Tree node with the input value to the current Tree node 
   addChild(value) {
+    console.log('Test changes in git');
 
   }
   // Checks this node's children to see if any of them matches the given value
