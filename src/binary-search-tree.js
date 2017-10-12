@@ -3,6 +3,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable class-methods-use-this */
+
+const Queue = require('./queue-helper.js');
+
 class BinarySearchTree {
   constructor(value) {
     this.value = value;
@@ -57,8 +60,8 @@ class BinarySearchTree {
     if (this.value !== null) cb(this.value);
     const dfs = (node, side) => {
       if (node !== null) {
-        cb(node.value);        
-        dfs(node.left); // 2, 
+        cb(node.value);
+        dfs(node.left); // 2,
         dfs(node.right); // 3, 7,9
       }
     };
@@ -77,18 +80,27 @@ class BinarySearchTree {
   // You'll need the queue-helper file for this. Or could you roll your own queue
   // again. Whatever floats your boat.
   breadthFirstForEach(cb) {
-
+//   1. initialize a queue to hold nodes
+//   2. enqueue the current node you’re at
+//   3. iterate through the queue using something like `while (!queue.isEmpty())`
+//   4. dequeue from the queue
+//   5. check if the dequeue’d node has a left and right child
+//   6. add those to the queue
+//   7. call the callback on the node that was dequeue’d
+    const queue = new Queue();
+    queue.enqueue(this);
+    while (!queue.isEmpty()) {
+      const node = queue.dequeue();
+      if (node.left !== null) {
+        queue.enqueue(node.left);
+      }
+      if (node.right !== null) {
+        queue.enqueue(node.right);
+      }
+      cb(node.value);
+    }
   }
 }
-const array = [];
-const foo = value => ((array.push(value)));
-const binarySearchTree = new BinarySearchTree(5);
-binarySearchTree.insert(2);
-binarySearchTree.insert(1);
-binarySearchTree.insert(3);
-binarySearchTree.insert(7);
-binarySearchTree.insert(8);
-binarySearchTree.insert(9);
-binarySearchTree.depthFirstForEach(foo);
-console.log(array);
+
+
 module.exports = BinarySearchTree;
