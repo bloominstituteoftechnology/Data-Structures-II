@@ -2,6 +2,7 @@
 /* eslint-disable global-require */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
+/* eslint-disable class-methods-use-this */
 class BinarySearchTree {
   constructor(value) {
     this.value = value;
