@@ -2,6 +2,8 @@
 /* eslint-disable global-require */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
+const Queue = require('./queue-helper');
+
 class BinarySearchTree {
   constructor(value) {
     this.value = value;
@@ -12,12 +14,37 @@ class BinarySearchTree {
   // assigns it to either the left or right subtree,
   // depending on its value
   insert(value) {
-    return this;
+    const node = new BinarySearchTree(value);
+    if (value < this.value) {
+      if (this.left === null) {
+        this.left = node;
+      } else {
+        this.left.insert(value);
+      }
+    } else if (this.value < value) {
+      if (this.right === null) {
+        this.right = node;
+      } else {
+        this.right.insert(value);
+      }
+    } 
   }
   // Checks the binary search tree for the input target
   // Can be written recursively or iteratively
   contains(target) {
-    return this;
+    if (target === this.value) {
+      return true;
+    } else if (target < this.value) {
+      if (this.left === null) {
+        return false;
+      }
+      return this.left.contains(target);
+    } else if (target > this.value) {
+      if (this.right === null) {
+        return false;
+      }
+      return this.right.contains(target);
+    }
   }
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
