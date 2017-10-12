@@ -9,8 +9,10 @@ class Tree {
   addChild(value) {
     console.log('Test changes in and then some git dang lady. where are we? ');
     // changes to test git moving...
+
     // more changes to test conflict resolution
     // and then some just in case
+    // and more changes from me, lorin
 
   }
   // Checks this node's children to see if any of them matches the given value
