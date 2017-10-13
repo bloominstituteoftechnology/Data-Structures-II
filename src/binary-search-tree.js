@@ -13,18 +13,15 @@ class BinarySearchTree {
   // depending on its value
   insert(value) {
     const newTree = new BinarySearchTree(value);
-    const helper = (curTree) => {
-      if (curTree.value > newTree.value && curTree.left !== null) {
-        helper(curTree.left);
-      } else if (curTree.value <= newTree.value && curTree.right !== null) {
-        helper(curTree.right);
-      } else if (curTree.value > newTree.value && curTree.left === null) {
-        curTree.left = newTree;
-      } else if (curTree.value <= newTree.value && curTree.right === null) {
-        curTree.right = newTree;
-      }
-    };
-    helper(this);    
+    if (this.value > value && this.left !== null) {
+      this.left.insert(value);
+    } else if (this.value <= value && this.right !== null) {
+      this.right.insert(value);
+    } else if (this.value > value && this.left === null) {
+      this.left = newTree;
+    } else if (this.value <= value && this.right === null) {
+      this.right = newTree;
+    }
   }
   // Checks the binary search tree for the input target
   // Can be written recursively or iteratively
