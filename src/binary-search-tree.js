@@ -13,12 +13,38 @@ class BinarySearchTree {
   // assigns it to either the left or right subtree,
   // depending on its value
   insert(value) {
-
+    const myTree = new BinarySearchTree(value);
+    if (this.value > value) {
+      if (this.left === null) {
+        this.left = myTree;
+      } else {
+        this.left.insert(value);
+      } 
+    } else if (this.value < value) {
+      if (this.right === null) {
+        this.right = myTree;
+      } else {
+        this.right.insert(value);
+      }
+    }
   }
   // Checks the binary search tree for the input target
   // Can be written recursively or iteratively
   contains(target) {
-
+    if (this.value === target) {
+      return true;
+    }
+    if (this.value > target) {
+      if (this.left && this.left.contains(target)) {
+        return true;
+      }
+    }
+    if (this.value < target) {
+      if (this.right && this.right.contains(target)) {
+        return true;
+      }
+    }
+    return false;
   }
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
