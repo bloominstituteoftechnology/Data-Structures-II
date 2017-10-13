@@ -59,10 +59,10 @@ class BinarySearchTree {
     const queue = new Queue();
     queue.enqueue(this);
     while (!(queue.isEmpty())) {
-      const testItem = queue.dequeue();
-      cb(testItem.value);
-      if (testItem.left !== null) queue.enqueue(testItem.left);
-      if (testItem.right !== null) queue.enqueue(testItem.right);
+      const currentNode = queue.dequeue();
+      cb(currentNode.value);
+      if (currentNode.left !== null) queue.enqueue(currentNode.left);
+      if (currentNode.right !== null) queue.enqueue(currentNode.right);
     }
   }
 }
