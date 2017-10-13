@@ -26,21 +26,10 @@ class BinarySearchTree {
   // Checks the binary search tree for the input target
   // Can be written recursively or iteratively
   contains(target) {
-    let result = false;
-    const helper = (curTree) => {
-      if (curTree.value === target) {
-        result = true;
-        return;
-      }
-      if (curTree.left !== null) {
-        helper(curTree.left);
-      }
-      if (curTree.right !== null) {
-        helper(curTree.right);
-      }
-    };
-    helper(this);
-    return result;
+    if (this.value === target) return true;
+    if (this.left !== null && this.left.contains(target)) return true;
+    if (this.right !== null && this.right.contains(target)) return true;
+    return false;
   }
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
