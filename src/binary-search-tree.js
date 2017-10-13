@@ -38,10 +38,9 @@ class BinarySearchTree {
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
   depthFirstForEach(cb) {
-    if (this.value) return true;
-    if (this.left && this.left.contains(target)) return true;
-    if (this.right && this.right.contains(target)) return true;
-    return false;
+    if (this.value) cb(this.value);
+    if (this.left && this.left.depthFirstForEach(cb)) cb(this.value);
+    if (this.right && this.right.depthFirstForEach(cb)) cb(this.value);
   }
   // Traverses the tree in a breadth-first manner, i.e. in layers, starting 
   // at the root node, going down to the root node's children, and iterating
