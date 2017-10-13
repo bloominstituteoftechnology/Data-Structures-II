@@ -48,15 +48,61 @@ class BinarySearchTree {
   // You'll need the queue-helper file for this. Or could you roll your own queue
   // again. Whatever floats your boat.
   breadthFirstForEach(cb) {
-    const queue = [];
-    while (queue.length > 0) {
-      const node = queue.shift();
-      cb(node);
-      if (node.left) queue.push(node.left);
-      cb(node);
-      if (node.right) queue.push(node.right);
+//     let queue = [this.value[0]];
+//     while (queue.length > 0) {
+//       let next = [];
+//       for (let node of queue) {
+//         cb(node);
+//         if (node.left) next.push(node.left);
+//         if (node.right) next.push(node.right);
+//       }
+//       queue = next;
+//     }
+//   }
+// }
+//    breadthFirstForEach(cb) {
+//     let queue = [this.value];
+//     while (queue.length > 0) {
+//       cb(queue.shift());
+//       if (!this.left && !this.right) {
+//         continue;
+//       }
+//       for (let i = 0; i < this.left.length; i++) {
+//         queue.push(this.value);
+//       }
+//       for (let i = 0; i < this.right.length; i++) {
+//         queue.push(this.value);
+//       }
+//     }
+//   }
+// }
+
+// breadthFirstForEach(cb) {
+  // let queue = []; 
+  // if (this.value != null) {
+  //   queue.push(this.value);
+  //   while (queue.length > 0) {
+  //     let node = queue.shift();
+  //     cb(node);
+  //     if (node.left != null) {
+  //       queue.push(node.left);
+  //     };
+  //     if (node.right != null) {
+  //       queue.push(node.right);
+  //     };
+  //     };
+  //   };
+  // }
+  // breadthFirstForEach(cb) {
+    let queue = [this];
+    let node = queue[0];
+    while (node) {
+      if (node.left !== null) queue.unshift(node.left);
+      if (node.right !== null) queue.unshift(node.right);
+      cb(queue.pop());
+      node = queue[queue.length - 1]
     }
   }
 }
-
+// this.left.forEach(queue.push(this.left));
 module.exports = BinarySearchTree;
