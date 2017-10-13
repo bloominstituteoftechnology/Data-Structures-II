@@ -34,16 +34,13 @@ class BinarySearchTree {
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
   depthFirstForEach(cb) {
-    const helper = (curTree) => {
-      cb(curTree.value);
-      if (curTree.left !== null) {
-        helper(curTree.left);
-      }
-      if (curTree.right !== null) {
-        helper(curTree.right);
-      }
-    };
-    helper(this);
+    cb(this.value);
+    if (this.left !== null) {
+      this.left.depthFirstForEach(cb);
+    }
+    if (this.right !== null) {
+      this.right.depthFirstForEach(cb);
+    }
   }
   // Traverses the tree in a breadth-first manner, i.e. in layers, starting 
   // at the root node, going down to the root node's children, and iterating
