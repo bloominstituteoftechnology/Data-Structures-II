@@ -52,11 +52,16 @@ class BinarySearchTree {
     if (this.value) cb(this.value);
     if (this.left) cb(this.left.value);
     if (this.right) cb(this.right.value);
-    if (!(this.left && this.right)) return;
-    if (this.left && this.left.left) this.left.left.breadthFirstForEach(cb);
-    if (this.left && this.left.right) this.left.right.breadthFirstForEach(cb);
-    if (this.right && this.right.left) this.right.left.breadthFirstForEach(cb);
-    if (this.right && this.right.right) this.right.right.breadthFirstForEach(cb);
+
+    if (this.left) {
+      if (this.left.left) this.left.left.breadthFirstForEach(cb);
+      if (this.left.right) this.left.right.breadthFirstForEach(cb);
+    }
+
+    if (this.right) {
+      if (this.right.left) this.right.left.breadthFirstForEach(cb);
+      if (this.right.right) this.right.right.breadthFirstForEach(cb);
+    }
   }
 }
 
