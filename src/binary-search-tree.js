@@ -65,7 +65,24 @@ class BinarySearchTree {
   // You'll need the queue-helper file for this. Or could you roll your own queue
   // again. Whatever floats your boat.
   breadthFirstForEach(cb) {
-    return this;
+    const newQueue = new Queue();
+    newQueue.enqueue(this);
+    newQueue.enqueue(null);
+    
+    while (!newQueue.isEmpty()) {
+      const temp = newQueue.dequeue();
+      if (temp !== null) {
+        cb(temp.value);
+        if (temp.left !== null) {
+          newQueue.enqueue(temp.left);
+        }
+        if (temp.right !== null) {
+          newQueue.enqueue(temp.right);
+        }
+      } else if (!newQueue.isEmpty()) {
+        newQueue.enqueue(null);
+      }
+    }
   }
 }
 
