@@ -2,6 +2,8 @@
 /* eslint-disable global-require */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
+const Queue = require('./queue-helper');
+
 class BinarySearchTree {
   constructor(value) {
     this.value = value;
@@ -48,8 +50,27 @@ class BinarySearchTree {
   // Applies the given callback to each tree node in the process
   // You'll need the queue-helper file for this. Or could you roll your own queue
   // again. Whatever floats your boat.
+  bfsHelper(queue, cb) {
+    const currentTree = queue.dequeue();
+    if (currentTree.left !== null) {
+      queue.enqueue(currentTree.left);
+      cb(currentTree.left.value);
+    }
+    if (currentTree.right !== null) {
+      queue.enqueue(currentTree.right);
+      cb(currentTree.right.value);
+    }
+    if (!queue.isEmpty()) {
+      currentTree.bfsHelper(queue, cb);
+    }
+    console.log(this);
+  }
+
   breadthFirstForEach(cb) {
-    return this;
+    const queue = new Queue();
+    queue.enqueue(this);
+    cb(this.value);
+    this.bfsHelper(queue, cb);
   }
 }
 
