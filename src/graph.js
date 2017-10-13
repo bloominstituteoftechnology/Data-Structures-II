@@ -5,7 +5,10 @@
 // Do not modify this GraphNode class
 // Use any of its methods as you see fit to implement your graph
 class GraphNode {
-  constructor({ value, edges }) {
+  constructor({
+    value,
+    edges,
+  }) {
     this._value = value;
     this._edges = edges;
   }
@@ -41,18 +44,45 @@ class Graph {
   // Optionally accepts an array of other GraphNodes for the new vertex to be connected to
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
-
+    if (this.vertices.length === 0) {
+      this.vertices.push(new GraphNode({
+        value,
+        edges,
+      }));
+    } else {
+      this.vertices.push(new GraphNode({
+        value,
+        edges,
+      }));
+      const i = this.vertices.length;
+      this.vertices[i - 2].edges.push(this.vertices[i - 1].value);
+      this.vertices[i - 1].edges.push(this.vertices[i - 2].value);
+    }
+    console.log(this.vertices);
   }
   // Checks all the vertices of the graph for the target value
   // Returns true or false
   contains(value) {
-
+    for (let i = 0; i < this.vertices.length; i++) {
+      if (this.vertices[i].value === value) {
+        return true;
+      }
+      return false;
+    }
+    // console.log(Graph);
   }
   // Checks the graph to see if a GraphNode with the specified value exists in the graph 
   // and removes the vertex if it is found
   // This function should also handle the removing of all edge references for the removed vertex
   removeVertex(value) {
-
+    for (let i = 0; i < this.vertices.length; i++) {
+      if (this.vertices[i].edges.includes(value)) {
+        this.vertices[i].edges = this.vertices[i].edges.filter(x => x !== value);
+      }
+      if (this.vertices[i].value === value) {
+        this.vertices.splice(i, 1);
+      }
+    }
   }
   // Checks the two input vertices to see if each one references the other in their respective edges array
   // Both vertices must reference each other for the edge to be considered valid
@@ -77,4 +107,3 @@ class Graph {
 }
 
 module.exports = Graph;
-
