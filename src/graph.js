@@ -42,7 +42,10 @@ class Graph {
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
     const newVert = new GraphNode({ value, edges });
-    if (this.vertices.length === 1) { newVert.pushToEdges(this.vertices[0]); }
+    if (this.vertices.length === 1) {
+      newVert.pushToEdges(this.vertices[0]);
+      this.vertices[0].pushToEdges(newVert); 
+    }
     this.vertices.push(newVert);
     return newVert;
   }
@@ -61,7 +64,9 @@ class Graph {
   // and removes the vertex if it is found
   // This function should also handle the removing of all edge references for the removed vertex
   removeVertex(value) {
-
+    this.vertices = this.vertices.filter((vertex) => {
+      return vertex.value !== value;
+    });
   }
   // Checks the two input vertices to see if each one references the other in their respective edges array
   // Both vertices must reference each other for the edge to be considered valid
@@ -69,7 +74,12 @@ class Graph {
   // Note: You'll need to store references to each vertex's array of edges so that you can use
   // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
   checkIfEdgeExists(fromVertex, toVertex) {
-
+    const fromEdges = fromVertex.edges;
+    const toEdges = toVertex.edges;
+    if (fromEdges.indexOf(toVertex) !== -1 && toEdges.indexOf(fromEdges) !== -1) {
+      return true;
+    }
+    return false;
   }
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other
