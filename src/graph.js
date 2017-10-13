@@ -42,18 +42,26 @@ class Graph {
   // Optionally accepts an array of other GraphNodes for the new vertex to be connected to
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
-
+    const newNode = new GraphNode({ value, edges: [] }); // creates a new node using GraphNode class
+    this.vertices.push(newNode); // push newNode onto the array of vertices
+    if (this.vertices.length === 2) { // checks whether this is the second node to be added to the graph
+//      const firstNode = this.vertices[0]; // if this is the second node, call the first node "firstNode"
+      this.vertices[0].pushToEdges(this.vertices[1]); 
+      this.vertices[1].pushToEdges(this.vertices[0]); 
+    }
+    return newNode; // returns the new vertex
   }
   // Checks all the vertices of the graph for the target value
   // Returns true or false
   contains(value) {
-
+    return this.vertices.findIndex(v => v.value === value) >= 0;
   }
   // Checks the graph to see if a GraphNode with the specified value exists in the graph 
   // and removes the vertex if it is found
   // This function should also handle the removing of all edge references for the removed vertex
   removeVertex(value) {
-
+    this.vertices.splice(v => v.value === value);
+    // also needs to remove edge references
   }
   // Checks the two input vertices to see if each one references the other in their respective edges array
   // Both vertices must reference each other for the edge to be considered valid
@@ -61,7 +69,10 @@ class Graph {
   // Note: You'll need to store references to each vertex's array of edges so that you can use 
   // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
   checkIfEdgeExists(fromVertex, toVertex) {
-
+    const arrFrom = fromVertex.edges();
+    const arrTo = toVertex.edges();
+    if (arrFrom.contains(toVertex) && arrTo.contains(fromVertex)) { return true; }
+    return false;
   }
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other 
