@@ -40,12 +40,17 @@ class Graph {
   // Optionally accepts an array of other GraphNodes for the new vertex to be connected to
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
-
+    this.vertices.push(value);
+    this.edges[value] = [];
   }
   // Checks all the vertices of the graph for the target value
   // Returns true or false
   contains(value) {
-
+    if (this.vertex[0] === value) {
+      return true;
+    } else if {
+      
+    }
   }
   // Checks the graph to see if a GraphNode with the specified value exists in the graph 
   // and removes the vertex if it is found
