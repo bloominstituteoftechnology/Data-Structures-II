@@ -1,5 +1,7 @@
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable no-unused-vars */
+
+//new note lorin 10/13
 class Tree { 
   constructor(value) {
     this.value = value;
