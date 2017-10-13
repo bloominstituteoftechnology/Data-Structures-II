@@ -2,6 +2,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable class-methods-use-this */
+/* eslint-disable */
 // Do not modify this GraphNode class
 // Use any of its methods as you see fit to implement your graph
 class GraphNode {
@@ -43,22 +44,52 @@ class Graph {
   // connected via an edge
   // Optionally accepts an array of other GraphNodes for the new vertex to be connected to
   // Returns the newly-added vertex
+  // addVertex(value, edges = []) {
+  //   if (this.vertices.length === 0) {
+  //     this.vertices.push(
+  //       new GraphNode({
+  //         value,
+  //         edges,
+  //       }),
+  //     );
+  //   } else {
+  //     this.vertices.push(
+  //       new GraphNode({
+  //         value,
+  //         edges,
+  //       }),
+  //     );
+  //     const i = this.vertices.length;
+  //     this.vertices[i - 2].edges.push(this.vertices[i - 1].value);
+  //     this.vertices[i - 1].edges.push(this.vertices[i - 2].value);
+  //     if (edges.length > 0) {
+  //       for (let j = 0; j < this.vertices.length; j++) {
+  //         if (this.vertices[j].value === edges) {
+  //           this.vertices[j].edges[0].push(value);
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
   addVertex(value, edges = []) {
+    let tempVertex = new GraphNode({ value, edges });
     if (this.vertices.length === 0) {
-      this.vertices.push(new GraphNode({
-        value,
-        edges,
-      }));
+      this.vertices.push(tempVertex);
     } else {
-      this.vertices.push(new GraphNode({
-        value,
-        edges,
-      }));
+      this.vertices.push(tempVertex);
       const i = this.vertices.length;
       this.vertices[i - 2].edges.push(this.vertices[i - 1].value);
       this.vertices[i - 1].edges.push(this.vertices[i - 2].value);
+      if (edges.length > 0) {
+        for (let j = 0; j < this.vertices.length; j++) {
+          if (this.vertices[j].value === edges) {
+            this.vertices[j].edges[0].push(value);
+          }
+        }
+      }
     }
-    console.log(this.vertices);
+    console.log(tempVertex.edges);
+    return tempVertex;
   }
   // Checks all the vertices of the graph for the target value
   // Returns true or false
