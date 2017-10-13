@@ -42,14 +42,15 @@ class Graph {
   // Optionally accepts an array of other GraphNodes for the new vertex to be connected to
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
-    const newNode = new GraphNode({ value, edges: [] }); // creates a new node using GraphNode class
-    this.vertices.push(newNode); // push newNode onto the array of vertices
-    if (this.vertices.length === 2) { // checks whether this is the second node to be added to the graph
-//      const firstNode = this.vertices[0]; // if this is the second node, call the first node "firstNode"
-      this.vertices[0].pushToEdges(this.vertices[1]); 
-      this.vertices[1].pushToEdges(this.vertices[0]); 
+    const newNode = new GraphNode({ value, edges: [] });
+    if (this.vertices.length === 1) {
+      const firstNode = this.vertices[0];
+      newNode.pushToEdges(firstNode);
+      firstNode.pushToEdges(newNode);
     }
-    return newNode; // returns the new vertex
+    edges.forEach((item) => { item.pushToEdges(newNode); });
+    this.vertices.push(newNode);
+    return newNode;
   }
   // Checks all the vertices of the graph for the target value
   // Returns true or false
@@ -60,8 +61,11 @@ class Graph {
   // and removes the vertex if it is found
   // This function should also handle the removing of all edge references for the removed vertex
   removeVertex(value) {
-    this.vertices.splice(v => v.value === value);
-    // also needs to remove edge references
+    const index = this.vertices.findIndex(v => v.value === value);
+    this.vertices.splice(index, 1);
+    this.vertices.forEach((item) => {
+      item.edges.splice(this.vertices.findIndex(v => v.value === value), 1);
+    });
   }
   // Checks the two input vertices to see if each one references the other in their respective edges array
   // Both vertices must reference each other for the edge to be considered valid
@@ -69,24 +73,26 @@ class Graph {
   // Note: You'll need to store references to each vertex's array of edges so that you can use 
   // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
   checkIfEdgeExists(fromVertex, toVertex) {
-    const arrFrom = fromVertex.edges();
-    const arrTo = toVertex.edges();
-    if (arrFrom.contains(toVertex) && arrTo.contains(fromVertex)) { return true; }
-    return false;
+    return (fromVertex.edges.indexOf(toVertex) >= 0 || toVertex.edges.indexOf(fromVertex) >= 0);
   }
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other 
   addEdge(fromVertex, toVertex) {
-
+    if (this.checkIfEdgeExists(fromVertex, toVertex) === false) {
+      fromVertex.pushToEdges(toVertex);
+      toVertex.pushToEdges(fromVertex);
+    }
   }
   // Removes the edge between the two given vertices if an edge already exists between them
   // After removing the edge, neither vertex should be referencing the other
   // If a vertex would be left without any edges as a result of calling this function, those
   // vertices should be removed as well
   removeEdge(fromVertex, toVertex) {
-
+    fromVertex.edges.splice(fromVertex.edges.indexOf(toVertex), 1);
+    toVertex.edges.splice(toVertex.edges.indexOf(fromVertex), 1);
+    if (fromVertex.edges.length === 0) { this.removeVertex(fromVertex); }
+    if (toVertex.edges.length === 0) { this.removeVertex(toVertex); }
   }
 }
 
 module.exports = Graph;
-
