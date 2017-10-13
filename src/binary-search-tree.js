@@ -2,12 +2,16 @@
 /* eslint-disable global-require */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
+
+const Queue = require('./queue-helper');
+
 class BinarySearchTree {
   constructor(value) {
     this.value = value;
     this.left = null;
     this.right = null;
   }
+  
   // Wraps the input value in a new BinarySearchTree and
   // assigns it to either the left or right subtree,
   // depending on its value
@@ -32,12 +36,11 @@ class BinarySearchTree {
     if (this.value === target) return true;
     else if (target < this.value && this.left !== null) return this.left.contains(target);
     else if (target > this.value && this.right !== null) return this.right.contains(target);
-    else return false; 
   }
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
   depthFirstForEach(cb) {
-    if (this !== null) cb(this.value);
+    cb(this.value);
     if (this.left !== null) this.left.depthFirstForEach(cb);
     if (this.right !== null) this.right.depthFirstForEach(cb);
   }
@@ -48,33 +51,15 @@ class BinarySearchTree {
   // You'll need the queue-helper file for this. Or could you roll your own queue
   // again. Whatever floats your boat.
   breadthFirstForEach(cb) {
-    
+    const queue = new Queue();
+    queue.enqueue(this);
+    while (!queue.isEmpty()) {
+      const node = queue.dequeue();
+      cb(node.value);
+      if (node.left !== null) queue.enqueue(node.left);
+      if (node.right !== null) queue.enqueue(node.right);  
+    }  
   }
 }
 
-// module.exports = BinarySearchTree;
-
-
-binarySearchTree = new BinarySearchTree(10);
-// bst.insert(11);
-// bst.insert(20);
-// bst.insert(5);
-// bst.insert(6);
-// bst.insert(2);
-// bst.insert(8);
-// bst.insert(9);
-// bst.insert(20);
-// bst.insert(18);
-// bst.insert(25);
-// console.log(bst);
-// console.log(bst.contains(7));
-
-
-const array = [];
-const foo = value => ((array.push(value)));
-binarySearchTree.insert(2);
-binarySearchTree.insert(3);
-binarySearchTree.insert(7);
-binarySearchTree.insert(9);
-binarySearchTree.depthFirstForEach(foo);
-console.log(array);
+module.exports = BinarySearchTree;
