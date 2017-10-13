@@ -49,7 +49,14 @@ class BinarySearchTree {
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
   depthFirstForEach(cb) {
-    return this;
+    function depthCheck(node) {
+      if (node !== null) {
+        cb(node.value);
+        depthCheck(node.left);
+        depthCheck(node.right);
+      }
+    }
+    depthCheck(this);
   }
   // Traverses the tree in a breadth-first manner, i.e. in layers, starting 
   // at the root node, going down to the root node's children, and iterating
