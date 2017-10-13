@@ -67,7 +67,6 @@ class BinarySearchTree {
   breadthFirstForEach(cb) {
     const newQueue = new Queue();
     newQueue.enqueue(this);
-    newQueue.enqueue(null);
     
     while (!newQueue.isEmpty()) {
       const temp = newQueue.dequeue();
@@ -79,8 +78,6 @@ class BinarySearchTree {
         if (temp.right !== null) {
           newQueue.enqueue(temp.right);
         }
-      } else if (!newQueue.isEmpty()) {
-        newQueue.enqueue(null);
       }
     }
   }
