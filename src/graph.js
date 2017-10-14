@@ -60,6 +60,11 @@ class Graph {
   // Note: You'll need to store references to each vertex's array of edges so that you can use 
   // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
   checkIfEdgeExists(fromVertex, toVertex) {
+  //   find the index of fromVertex in toVertex's edges array
+  //   find the index of toVertex in fromVertex's edges array
+  // return true if fromVertex has toVertex in its edges array and toVertex has fromVertex in its edges array
+  // else return false
+  return (toVertex.edges.includes(fromVertex) && fromVertex.edges.includes(toVertex));
 
   }
   // Adds an edge between the two given vertices if no edge already exists between them

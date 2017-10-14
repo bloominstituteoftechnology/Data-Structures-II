@@ -8,6 +8,7 @@ class BinarySearchTree {
     this.left = null;
     this.right = null;
   }
+
   // Wraps the input value in a new BinarySearchTree and
   // assigns it to either the left or right subtree,
   // depending on its value
@@ -77,7 +78,9 @@ class BinarySearchTree {
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
   depthFirstForEach(cb) {
-    const some = this.cb;
+    cb(this.value);
+    if (this.left) this.left.depthFirstForEach(cb);
+    if (this.right) this.right.depthFirstForEach(cb);
   }
   // Traverses the tree in a breadth-first manner, i.e. in layers, starting 
   // at the root node, going down to the root node's children, and iterating
@@ -85,27 +88,61 @@ class BinarySearchTree {
   // Applies the given callback to each tree node in the process
   // You'll need the queue-helper file for this. Or could you roll your own queue
   // again. Whatever floats your boat.
+
   breadthFirstForEach(cb) {
-    const some = this.cb;
+    class Queue {
+      constructor() {
+        this.storage = [];
+      }
+    
+      enqueue(x) {
+        this.storage.push(x);
+      }
+    
+      dequeue() {
+        return this.storage.shift();
+      }
+    
+      isEmpty() {
+        return this.storage.length === 0;
+      }
+    }
+  
+    const checkLayer = new Queue();
+    checkLayer.enqueue(this.value);
+    console.log(checkLayer.storage);
+    while (!checkLayer.storage.isEmpty()){
+    cb(checkLayer.storage.dequeue())}
+    }
+    if (this.right) this.breadthFirstForEach(this.right);
+    if (this.left) this.breadthFirstForEach(this.left);
+    console.log(checkLayer);
   }
 }
+
+// ------------------------------------------------------------------------------
 // const newBST = new BinarySearchTree(50)
-// console.log(newBST)
+// // console.log(newBST)
 // const newBST01 = newBST.insert(100)
-// console.log(newBST)
+// // console.log(newBST)
 // const newBST02 = newBST.insert(45)
-// console.log(newBST)
+// // console.log(newBST)
 // const newBST03 = newBST.insert(101)
-// console.log(newBST)
+// // console.log(newBST)
 // const newBST04 = newBST.insert(15)
-// console.log(newBST)
+// // console.log(newBST)
 // const newBST05 = newBST.insert(200)
-// console.log(newBST)
+// // console.log(newBST)
 // const newBST06 = newBST.insert(115)
-// console.log(newBST)
+// // console.log(newBST)
 // const newBST07 = newBST.insert(25)
 // console.log(newBST)
 
+// console.log(newBST.contains(15))
+// newBST.breadthFirstForEach
+// console.log(newBST.checkLayer)
+// console.log(newBST.depthFirstForEach)
+// ================================================================================
 // console.log(newBST.contains())
     // this.right = [];
     // if (this.value)
