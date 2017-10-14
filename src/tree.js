@@ -23,14 +23,6 @@ class Tree {
         return true;
       } 
     } return false;
-// else if
-// this.children !== null 
-// then for ( let i = 0; i < this.children.length; i++) {
-// iterate through the children and compare to value
-// this.children[i].contains(value)
-// this.children[0] returns all of the children at index 0
-// 
-// }
   }
 }
 
