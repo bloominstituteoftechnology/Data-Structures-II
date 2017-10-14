@@ -55,19 +55,19 @@ class Graph {
       this.vertices[i - 2].edges.push(this.vertices[i - 1].value);
       this.vertices[i - 1].edges.push(this.vertices[i - 2].value);
     }
-    console.log(this.vertices);
+    // console.log(this.vertices);
     return edges;
   }
   // Checks all the vertices of the graph for the target value
   // Returns true or false
   contains(value) {
     for (let i = 0; i < this.vertices.length; i++) {
+      console.log(this.vertices[i]);
       if (this.vertices[i].value === value) {
         return true;
-      }
-      return false;
+      } 
     }
-    // console.log(Graph);
+    return false;
   }
   // Checks the graph to see if a GraphNode with the specified value exists in the graph 
   // and removes the vertex if it is found
@@ -88,8 +88,8 @@ class Graph {
   // Note: You'll need to store references to each vertex's array of edges so that you can use 
   // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
   checkIfEdgeExists(fromVertex, toVertex) {
-    console.log(fromVertex);
-    console.log(toVertex);
+    // console.log(fromVertex);
+    // console.log(toVertex);
     if (fromVertex.edges === toVertex.edges) return true;
     return false;
   }
