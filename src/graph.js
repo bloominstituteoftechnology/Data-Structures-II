@@ -62,8 +62,14 @@ class Graph {
   // and removes the vertex if it is found
   // This function should also handle the removing of all edge references for the removed vertex
   removeVertex(value) {
-    if (!this.contains(value)) return false;
-    //
+    const index = this.vertices.findIndex((node) => {
+      return node.value === value;
+    });
+    if (index === -1) return;
+    const removedVertex = this.vertices.splice(index, 1)[0];
+    removedVertex.edges.forEach((node) => {
+      this.removeEdge(removedVertex, node);
+    });
   }
   // Checks the two input vertices to see if each one references the other in their respective edges array
   // Both vertices must reference each other for the edge to be considered valid
@@ -72,13 +78,11 @@ class Graph {
   // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
   checkIfEdgeExists(fromVertex, toVertex) {
     const dummy = this;  // not needed but the linter wants 'this' used
-    if (fromVertex.edges.includes(toVertex) && toVertex.edges.includes(fromVertex)) return true;
-    return false;
+    return (fromVertex.edges.includes(toVertex) && toVertex.edges.includes(fromVertex));
   }
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other 
   addEdge(fromVertex, toVertex) {
-    const dummy = this;  // not needed but the linter wants 'this' used
     if (this.checkIfEdgeExists(fromVertex, toVertex)) return;
     fromVertex.pushToEdges(toVertex);
     toVertex.pushToEdges(fromVertex);
@@ -88,18 +92,24 @@ class Graph {
   // If a vertex would be left without any edges as a result of calling this function, those
   // vertices should be removed as well
   removeEdge(fromVertex, toVertex) {
-    const dummy = this;  // not needed but the linter wants 'this' used
+    fromVertex.edges = fromVertex.edges.filter(edge => edge.value !== toVertex.value);
+    toVertex.edges = toVertex.edges.filter(edge => edge.value !== fromVertex.value);
 
-    if (!this.checkIfEdgeExists(fromVertex, toVertex)) return;
+    if (fromVertex.numberOfEdges === 0) this.removeVertex(fromVertex.value);
+    if (toVertex.numberOfEdges === 0) this.removeVertex(toVertex.value);
+    
+    // if (!this.checkIfEdgeExists(fromVertex, toVertex)) return;
 
-    for (let i = 0; i < fromVertex.edges.length; i++) {
-      for (let j = 0; j < toVertex.edges.length; j++) {
-        if (fromVertex.edges[i] === toVertex.edges[j]) {
-          fromVertex.edges.slice(i, 1);
-          toVertex.edges.slice(j, 1);
-        }
-      }
-    }
+    // for (let i = 0; i < fromVertex.edges.length; i++) {
+    //   for (let j = 0; j < toVertex.edges.length; j++) {
+    //     if (fromVertex.edges[i] === toVertex.edges[j]) {
+    //       fromVertex.edges.splice(i, 1);
+    //       toVertex.edges.splice(j, 1);
+    //       if (toVertex.edges.length === 0) this.removeVertex(toVertex);
+    //       if (fromVertex.edges.length === 0) this.removeVertex(fromVertex);
+    //     }
+    //   }
+    // }
   }
 }
 
