@@ -1,5 +1,5 @@
 /* eslint-disable */
-class Heap {
+/* class Heap {
     constructor() {
         this.storage = [null];
         this.size = 0;
@@ -7,31 +7,37 @@ class Heap {
     // Inserts the given value in the heap
     // Calls bubbleUp in order to put the newly-inserted element in the right place in the heap
     insert(val) {
-
+        this.storage.push(val);
+        this.bubbleUp(this.size);
     }
     // Deletes the element located at the front of the heap (the max if a max heap, or a min if a min heap)
     // Calls siftDown in order to reorganize the heap with a new max/min
     // In some specifications, this method is also called `poll`
     delete() {
-
+     this.storage[0] = this.storage[this.size];
+     // this.storage.pop();
+     this.siftDown(0);
     }
     // Returns the maximum value in the heap in constant time
-    getMax() {
-
+    get max() {
+      return this.storage[0];
     }
     // Returns the size of the heap
-    getSize() {
-
+    get size() {
+      return this.storage.length - 1;
     }
     // Returns the storage array
-    getStorage() {
-
+    get storage() {
+      return this.storage;
     }
+    //
     // Moves the element at the specified index "up" by swapping it with its parent 
     // if its parent value is less than the value located at the input index
     // This method is only used by the heap itself in order to maintain the heap property
     bubbleUp(index) {
-
+      while(index > 0) {
+        if(this.storage[index])
+      }
     }
     // First grabs the indices of this element's children and determines which of the children are larger
     // If the larger of the child elements is larger than the parent, the child element is swapped with the parent
@@ -42,3 +48,4 @@ class Heap {
 }
 
 module.exports = Heap;
+*/
