@@ -57,8 +57,8 @@ describe('Heap', () => {
     while (heap.getSize() > 0) {
       descendingOrder.push(heap.delete());
     }
-
-    expect(descendingOrder).toDeepEqual([10, 8, 7, 6, 5, 5, 2, 1]);
+    console.log(descendingOrder);
+    expect(descendingOrder).toEqual([10, 8, 7, 6, 5, 5, 2, 1]);
   });
 });
 
