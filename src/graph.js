@@ -41,18 +41,38 @@ class Graph {
   // Optionally accepts an array of other GraphNodes for the new vertex to be connected to
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
-
+    const newNode = new GraphNode({ value, edges });
+    this.vertices.push(newNode);
+    if (this.vertices.length === 2) {
+      this.vertices[0].edges.push(this.vertices[1].value);
+      this.vertices[1].edges.push(this.vertices[0].value);
+    } 
+   // for (let i = 0; i < this.vertices.length; i++ ) {
+    //  } 
+    console.log(this.vertices);
   }
   // Checks all the vertices of the graph for the target value
   // Returns true or false
   contains(value) {
-
+    for (let i = 0; i < this.vertices.length; i++) {
+      return this.vertices[i].value === value;
+    }
   }
   // Checks the graph to see if a GraphNode with the specified value exists in the graph 
   // and removes the vertex if it is found
   // This function should also handle the removing of all edge references for the removed vertex
   removeVertex(value) {
-
+    for (let i = 0; i < this.vertices.length; i++) {
+      if (this.vertices[i].edges.includes(value)) {
+        this.vertices.edges.splice(i, 1, value);
+      }
+    }
+    for (let i = 0; i < this.vertices.length; i++) {
+      if (this.vertices[i].value === value) {
+        this.vertices.splice(i, 1, this.vertices[i]);
+      }
+    }
+    console.log(this.vertices);
   }
   // Checks the two input vertices to see if each one references the other in their respective edges array
   // Both vertices must reference each other for the edge to be considered valid
