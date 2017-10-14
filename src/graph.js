@@ -69,7 +69,6 @@ class Graph {
     for (let i = 0; i < this.vertices.length; i++) {
       if (this.vertices[i].value === value) remVertex = this.vertices.splice(i, 1);
     }
-    console.log(remVertex);
     if (remVertex === undefined) return;
     for (let i = 0; i < remVertex.numberOfEdges; i++) {
       this.removeEdge(remVertex, remVertex.edges[i]);
