@@ -39,62 +39,24 @@ class Graph {
   constructor() {
     this.vertices = [];
   }
-  // Wraps the input value in a new GraphNode and adds it to the array of vertices
-  // If there are only two nodes in the graph, they need to be automatically 
-  // connected via an edge
-  // Optionally accepts an array of other GraphNodes for the new vertex to be connected to
-  // Returns the newly-added vertex
-  // addVertex(value, edges = []) {
-  //   if (this.vertices.length === 0) {
-  //     this.vertices.push(
-  //       new GraphNode({
-  //         value,
-  //         edges,
-  //       }),
-  //     );
-  //   } else {
-  //     this.vertices.push(
-  //       new GraphNode({
-  //         value,
-  //         edges,
-  //       }),
-  //     );
-  //     const i = this.vertices.length;
-  //     this.vertices[i - 2].edges.push(this.vertices[i - 1].value);
-  //     this.vertices[i - 1].edges.push(this.vertices[i - 2].value);
-  //     if (edges.length > 0) {
-  //       for (let j = 0; j < this.vertices.length; j++) {
-  //         if (this.vertices[j].value === edges) {
-  //           this.vertices[j].edges[0].push(value);
-  //         }
-  //       }
-  //     }
-  //   }
-  //   console.log(this.vertices)
-  // }
+
   addVertex(value, edges = []) {
-    let tempVertex = new GraphNode({ value, edges });
-    // console.log(this.vertices.length);
     if (this.vertices.length === 0) {
-      this.vertices.push(tempVertex);
+      this.vertices.push(new GraphNode({
+        value,
+        edges,
+      }));
     } else {
-      this.vertices.push(tempVertex);
+      this.vertices.push(new GraphNode({
+        value,
+        edges,
+      }));
       const i = this.vertices.length;
       this.vertices[i - 2].edges.push(this.vertices[i - 1].value);
-      // console.log(this.vertices[i - 2].edges);
-      // console.log(this.vertices[i - 1].edges);
       this.vertices[i - 1].edges.push(this.vertices[i - 2].value);
-      // if (edges.length > 0) {
-      //   for (let j = 0; j < this.vertices.length; j++) {
-      //     if (this.vertices[j].value === edges) {
-      //       this.vertices[j].edges.push(value);
-      //     }
-      //   }
-      // }
-      console.log(this.vertices);
     }
-    // console.log(tempVertex);
-    // return tempVertex;
+    console.log(this.vertices);
+    return edges;
   }
   // Checks all the vertices of the graph for the target value
   // Returns true or false
@@ -126,7 +88,10 @@ class Graph {
   // Note: You'll need to store references to each vertex's array of edges so that you can use 
   // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
   checkIfEdgeExists(fromVertex, toVertex) {
-
+    console.log(fromVertex);
+    console.log(toVertex);
+    if (fromVertex.edges === toVertex.edges) return true;
+    return false;
   }
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other 
