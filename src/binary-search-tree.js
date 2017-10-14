@@ -2,6 +2,8 @@
 /* eslint-disable global-require */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
+const Queue = require('./queue-helper');
+
 class BinarySearchTree {
   constructor(value) {
     this.value = value;
@@ -94,13 +96,13 @@ class BinarySearchTree {
   //   };
   // }
   // breadthFirstForEach(cb) {
-    let queue = [this];
-    let node = queue[0];
-    while (node) {
-      if (node.left !== null) queue.unshift(node.left);
-      if (node.right !== null) queue.unshift(node.right);
-      cb(queue.pop());
-      node = queue[queue.length - 1]
+    let queue = new Queue;
+    queue.enqueue(this);
+    while (!queue.isEmpty()) {
+      const temp = queue.dequeue();
+      if (temp.left !== null) queue.enqueue(temp.left);
+      if (temp.right !== null) queue.enqueue(temp.right);
+      cb(temp.value);
     }
   }
 }
