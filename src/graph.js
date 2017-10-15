@@ -41,18 +41,27 @@ class Graph {
   }
 
   addVertex(value, edges = []) {
-    // const currentNode = new GraphNode(value, edges);
     if (this.vertices.length === 0) {
-      // this.vertices.push(currentNode);
       this.vertices.push(new GraphNode({ value, edges, }));
-    } else {
-      // this.vertices.push(currentNode);      
+    // console.log(this.vertices);    
+      return this.vertices[this.vertices.length - 1];
+    }
+    if (this.vertices.length === 1) {
       this.vertices.push(new GraphNode({ value, edges, }));
       const i = this.vertices.length;
       this.vertices[i - 2].edges.push(this.vertices[i - 1].value);
       this.vertices[i - 1].edges.push(this.vertices[i - 2].value);
+      // console.log(this.vertices);
+      return this.vertices[this.vertices.length - 1];
     }
-    // return currentNode;
+
+    this.vertices.push(new GraphNode({ value, edges, }));
+    for (let i = 0; i < this.vertices.length; i++) {
+      if (this.vertices[i].value === edges) {
+        this.vertices[i].edges.push(value);
+      }
+    }
+    // console.log(this.vertices);
     return this.vertices[this.vertices.length - 1];
   }
   // Checks all the vertices of the graph for the target value
@@ -85,11 +94,8 @@ class Graph {
   // Note: You'll need to store references to each vertex's array of edges so that you can use 
   // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
   checkIfEdgeExists(fromVertex, toVertex) {
-    console.log(fromVertex);
-    console.log(toVertex);
-    for (let i = 0; i < toVertex.length; i++) {
-      if (fromVertex.value === toVertex.edges[i]) return true;
-    }
+    if (fromVertex.value.toString() === toVertex.edges.toString() 
+        && fromVertex.edges.toString() === toVertex.value.toString()) return true;
     return false;
   }
   // Adds an edge between the two given vertices if no edge already exists between them
