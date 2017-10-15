@@ -46,23 +46,13 @@ class Graph {
     // console.log(this.vertices);    
       return this.vertices[this.vertices.length - 1];
     }
-    if (this.vertices.length === 1) {
+    else {
       this.vertices.push(new GraphNode({ value, edges, }));
       const i = this.vertices.length;
       this.vertices[i - 2].edges.push(this.vertices[i - 1].value);
       this.vertices[i - 1].edges.push(this.vertices[i - 2].value);
-      // console.log(this.vertices);
       return this.vertices[this.vertices.length - 1];
     }
-
-    this.vertices.push(new GraphNode({ value, edges, }));
-    for (let i = 0; i < this.vertices.length; i++) {
-      if (this.vertices[i].value === edges) {
-        this.vertices[i].edges.push(value);
-      }
-    }
-    // console.log(this.vertices);
-    return this.vertices[this.vertices.length - 1];
   }
   // Checks all the vertices of the graph for the target value
   // Returns true or false
