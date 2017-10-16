@@ -39,11 +39,18 @@ class Graph {
   // connected via an edge
   // Optionally accepts an array of other GraphNodes for the new vertex to be connected to
   // Returns the newly-added vertex
-  addVertex(value, edges = []) {    
-    const node = new GraphNode({ value, edges });
-    if (this.vertices.length === 0) { 
-      this.vertices.push(node);
+  addVertex(value, edges = []) {
+    const newVertex = new GraphNode({ value, edges });
+    if (edges.length > 0) {
+      edges.forEach((edge) => {
+        this.addEdge(newVertex, edge);
+      });
     }
+    this.vertices.push(newVertex);
+    if (this.vertices.length === 2) {
+      this.addEdge(this.vertices[0], this.vertices[1]);
+    }
+    return newVertex;
   }
   // Checks all the vertices of the graph for the target value
   // Returns true or false
