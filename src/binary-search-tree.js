@@ -36,6 +36,7 @@ class BinarySearchTree {
     if (this.value === target) return true;
     else if (target < this.value && this.left !== null) return this.left.contains(target);
     else if (target > this.value && this.right !== null) return this.right.contains(target);
+    return false;
   }
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
