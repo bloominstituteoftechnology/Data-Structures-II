@@ -41,12 +41,13 @@ class Graph {
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
     const newVertex = new GraphNode({ value, edges });
+    this.vertices.push(newVertex);
     if (edges.length > 0) {
       edges.forEach((edge) => {
         this.addEdge(newVertex, edge);
       });
     }
-    this.vertices.push(newVertex);
+    
     if (this.vertices.length === 2) {
       this.addEdge(this.vertices[0], this.vertices[1]);
     }
