@@ -7,7 +7,8 @@ class Heap {
     // Inserts the given value in the heap
     // Calls bubbleUp in order to put the newly-inserted element in the right place in the heap
     insert(val) {
-
+      const valIndex = this.storage.push(val)-1; // Array.push() returns length of the new array, so we can add val while getting its index
+      this.bubbleUp(valIndex); // bubbleUp val
     }
     // Deletes the element located at the front of the heap (the max if a max heap, or a min if a min heap)
     // Calls siftDown in order to reorganize the heap with a new max/min
