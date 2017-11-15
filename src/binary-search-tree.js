@@ -24,7 +24,7 @@ class BinarySearchTree {
   depthFirstForEach(cb) {
 
   }
-  // Traverses the tree in a breadth-first manner, i.e. in layers, starting 
+  // Traverses the tree in a breadth-first manner, i.e. in layers, starting
   // at the root node, going down to the root node's children, and iterating
   // through all those nodes first before moving on to the next layer of nodes
   // Applies the given callback to each tree node in the process
