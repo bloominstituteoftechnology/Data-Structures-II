@@ -3,7 +3,7 @@
 /* eslint-disable no-trailing-spaces */
 // Do not modify this GraphNode class
 // Use any of its methods as you see fit to implement your graph
-class GraphNode {
+/* class GraphNode {
   constructor({ value, edges }) {
     this._value = value;
     this._edges = edges;
@@ -75,5 +75,5 @@ class Graph {
   }
 }
 
-module.exports = Graph;
+module.exports = Graph; */
 
