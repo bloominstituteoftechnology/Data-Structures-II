@@ -2,6 +2,7 @@
 /* eslint-disable global-require */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
+/* eslint-disable */
 class BinarySearchTree {
   constructor(value) {
     this.value = value;
@@ -12,7 +13,14 @@ class BinarySearchTree {
   // assigns it to either the left or right subtree,
   // depending on its value
   insert(value) {
-
+    const newNode = new BinarySearchTree(value);
+    if (value < this.value) {
+      if (!this.left) this.left = newNode;
+      else this.left.insert(value);
+    } else {
+      if (!this.right) this.right = newNode;
+      else this.right.insert(value);
+    }
   }
   // Checks the binary search tree for the input target
   // Can be written recursively or iteratively
