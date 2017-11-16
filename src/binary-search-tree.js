@@ -14,19 +14,6 @@ class BinarySearchTree {
   // assigns it to either the left or right subtree,
   // depending on its value
   insert(value) {
-<<<<<<< HEAD
-    if (value < this.value) {
-      if (this.left === null) {
-        this.left = new BinarySearchTree(value);
-      { else {
-        this.left.insert(value);
-  }
-} else {
-  if (this.right === null) {
-    this.right = new BinarySearchTree(value);
-    } else {
-      this.right.insert(value);
-=======
     const node = new BinarySearchTree(value);
     if (value < this.value) {
       if (this.left === null) {
@@ -40,7 +27,6 @@ class BinarySearchTree {
       } else {
         this.right.insert(value);
       }
->>>>>>> 20ed24ed065b10a004caf567625909f9c317f0c8
     }
   }
 }
