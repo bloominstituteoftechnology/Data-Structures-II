@@ -14,7 +14,7 @@ class BinarySearchTree {
   insert(value) {
     const insertedNode = new BinarySearchTree(value);
     let currentLocation = this;
-    while (true) {
+    while (currentLocation) {
       if (value > currentLocation.value) { // is insert value bigger than current value?
         if (currentLocation.right) { 
           currentLocation = currentLocation.right;
