@@ -1,3 +1,4 @@
+const Queue = require('./queue-helper');
 // https://msdn.microsoft.com/en-us/library/aa289150(v=vs.71).aspx
 /* eslint-disable global-require */
 /* eslint-disable no-unused-vars */
@@ -41,7 +42,9 @@ class BinarySearchTree {
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
   depthFirstForEach(cb) {
-    this.depthFirstForEach();
+    cb(this.value);
+    if (this.left) this.left.depthFirstForEach(cb);
+    if (this.right) this.right.depthFirstForEach(cb);
   }
   // Traverses the tree in a breadth-first manner, i.e. in layers, starting 
   // at the root node, going down to the root node's children, and iterating
@@ -50,7 +53,14 @@ class BinarySearchTree {
   // You'll need the queue-helper file for this. Or could you roll your own queue
   // again. Whatever floats your boat.
   breadthFirstForEach(cb) {
-    this.breadthFirstForEach();
+    const queue = new Queue();
+    queue.enqueue(this);
+    while (!(queue.isEmpty())) {
+      const currentNode = queue.dequeue();
+      cb(currentNode.value);
+      if (currentNode.left !== null) queue.enqueue(currentNode.left);
+      if (currentNode.right !== null) queue.enqueue(currentNode.right);
+    }
   }
 }
 
