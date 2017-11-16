@@ -97,8 +97,8 @@ class Graph {
      toVertex.edges = toVertex.edges.filter((edge) => edge !== fromVertex);
    }
 
-   if (!fromVertex.edges.length) this.removeVertex(fromVertex.value);
-   if (!toVertex.edges.length) this.removeVertex(toVertex.value); 
+   if (fromVertex.edges && !fromVertex.edges.length) this.removeVertex(fromVertex.value);
+   if (toVertex.edges && !toVertex.edges.length) this.removeVertex(toVertex.value); 
    
   }
 }
