@@ -3,6 +3,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable */
+const Queue = require('./queue-helper');
+
 class BinarySearchTree {
   constructor(value) {
     this.value = value;
@@ -41,6 +43,9 @@ class BinarySearchTree {
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
   depthFirstForEach(cb) {
+    cb(this.value);
+    if (this.left) this.left.depthFirstForEach(cb);
+    if (this.right) this.right.depthFirstForEach(cb);
 
   }
   // Traverses the tree in a breadth-first manner, i.e. in layers, starting 
