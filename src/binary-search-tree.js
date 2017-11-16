@@ -15,35 +15,24 @@ class BinarySearchTree {
   // depending on its value
   insert(value) {
     const newNode = new BinarySearchTree(value); // haven't assigned where node lives, but still there
-    //console.log(newNode);
+    // console.log(newNode);
     if (value < this.value) { // points to root 
-      //move to left
+      // move to left
       if (!this.left) { // if nothing is there, can go ahead and assign it
         this.left = newNode;
       } else {
         this.left.insert(value); // take value and run logic again 
       }
-    } else if (value > this.value ) {
-      //move to the right
-    }
-
-
-
-    if (value < this.value) {
-      if (this.left === null) {
-        this.left = new BinarySearchTree(value);
-      } else {
-        this.left.insert(value);
-      }
     } else if (value > this.value) {
-      if (this.right === null) {
-        this.right = new BinarySearchTree(value);
+      // move to the right
+      if (!this.right) {
+        this.right = newNode;
       } else {
         this.right.insert(value);
       }
     }
   }
-   // Checks the binary search tree for the input target
+  // Checks the binary search tree for the input target
   // Can be written recursively or iteratively
   contains(target) {
     let found = false;
