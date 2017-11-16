@@ -59,25 +59,12 @@ class BinarySearchTree {
   // Traverses the tree in a breadth-first manner, i.e. in layers, starting 
   // at the root node, going down to the root node's children, and iterating
   // through all those nodes first before moving on to the next layer of nodes
-  // Applies the given callback to each tree node in the process
+  // Applies the given callback to each tree nogide in the process
   // You'll need the queue-helper file for this. Or could you roll your own queue
   // again. Whatever floats your boat.
  // const Queue = require('./queue-helper');
   breadthFirstForEach(cb) {
-    const Queue = require('./queue-helper');
-    const newQueue = new Queue();
-    newQueue.enqueue(this);
-    while (!newQueue.isEmpty()) {
-      const lookAt = newQueue.dequeue();
-      if (lookAt.left) {
-        newQueue.enqueue(lookAt.left);
-      }
-      if (lookAt.right) {
-        newQueue.enqueue(lookAt.right);
-      }
-      cb(lookAt.value);
-    }
-  }
+
 }
 
 module.exports = BinarySearchTree;
