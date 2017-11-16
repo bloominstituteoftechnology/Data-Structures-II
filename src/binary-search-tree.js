@@ -39,18 +39,19 @@ class BinarySearchTree {
   //  console.log(node);
     let current = this; // root node
     // console.log(current);
-    const parent = current;
+    let parent;
     while (true) { // keep looping over the tree until we find an empty tree that fits and call break
       // handle node value is less than current value
+      parent = current;
       if (value < current.value) {
         current = current.left; // focus on left node
-        if (current.value === 'undefined') { // node is empty, insert new node
+        if (current == null) { // node is empty, insert new node
           parent.left = node;
           break;
         }
       } else { // we focus on the right node for this iteration
         current = current.right; // move focus onto child right node
-        if (current.value === 'undefined') {
+        if (current == null) {
           parent.right = node;
           break;
         }
@@ -82,10 +83,17 @@ class BinarySearchTree {
 
 module.exports = BinarySearchTree;
 
-const PatsTree = new BinarySearchTree(10);
-console.log(BinarySearchTree);
-PatsTree.insert(12);
-console.log(BinarySearchTree);
+const Pat = new BinarySearchTree(10);
+console.log('hi');
+console.log(Pat);
+Pat.insert(12);
+console.log(Pat);
+Pat.insert(9);
+console.log(Pat);
+Pat.insert(15);
+console.log(Pat);
+Pat.insert(8);
+console.log(Pat);
 // PatsTree.insert(10);
 // PatsTree.insert(9);
 // PatsTree.insert(144);
