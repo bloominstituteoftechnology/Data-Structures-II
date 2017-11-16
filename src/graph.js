@@ -81,25 +81,32 @@ class Graph {
   checkIfEdgeExists(fromVertex, toVertex) {
     const fromEdges = fromVertex._edges;
     const toEdges = toVertex._edges;
-    let flag = false;
     if (!this.vertices.includes(fromVertex) || !this.vertices.includes(toVertex)) return false;
-    fromEdges.forEach((node) => {
-      if (toEdges.includes(node)) flag = true;
-    });
-    return flag;
+    if (fromEdges.includes(toVertex) && toEdges.includes(fromVertex)) return true;
+    return false;
   }
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other
   addEdge(fromVertex, toVertex) {
-
+    const fromEdges = fromVertex._edges;
+    const toEdges = toVertex._edges;
+    if (!this.vertices.includes(fromVertex) || !this.vertices.includes(toVertex)) return undefined;
+    if (fromEdges.includes(toVertex) && toEdges.includes(fromVertex)) return undefined;
+    if (fromEdges.includes(toVertex) && !toEdges.includes(fromVertex)) toVertex.pushToEdges(fromVertex);
+    if (!fromEdges.includes(toVertex) && toEdges.includes(fromVertex)) fromVertex.pushToEdges(toVertex);
+    if (!fromEdges.includes(toVertex) && !toEdges.includes(fromVertex)) {
+      fromVertex.pushToEdges(toVertex);
+      toVertex.pushToEdges(fromVertex);
+    }
   }
   // Removes the edge between the two given vertices if an edge already exists between them
   // After removing the edge, neither vertex should be referencing the other
   // If a vertex would be left without any edges as a result of calling this function, those
   // vertices should be removed as well
-  // removeEdge(fromVertex, toVertex) {
-
-  // }
+  removeEdge(fromVertex, toVertex) {
+    if (!this.vertices.includes(fromVertex) || !this.vertices.includes(toVertex)) return undefined;
+    
+  }
 }
 
 module.exports = Graph;
