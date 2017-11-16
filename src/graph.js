@@ -39,14 +39,27 @@ class Graph {
   // connected via an edge
   // Optionally accepts an array of other GraphNodes for the new vertex to be connected to
   // Returns the newly-added vertex
-  // addVertex(value, edges = []) {
-
-  // }
+  /* Each vertex is an array containing:
+      (1) the input value of the vertex on the [0] location.
+      (2) the an array of connections it has to other verteices on the [1] location.
+      Example: this.vertices = [ [vertex1, [vertex2, vertex3, vertex5] ], [vertex2, [vertex1, vertex5]] ]
+  */
+  addVertex(value, edges = []) {
+    return this.vertices.push(new GraphNode({ value, edges }));
+  }
   // // Checks all the vertices of the graph for the target value
   // // Returns true or false
-  // contains(value) {
-
-  // }
+  contains(value) {
+    let flag = false;
+    this.vertices.forEach((vertex) => {
+      if (value === vertex.value) {
+        console.log(vertex.value);
+        console.log(value);
+        flag = true;
+      }
+    });
+    return flag;
+  }
   // // Checks the graph to see if a GraphNode with the specified value exists in the graph 
   // // and removes the vertex if it is found
   // // This function should also handle the removing of all edge references for the removed vertex
@@ -77,3 +90,8 @@ class Graph {
 
 module.exports = Graph;
 
+const g = new Graph();
+console.log(g.addVertex(1, []));
+console.log(g.addVertex(2, [1]));
+console.log(g.contains(1));
+console.log(g.vertices);
