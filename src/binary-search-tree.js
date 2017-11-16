@@ -85,11 +85,10 @@ class BinarySearchTree {
     if (this.value === target) return true;
     if (target < this.value) {
       if (this.left === null) return false;
-      this.left.contains(target); // recursively search the tree
-    } else {
-      if (this.right === null) return false;
-      this.right.contains(target);
+      return this.left.contains(target); // recursively search the tree
     }
+    if (this.right === null) return false;
+    return this.right.contains(target);
   }
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
