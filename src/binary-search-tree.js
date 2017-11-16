@@ -2,6 +2,8 @@
 /* eslint-disable global-require */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
+// Binary tree is like a phone book
+// open up to middle of phone & search from there, L's and on
 class BinarySearchTree {
   constructor(value) {
     this.value = value;
@@ -12,6 +14,21 @@ class BinarySearchTree {
   // assigns it to either the left or right subtree,
   // depending on its value
   insert(value) {
+    const newNode = new BinarySearchTree(value); // haven't assigned where node lives, but still there
+    //console.log(newNode);
+    if (value < this.value) { // points to root 
+      //move to left
+      if (!this.left) { // if nothing is there, can go ahead and assign it
+        this.left = newNode;
+      } else {
+        this.left.insert(value); // take value and run logic again 
+      }
+    } else if (value > this.value ) {
+      //move to the right
+    }
+
+
+
     if (value < this.value) {
       if (this.left === null) {
         this.left = new BinarySearchTree(value);
@@ -72,5 +89,8 @@ class BinarySearchTree {
     }
   }
 }
+
+const myTree = new BinarySearchTree(5);
+console.log(myTree.insert(4));
 
 module.exports = BinarySearchTree;
