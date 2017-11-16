@@ -20,14 +20,14 @@ class BinarySearchTree {
           currentLocation = currentLocation.right; // if no 
         } else {
           currentLocation.right = insertedNode;
-          return undefined;
+          return;
         }
       } else {
         if (currentLocation.left) {
           currentLocation = currentLocation.left;
         } else {
           currentLocation.left = insertedNode;
-          return undefined;
+          return;
         }
       }
     }
@@ -47,7 +47,7 @@ class BinarySearchTree {
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
   depthFirstForEach(cb) {
-    cb(this);
+    cb(this.value);
     if (this.left) {
       this.left.depthFirstForEach(cb);
     }
@@ -67,13 +67,3 @@ class BinarySearchTree {
 }
 
 module.exports = BinarySearchTree;
-const bst = new BinarySearchTree(20);
-bst.insert(29);
-bst.insert(19);
-bst.insert(102);
-bst.insert(10);
-console.log(bst);
-bst.insert(11);
-console.log(bst);
-bst.insert(0.13);
-console.log(bst);
