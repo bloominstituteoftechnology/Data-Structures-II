@@ -11,24 +11,33 @@ class BinarySearchTree {
   // Wraps the input value in a new BinarySearchTree and
   // assigns it to either the left or right subtree,
   // depending on its value
+  // insert(value) {
+  //   const insertedNode = new BinarySearchTree(value);
+  //   let currentLocation = this;
+  //   // While we have some left and some right value to compare against!
+  //   while (value > currentLocation.value || value < currentLocation.value) {
+  //     if (value > currentLocation.value) { // is insert value bigger than current value?
+  //       if (currentLocation.right) { // do we have a right node?
+  //         currentLocation = currentLocation.right; // if no 
+  //       } else {
+  //         currentLocation.right = insertedNode;
+  //         return undefined;
+  //       }
+  //     } else if (currentLocation.left) {
+  //       currentLocation = currentLocation.left;
+  //     } else {
+  //       currentLocation.left = insertedNode;
+  //       return undefined;
+  //     }
+  //   }
+  // }
   insert(value) {
-    const insertedNode = new BinarySearchTree(value);
-    let currentLocation = this;
-    // While we have some left and some right value to compare against!
-    while (value > currentLocation.value || value < currentLocation.value) {
-      if (value > currentLocation.value) { // is insert value bigger than current value?
-        if (currentLocation.right) { // do we have a right node?
-          currentLocation = currentLocation.right; // if no 
-        } else {
-          currentLocation.right = insertedNode;
-          return undefined;
-        }
-      } else if (currentLocation.left) {
-        currentLocation = currentLocation.left;
-      } else {
-        currentLocation.left = insertedNode;
-        return undefined;
-      }
+    if (this.value >= value) {
+      if (this.left !== null) return this.left.insert(value);
+      this.left = new BinarySearchTree(value);
+    } else {
+      if (this.right !== null) return this.right.insert(value);
+      this.right = new BinarySearchTree(value);
     }
   }
   // Checks the binary search tree for the input target
@@ -49,6 +58,7 @@ class BinarySearchTree {
   }
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
+
   depthFirstForEach(cb) {
     const traversePreOrder = (node) => {
       cb(node.value); // Call the Callback on the First item and every item after that!
@@ -69,17 +79,13 @@ class BinarySearchTree {
   // again. Whatever floats your boat.
   breadthFirstForEach(cb) {
     const myQueue = [];
-    myQueue.push(this);
+    myQueue.push(this); // Insert first item into queue array
 
     while (myQueue.length > 0) {
-      const node = myQueue.shift();
+      const node = myQueue.shift(); // Take first item out of my queue array!
       cb(node.value);
-      if (node.left !== null) {
-        myQueue.push(node.left);
-      }
-      if (node.right !== null) {
-        myQueue.push(node.right);
-      }
+      if (node.left !== null) myQueue.push(node.left);
+      if (node.right !== null) myQueue.push(node.right);
     }
   }
 }
