@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-trailing-spaces */
+/* eslint-disable */
 // Do not modify this GraphNode class
 // Use any of its methods as you see fit to implement your graph
 class GraphNode {
@@ -40,12 +41,13 @@ class Graph {
   // Optionally accepts an array of other GraphNodes for the new vertex to be connected to
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
-
+    let node = new GraphNode({value, edges});
+    this.vertices.push(node);
   }
   // Checks all the vertices of the graph for the target value
   // Returns true or false
   contains(value) {
-
+    return this.vertices.some((vertex) => vertex.value === value);
   }
   // Checks the graph to see if a GraphNode with the specified value exists in the graph 
   // and removes the vertex if it is found
