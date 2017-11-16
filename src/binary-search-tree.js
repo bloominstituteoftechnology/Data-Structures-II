@@ -76,7 +76,6 @@ class BinarySearchTree {
       }
     };
     enqueueValues(rootNode);
-
     while (!breadthQueue.isEmpty()) {
       cb(breadthQueue.dequeue());
     }
