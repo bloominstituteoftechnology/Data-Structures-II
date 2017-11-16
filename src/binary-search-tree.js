@@ -106,6 +106,13 @@ class BinarySearchTree {
   // again. Whatever floats your boat.
   breadthFirstForEach(cb) {
     console.log(this);
+    const queue = [];
+    queue.push(this);
+    for (let i = 0; i < queue.length; i++) {
+      cb(queue[i].value);
+      if (queue[i].left) queue.push(queue[i].left);
+      if (queue[i].right) queue.push(queue[i].right);
+    }
   }
 }
 
