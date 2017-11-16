@@ -3,7 +3,7 @@
 /* eslint-disable no-trailing-spaces */
 // Do not modify this GraphNode class
 // Use any of its methods as you see fit to implement your graph
- /* class GraphNode {
+ class GraphNode {
   constructor({ value, edges }) {
     this._value = value;
     this._edges = edges;
@@ -64,7 +64,10 @@ class Graph {
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other 
   addEdge(fromVertex, toVertex) {
-
+    if (this.GraphNode.contains(fromVertex) && this.GraphNode.contains(toVertex)){
+      this[fromVertex].edges[toVertex] = true;
+      this[toVertex].edges[fromVertex] = true;
+    }
   }
   // Removes the edge between the two given vertices if an edge already exists between them
   // After removing the edge, neither vertex should be referencing the other
@@ -75,5 +78,5 @@ class Graph {
   }
 }
 
-module.exports = Graph; */
+module.exports = Graph; 
 
