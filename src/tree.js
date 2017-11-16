@@ -15,15 +15,19 @@ class Tree {
   // Continues recursively until the value has been found or all of the children
   // have been checked
   contains(value) {
-    this.left = 1;
-
-    return this.children()
+    if (this.value === value) return true;
+    for (let i = 0; i < this.children.length; i++) {
+      const child = this.children[i];
+      if (child.value === value) return true;
+      if (child.children[0] && child.contains(value)) return true;
+    }
+    return false;
   }
 }
-const newTree = new Tree();
-console.log(newTree);
-newTree.addChild('2');
-newTree.addChild('3');
-console.log(newTree);
+// const newTree = new Tree();
+// console.log(newTree);
+// newTree.addChild('2');
+// newTree.addChild('3');
+// console.log(newTree);
 
 module.exports = Tree;
