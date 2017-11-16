@@ -34,18 +34,36 @@ class Graph {
   constructor() {
     this.vertices = [];
   }
-  // Wraps the input value in a new GraphNode and adds it to the array of vertices
   // If there are only two nodes in the graph, they need to be automatically 
   // connected via an edge
   // Optionally accepts an array of other GraphNodes for the new vertex to be connected to
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
-
+  // Wraps the input value in a new GraphNode and adds it to the array of vertices
+    const newNode = new GraphNode({ value, edges: [] });
+    if (edges.length === 0) {
+      if (this.vertices.length > 0) {
+        this.vertices[this.vertices.length - 1].pushToEdges(newNode);
+        newNode.pushToEdges(this.vertices[this.vertices.length - 1]);
+      }
+    }
+    edges.forEach((edge) => {
+      edge.push(newNode);
+    });
+    this.vertices.push(newNode);
+    // console.log('***');
+    // console.log(typeof newNode);
+    // console.log(newNode);
+    // console.log(newNode.edges);
+    // console.log('***');
+    // console.log('');
+    return newNode;
   }
-  // Checks all the vertices of the graph for the target value
-  // Returns true or false
+  // // Checks all the vertices of the graph for the target value
+  // // Returns true or false
   contains(value) {
-
+    const arr = this.vertices;
+    return arr.findIndex(v => v.value === value) >= 0;
   }
   // Checks the graph to see if a GraphNode with the specified value exists in the graph 
   // and removes the vertex if it is found
@@ -74,6 +92,10 @@ class Graph {
 
   }
 }
-
+// const graph = new Graph();
+// graph.addVertex('apple');
+// graph.addVertex('john');
+// graph.addVertex('yasin');
+// console.log(graph.contains('111'));
 module.exports = Graph;
 
