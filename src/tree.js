@@ -14,13 +14,15 @@ class Tree {
   // Continues recursively until the value has been found or all of the children
   // have been checked
   contains(value) {
-    this.left = 1;
+    // base case, if this Tree's value is the sought value then return true and break the loop.
+    if (this.value === value) return true;
+    // check each child
+    for (let i = 0; i < this.children.length; i++) { 
+      // check the child with a call to contains and return if true
+      if (this.children[i].contains(value)) return true; 
+    }
+    return false;
   }
 }
-// const newTree = new Tree('1');
-// console.log(newTree);
-// newTree.addChild('2');
-// newTree.addChild('3')
-// console.log(newTree);
 
 module.exports = Tree;
