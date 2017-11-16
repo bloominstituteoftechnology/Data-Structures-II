@@ -57,13 +57,39 @@ class BinarySearchTree {
         }
       }
     }
+  }
+    /* solution insert answer
+ instert(value) {
+   if (value < this.value) {
+     if (this.left ===null) {
+       this.left = new BinarySearchTree(value);
+     } else {
+       this.left.insert(value);
+     }
+   }else {
+     if (this.right === null) {
+       this.right = new BinarySearchTree(value);
+     } else {
+       this.right.insert(value);
+     }
+   }
+}
+*/
+
   //  console.log(this);
   //  console.log(node);
-  }
   // Checks the binary search tree for the input target
   // Can be written recursively or iteratively
   contains(target) {
     console.log(this);
+    if (this.value === target) return true;
+    if (target < this.value) {
+      if (this.left === null) return false;
+      this.left.contains(target); // recursively search the tree
+    } else {
+      if (this.right === null) return false;
+      this.right.contains(target);
+    }
   }
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
