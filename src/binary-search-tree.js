@@ -36,20 +36,13 @@ class BinarySearchTree {
   // Can be written recursively or iteratively
   contains(target) {
     let found = false;
-    let cachedNode = this;
-    while (!found) {
-      if (cachedNode === target) {
-        found = true;
-        break;
-      } else if (target < cachedNode.value && cachedNode.left !== null) {
-        cachedNode = cachedNode.left;
-      } else if (target > cachedNode.value && cachedNode.right !== null) {
-        cachedNode = cachedNode.right;
-      } else {
-        break;
-      }
-    } return found;
-  }    
+    const search = (node) => {
+      if (target === node.value) found = true;
+      else if (target < node.value && node.left) search(node.left);
+      else if (target > node.value && node.right) search(node.right);
+    }; search(this);
+    return found;
+  }
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
   depthFirstForEach(cb) {
@@ -79,7 +72,7 @@ class BinarySearchTree {
   }
 }
 
-const myTree = new BinarySearchTree(5);
-console.log(myTree.insert(4));
+/* const myTree = new BinarySearchTree(5);
+console.log(myTree.insert(4)); */  
 
 module.exports = BinarySearchTree;
