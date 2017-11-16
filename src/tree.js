@@ -9,7 +9,7 @@ class Tree {
   addChild(value) {
     const newNode = new Tree(value);
     this.children.push(newNode);
-    return newNode;
+    return this;
   }
   // Checks this node's children to see if any of them matches the given value
   // Continues recursively until the value has been found or all of the children

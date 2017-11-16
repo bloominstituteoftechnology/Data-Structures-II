@@ -40,19 +40,29 @@ class Graph {
   // Optionally accepts an array of other GraphNodes for the new vertex to be connected to
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
-    this.vertices.pushToEdges(value);
-    this._edges[value] = edges;
+    const newNode = new GraphNode({ value, edges });
+    newNode.edges(edges);
+    newNode[value] = value;
+    this.vertices.push(newNode);
+    return this.vertices;
   }
   // Checks all the vertices of the graph for the target value
   // Returns true or false
   contains(value) {
-    return !!this.vertices[value];
+    Graph.vertices.forEach((vertex) => {
+      return !!this.vertices[value];
+    });
   }
   // Checks the graph to see if a GraphNode with the specified value exists in the graph 
   // and removes the vertex if it is found
   // This function should also handle the removing of all edge references for the removed vertex
   removeVertex(value) {
-    if (this.contains(value)) delete this.vertices[value];
+    const checkNode = new GraphNode({ value, edges });
+    if (this.vertices.contains(value)) {
+      delete checkNode._values[value];
+      delete checkNode._edges[this.vertices[value][1]];     
+      delete this.vertices[value];
+    }
   }
   // Checks the two input vertices to see if each one references the other in their respective edges array
   // Both vertices must reference each other for the edge to be considered valid
@@ -60,15 +70,15 @@ class Graph {
   // Note: You'll need to store references to each vertex's array of edges so that you can use 
   // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
   checkIfEdgeExists(fromVertex, toVertex) {
-
+    const from = this.vertices.contains(fromVertex);
+    const to = this.vertices.contains(toVertex);
   }
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other 
   addEdge(fromVertex, toVertex) {
     if (this.checkIfEdgeExists(fromVertex, toVertex)) {
       this.numberOfEdges.get(fromVertex).push(toVertex);
-    }
-    this.numberOfEdges.get(toVertex).push(fromVertex);
+    }  
   }
   // Removes the edge between the two given vertices if an edge already exists between them
   // After removing the edge, neither vertex should be referencing the other
