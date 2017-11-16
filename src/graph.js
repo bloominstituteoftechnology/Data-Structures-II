@@ -63,6 +63,12 @@ class Graph {
     const index = this.vertices.findIndex((element) => {
       return element.value === value;
     });
+    if (index > -1) {
+      const removedNode = this.vertices.splice(index, 1);
+      for (let i = 0; i < this.vertices.length; i++) {
+        this.removeEdge(removedNode, this.vertices[i]);
+      }
+    }
     
   }
   // Checks the two input vertices to see if each one references the other in their respective edges array
@@ -76,7 +82,7 @@ class Graph {
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other 
   addEdge(fromVertex, toVertex) {
-    if (this.checkIfEdgeExists(fromVertex, toVertex)) {
+    if (!this.checkIfEdgeExists(fromVertex, toVertex)) {
       fromVertex.pushToEdges(toVertex);
       toVertex.pushToEdges(fromVertex);
     }
@@ -87,8 +93,13 @@ class Graph {
   // vertices should be removed as well
   removeEdge(fromVertex, toVertex) {
    if (this.checkIfEdgeExists(fromVertex, toVertex)) {
-     
+     fromVertex.edges = fromVertex.edges.filter((edge) => edge !== toVertex);
+     toVertex.edges = toVertex.edges.filter((edge) => edge !== fromVertex);
    }
+
+   if (!fromVertex.edges.length) this.removeVertex(fromVertex.value);
+   if (!toVertex.edges.length) this.removeVertex(toVertex.value); 
+   
   }
 }
 
