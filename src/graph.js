@@ -92,7 +92,12 @@ class Graph {
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other 
   addEdge(fromVertex, toVertex) {
-
+    if (!fromVertex.edges.contains(toVertex)) {
+      fromVertex.edges.pushToEdges(toVertex);
+    }
+    if (!toVertex.edges.contains(fromVertex)) {
+      toVertex.edges.pushToEdges(fromVertex);
+    }
   }
   // Removes the edge between the two given vertices if an edge already exists between them
   // After removing the edge, neither vertex should be referencing the other
