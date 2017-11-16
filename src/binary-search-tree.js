@@ -14,19 +14,23 @@ class BinarySearchTree {
   insert(value) {
     const insertedNode = new BinarySearchTree(value);
     let currentLocation = this;
-    while (currentLocation.left && currentLocation.right) { // iterate until we find a leaf
-      if (value > currentLocation.value) {
-        currentLocation = this.right;
+    while (true) {
+      if (value > currentLocation.value) { // is insert value bigger than current value?
+        if (currentLocation.right) { // do we have a right node?
+          currentLocation = currentLocation.right; // if no 
+        } else {
+          currentLocation.right = insertedNode;
+          return undefined;
+        }
       } else {
-        currentLocation = this.left;
+        if (currentLocation.left) {
+          currentLocation = currentLocation.left;
+        } else {
+          currentLocation.left = insertedNode;
+          return undefined;
+        }
       }
     }
-    if (value > currentLocation.value) {
-      currentLocation.right = insertedNode;
-    } else {
-      currentLocation.left = insertedNode;
-    }
-    console.log(this);
   }
   // Checks the binary search tree for the input target
   // Can be written recursively or iteratively
@@ -63,3 +67,13 @@ class BinarySearchTree {
 }
 
 module.exports = BinarySearchTree;
+const bst = new BinarySearchTree(20);
+bst.insert(29);
+bst.insert(19);
+bst.insert(102);
+bst.insert(10);
+console.log(bst);
+bst.insert(11);
+console.log(bst);
+bst.insert(0.13);
+console.log(bst);

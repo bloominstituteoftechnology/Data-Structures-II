@@ -22,17 +22,19 @@ class Heap {
     }
     // Returns the size of the heap
     getSize() {
-
+      return this.size;
     }
     // Returns the storage array
     getStorage() {
-
+      return this.storage;
     }
     // Moves the element at the specified index "up" by swapping it with its parent 
     // if its parent value is less than the value located at the input index
     // This method is only used by the heap itself in order to maintain the heap property
     bubbleUp(index) {
+      if () {
 
+      }
     }
     // First grabs the indices of this element's children and determines which of the children are larger
     // If the larger of the child elements is larger than the parent, the child element is swapped with the parent

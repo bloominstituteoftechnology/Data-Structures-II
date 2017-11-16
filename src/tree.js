@@ -7,11 +7,7 @@ class Tree {
   }
   // Adds a new Tree node with the input value to the current Tree node 
   addChild(value) {
-    const newTree = {
-      value : value,
-      children : [],
-    };
-    this.children.push(newTree);
+    this.children.push(new Tree(value));
   }
   // Checks this node's children to see if any of them matches the given value
   // Continues recursively until the value has been found or all of the children
@@ -21,7 +17,7 @@ class Tree {
       if (this.children[i].value === value) {
         return true;
       }
-      if (this.children[i].contains(value) ) {
+      if (this.children[i].contains(value)) {
         return true;
       }
     }
