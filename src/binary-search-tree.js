@@ -16,13 +16,13 @@ class BinarySearchTree {
     let currentLocation = this;
     while (true) {
       if (value > currentLocation.value) { // is insert value bigger than current value?
-        if (currentLocation.right) { // do we have a right node?
-          currentLocation = currentLocation.right; // if no 
+        if (currentLocation.right) { 
+          currentLocation = currentLocation.right;
         } else {
           currentLocation.right = insertedNode;
           return;
         }
-      } else {
+      } else { // is insert value smaller than the current value?
         if (currentLocation.left) {
           currentLocation = currentLocation.left;
         } else {
@@ -62,7 +62,42 @@ class BinarySearchTree {
   // You'll need the queue-helper file for this. Or could you roll your own queue
   // again. Whatever floats your boat.
   breadthFirstForEach(cb) {
-    this.contains(0);
+    const breadthQueue = new Queue();
+    const rootNode = [this];
+    const enqueueValues = (nodeArray) => {
+      const childArray = [];
+      for (let i = 0; i < nodeArray.length; i++) {
+        breadthQueue.enqueue(nodeArray[i].value);
+        if (nodeArray[i].left) childArray.push(nodeArray[i].left);
+        if (nodeArray[i].right) childArray.push(nodeArray[i].right);
+      }
+      if (childArray.length) {
+        enqueueValues(childArray);
+      }
+    };
+    enqueueValues(rootNode);
+
+    while (!breadthQueue.isEmpty()) {
+      cb(breadthQueue.dequeue());
+    }
+  }
+}
+
+class Queue {
+  constructor() {
+    this.storage = [];
+  }
+
+  enqueue(x) {
+    this.storage.push(x);
+  }
+
+  dequeue() {
+    return this.storage.shift();
+  }
+
+  isEmpty() {
+    return this.storage.length === 0;
   }
 }
 
