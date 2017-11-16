@@ -25,11 +25,12 @@ class Tree {
 
 module.exports = Tree;
 
-// let t = new Tree;
+// let t = new Tree('Moises');
 // t.addChild(10);
 // t.addChild(20);
-// // console.log(t.children[0]);
+// console.log(t);
 // t.children[0].addChild(30);
+// console.log(t);
 // t.children[0].children[0].addChild(50);
 // // console.log(t.children[0])
 // // console.log(t.children);
