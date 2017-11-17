@@ -86,8 +86,8 @@ class Heap {
     } else if (childRightIndex > parentElem && childRightIndex >= childLeftIndex) {
       this.storage[index] = childRightIndex;
       // swapping elements
-      this.storage[index * 2] = parentElem;
-      this.siftDown(index * 2);
+      this.storage[index * 2 + 2] = parentElem;
+      this.siftDown(index * 2 + 2);
     }
   }
 }
