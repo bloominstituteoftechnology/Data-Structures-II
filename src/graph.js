@@ -41,14 +41,17 @@ class Graph {
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
     const vertex = new GraphNode({ value, edges });
-    this.vertices.push(vertex);
-    if (this.vertices.length === 2) {
+    if (this.vertices.length === 1) {
       this.vertices[0].pushToEdges(vertex);
       vertex.pushToEdges(this.vertices[0]);
+      this.vertices.push(vertex);
+    } else if (this.vertices.length === 0) {
+      this.vertices.push(vertex);
     } else {
-      const currentVertex = this.vertices[Math.floor(Math.random() * this.vertices.length)];
-      currentVertex.pushToEdges(vertex);
-      vertex.pushToEdges(currentVertex);
+      edges.forEach((item) => {
+        this.vertices[this.vertices.indexOf(item)].pushToEdges(vertex);
+      });
+      this.vertices.push(vertex);
     }
     return vertex;
   }
@@ -57,7 +60,7 @@ class Graph {
   contains(value) {
     let flag = false;
     this.vertices.forEach((item) => {
-      if (item._value === value) flag = true;
+      if (item.value === value) flag = true;
     });
     return flag;
   }
@@ -65,12 +68,12 @@ class Graph {
   // and removes the vertex if it is found
   // This function should also handle the removing of all edge references for the removed vertex
   removeVertex(value) {
-    const vertex = this.vertices.find(item => item._value === value);
-    this.vertices.splice(this.vertices.indexOf(vertex), 1);
+    const vertex = this.vertices.find(item => item.value === value);
     if (vertex) {
-      vertex._edges.forEach((node) => {
-        node._edges.splice(node._edges.indexOf(vertex), 1);
+      vertex.edges.forEach((node) => {
+        this.removeEdge(vertex, node);
       });
+      this.vertices.splice(this.vertices.indexOf(vertex), 1);
     }
   }
   // Checks the two input vertices to see if each one references the other in their respective edges array
@@ -79,8 +82,8 @@ class Graph {
   // Note: You'll need to store references to each vertex's array of edges so that you can use
   // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
   checkIfEdgeExists(fromVertex, toVertex) {
-    const fromEdges = fromVertex._edges;
-    const toEdges = toVertex._edges;
+    const fromEdges = fromVertex.edges;
+    const toEdges = toVertex.edges;
     if (!this.vertices.includes(fromVertex) || !this.vertices.includes(toVertex)) return false;
     if (fromEdges.includes(toVertex) && toEdges.includes(fromVertex)) return true;
     return false;
@@ -88,15 +91,23 @@ class Graph {
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other
   addEdge(fromVertex, toVertex) {
-    const fromEdges = fromVertex._edges;
-    const toEdges = toVertex._edges;
+    const fromEdges = fromVertex.edges;
+    const toEdges = toVertex.edges;
     if (!this.vertices.includes(fromVertex) || !this.vertices.includes(toVertex)) return undefined;
     if (fromEdges.includes(toVertex) && toEdges.includes(fromVertex)) return undefined;
-    if (fromEdges.includes(toVertex) && !toEdges.includes(fromVertex)) toVertex.pushToEdges(fromVertex);
-    if (!fromEdges.includes(toVertex) && toEdges.includes(fromVertex)) fromVertex.pushToEdges(toVertex);
+    if (fromEdges.includes(toVertex) && !toEdges.includes(fromVertex)) {
+      toVertex.pushToEdges(fromVertex);
+      this.vertices[this.vertices.indexOf(toVertex)] = toVertex;
+    }
+    if (!fromEdges.includes(toVertex) && toEdges.includes(fromVertex)) {
+      fromVertex.pushToEdges(toVertex);
+      this.vertices[this.vertices.indexOf(fromVertex)] = fromVertex;
+    }
     if (!fromEdges.includes(toVertex) && !toEdges.includes(fromVertex)) {
       fromVertex.pushToEdges(toVertex);
       toVertex.pushToEdges(fromVertex);
+      this.vertices[this.vertices.indexOf(toVertex)] = toVertex;
+      this.vertices[this.vertices.indexOf(fromVertex)] = fromVertex;
     }
   }
   // Removes the edge between the two given vertices if an edge already exists between them
@@ -104,8 +115,20 @@ class Graph {
   // If a vertex would be left without any edges as a result of calling this function, those
   // vertices should be removed as well
   removeEdge(fromVertex, toVertex) {
-    if (!this.vertices.includes(fromVertex) || !this.vertices.includes(toVertex)) return undefined;
-    
+    if (this.checkIfEdgeExists(fromVertex, toVertex)) {
+      const fromEdges = fromVertex.edges;
+      const toEdges = toVertex.edges;
+      fromEdges.splice(fromEdges.indexOf(toVertex), 1);
+      if (fromEdges.length === 0) this.vertices.splice(this.vertices.indexOf(fromVertex), 1);
+      fromVertex.edges = fromEdges;
+      this.vertices[this.vertices.indexOf(fromVertex)] = fromVertex;
+      toEdges.splice(toEdges.indexOf(fromVertex), 1);
+      if (toEdges.length === 0) this.vertices.splice(this.vertices.indexOf(toVertex), 1);
+      toVertex.edges = toEdges;
+      this.vertices[this.vertices.indexOf(toVertex)] = toVertex;
+    } else {
+      return undefined;
+    }
   }
 }
 
