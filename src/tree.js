@@ -6,8 +6,14 @@ class Tree {
     this.children = [];
   }
   // Adds a new Tree node with the input value to the current Tree node 
-  addChild(value) {
-    const node = new Tree(value); 
+  addChild(value, target = null) {
+    const node = new Tree(value);
+    if (target || target === 0) {
+      this.children.forEach((child) => {
+        child.children.push(value);
+      });
+      return;
+    } 
     this.children.push(node);
   }
  
@@ -24,10 +30,11 @@ class Tree {
     return false;
   }
 }
-// const newTree = new Tree();
+
+const newTree = new Tree();
 // console.log(newTree);
 // newTree.addChild('2');
-// newTree.addChild('3');
+// newTree.addChild('3', '2');
 // console.log(newTree);
 
 module.exports = Tree;
