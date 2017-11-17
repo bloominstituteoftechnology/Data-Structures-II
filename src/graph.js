@@ -92,6 +92,8 @@ class Graph {
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other 
   addEdge(fromVertex, toVertex) {
+    // If fromVertex's edges does not include toVertex, push toVertex to fromVertex's edges
+    // If toVertex's edges does not include fromVertex, push fromVertex to toVertex's edges
     if (!fromVertex.edges.contains(toVertex)) {
       fromVertex.edges.pushToEdges(toVertex);
     }
@@ -103,9 +105,13 @@ class Graph {
   // After removing the edge, neither vertex should be referencing the other
   // If a vertex would be left without any edges as a result of calling this function, those
   // vertices should be removed as well
-  // removeEdge(fromVertex, toVertex) {
-
-  // }
+  removeEdge(fromVertex, toVertex) {
+ // Pass vertices to checkIfEdgeExits method and return false if it return
+    // Loop over fromVertex's edges array and remove toVertex from it if it is found
+    // If fromVertex's edges array is empty, remove fromVertex from Graph's vertices
+    // Loop over toVertex's edges array and remove fromVertex from it if it is found
+    // If toVertex's edges array is empty, remove toVertex from Graph's vertices
+  }
 }
 // const graph = new Graph();
 // graph.addVertex('apple');
