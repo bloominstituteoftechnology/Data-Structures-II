@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-trailing-spaces */
-// Do not modify this GraphNode class
-// Use any of its methods as you see fit to implement your graph
+/* Do not modify this GraphNode class */
+/* Use any of its methods as you see fit to implement your graph */
 class GraphNode {
   constructor({ value, edges }) {
     this._value = value;
@@ -40,11 +40,11 @@ class Graph {
   // Optionally accepts an array of other GraphNodes for the new vertex to be connected to
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
-    const newGraphNode = new GraphNode({value, edges});
+    const newGraphNode = new GraphNode({ value, edges });
     if (edges.length > 0) {
       let flag = false;
-      edges.forEach(edge =>{
-        edge.edges.forEach(innerEdge => {
+      edges.forEach((edge) => {
+        edge.edges.forEach((innerEdge) => {
           if (value === innerEdge.value) flag = true;
         });
         if (!flag) edge.pushToEdges(newGraphNode);
@@ -59,45 +59,32 @@ class Graph {
     this.vertices.push(newGraphNode);
     return newGraphNode;
   }
-  // Checks all the vertices of the graph for the target value
-  // Returns true or false
   contains(value) {
     if (this.vertices.length === 0) return false;
     let flag = false;
-    this.vertices.forEach(e => {
+    this.vertices.forEach((e) => {
       if (e._value === value) flag = true;
     });
     return flag;
   }
-  // Checks the graph to see if a GraphNode with the specified value exists in the graph 
-  // and removes the vertex if it is found
-  // This function should also handle the removing of all edge references for the removed vertex
   removeVertex(value) {
     if (this.vertices.length === 0) return;
     this.vertices.forEach((e, i) => {
-      const edgesToRemove = e.edges;
-      if (edgesToRemove.length > 0) {
-        console.log(edgesToRemove)
-      } 
+      const edgesToRemove = e.edges;      
       if (e._value === value) this.vertices.splice(i, 1);
     });
   }
-  // Checks the two input vertices to see if each one references the other in their respective edges array
-  // Both vertices must reference each other for the edge to be considered valid
-  // If only one vertex references the other but not vice versa, should not return true
-  // Note: You'll need to store references to each vertex's array of edges so that you can use 
-  // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
   checkIfEdgeExists(fromVertex, toVertex) {
-    // fromVertex._value
+    const that = this;
     let flag1 = false;
-    for (let i = 0; i < toVertex.edges.length;i++) {
+    for (let i = 0; i < toVertex.edges.length; i++) {
       if (fromVertex._value === toVertex.edges[i].value) {
         flag1 = true;
         break;
       }
     }
     let flag2 = false;
-    for (let i = 0; i < fromVertex.edges.length;i++) {
+    for (let i = 0; i < fromVertex.edges.length; i++) {
       if (toVertex._value === fromVertex.edges[i].value) {
         flag2 = true;
         break;
@@ -105,9 +92,8 @@ class Graph {
     }
     return flag1 && flag2;
   }
-  // Adds an edge between the two given vertices if no edge already exists between them
-  // Again, an edge means both vertices reference the other 
   addEdge(fromVertex, toVertex) { 
+    const that = this;
     fromVertex.pushToEdges(toVertex);    
     toVertex.pushToEdges(fromVertex); 
   }
@@ -119,22 +105,22 @@ class Graph {
     // Pass vertices to checkIfEdgeExits method and return false if it return
     if (this.checkIfEdgeExists(fromVertex, toVertex)) {
       // Loop over fromVertex's edges array and remove toVertex from it if it is found
-      fromVertex.edges = fromVertex.edges.filter((vertex) => vertex.value !== toVertex.value);
+      fromVertex.edges = fromVertex.edges.filter(vertex => vertex.value !== toVertex.value);
       // If fromVertex's edges array is empty, remove fromVertex from Graph's vertices
       if (fromVertex.edges.length === 0) {
-        this.vertices = this.vertices.filter(vertex => vertex.value !== fromVertex.value)
+        this.vertices = this.vertices.filter(vertex => vertex.value !== fromVertex.value);
       }
       // Loop over toVertex's edges array and remove fromVertex from it if it is found
-      toVertex.edges = toVertex.edges.filter((vertex) => vertex.value !== fromVertex.value);
+      toVertex.edges = toVertex.edges.filter(vertex => vertex.value !== fromVertex.value);
       if (toVertex.edges.length === 0) {
-        this.vertices = this.vertices.filter(vertex => vertex.value !== toVertex.value)
+        this.vertices = this.vertices.filter(vertex => vertex.value !== toVertex.value);
       }
     }
   }
 }
 
 module.exports = Graph;
-
+/*
 const graph = new Graph();
 /*
 graph.addVertex('Hello World!');
@@ -147,32 +133,25 @@ graph.addVertex('hi there');
 console.log(graph.contains('hi there'), true);
 graph.removeVertex('hi there');
 console.log(graph.contains('hi there'), false);
+*/
+/*
+const pineapple = graph.addVertex('pineapple');
 
-const pineapple = graph.addVertex('pineapple');
+console.log(pineapple)
 const banana = graph.addVertex('banana');
-console.log(graph);
-console.log(graph.contains('pineapple'), true);
-console.log(graph.contains('banana'), true);
-console.log(graph.contains('hi there'), false);
-const hi = graph.addVertex('hi there');
-console.log(hi);
-graph.removeVertex('hi there');
-console.log(graph);
-console.log(graph.checkIfEdgeExists(pineapple, hi), true);
-const pineapple = graph.addVertex('pineapple');
-// console.log(pineapple)
-const banana = graph.addVertex('banana');
-// console.log(pineapple.edges)
-// console.log(banana.edges)
+console.log(pineapple.edges)
+console.log(banana.edges)
 const mango = graph.addVertex('mango', [pineapple]);
-// console.log(pineapple)
-// console.log(mango)
- console.log(mango)
-// console.log(pineapple)
+console.log(pineapple)
+console.log(mango)
+console.log(mango);
+console.log(pineapple)
 console.log(pineapple.edges);
 console.log(graph.checkIfEdgeExists(pineapple, banana), true);
 console.log(graph.checkIfEdgeExists(mango, banana), false);
 console.log(graph.checkIfEdgeExists(mango, pineapple), true);
+
+
 const A = graph.addVertex('A');
 const b = graph.addVertex('b');
 console.log(graph.checkIfEdgeExists(A, b), true);

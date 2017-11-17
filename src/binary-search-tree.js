@@ -2,7 +2,7 @@
 /* eslint-disable global-require */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
-const Queue = require('../src/queue-helper');
+const Queue = require('./queue-helper');
 
 class BinarySearchTree {
   constructor(value) {
@@ -15,10 +15,10 @@ class BinarySearchTree {
   // depending on its value
   insert(value) {
     if (this.value >= value) {
-      if (!~this.left) return this.left.insert(value);
+      if (this.left !== null) return this.left.insert(value);
       this.left = new BinarySearchTree(value);
     } else {
-      if (!~this.right) return this.right.insert(value);
+      if (this.right !== null) return this.right.insert(value);
       this.right = new BinarySearchTree(value);
     }
   }
@@ -29,17 +29,16 @@ class BinarySearchTree {
     if (target === this.value) return true;
     if (target < this.value) {
       if (this.left !== null) return this.left.contains(target);
-    } else {
-      if (this.right !== null) return this.right.contains(target);
     }
+    if (this.right !== null) return this.right.contains(target);    
     return false;
   }
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
   depthFirstForEach(cb) {
-    cb(this.value)
-    if (this.left) this.left.depthFirstForEach(cb);
-    if (this.right) this.right.depthFirstForEach(cb);
+    cb(this.value);
+    if (this.left !== null) this.left.depthFirstForEach(cb);
+    if (this.right !== null) this.right.depthFirstForEach(cb);
   }
   // Traverses the tree in a breadth-first manner, i.e. in layers, starting 
   // at the root node, going down to the root node's children, and iterating
