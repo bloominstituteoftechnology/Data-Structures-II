@@ -41,8 +41,8 @@ class Graph {
   // connected via an edge
   // Optionally accepts an array of other GraphNodes for the new vertex to be connected to
   // Returns the newly-added vertex
+  // Wraps the input value in a new GraphNode and adds it to the array of vertices
   addVertex(value, edges = []) {
-    // Wraps the input value in a new GraphNode and adds it to the array of vertices
     const newNode = new GraphNode({
       value,
       edges: [],
@@ -57,12 +57,6 @@ class Graph {
       edge.push(newNode);
     });
     this.vertices.push(newNode);
-    // console.log('***');
-    // console.log(typeof newNode);
-    // console.log(newNode);
-    // console.log(newNode.edges);
-    // console.log('***');
-    // console.log('');
     return newNode;
   }
   // // Checks all the vertices of the graph for the target value
@@ -93,7 +87,7 @@ class Graph {
   // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
   checkIfEdgeExists(fromVertex, toVertex) {
     let flag = false;
-    const theThis = this.vertices; // the linter wants all class methods to use this
+    const theThis = this.vertices;
     const fromEdges = fromVertex.edges;
     const toEdges = toVertex.edges;
     fromEdges.forEach((edge1) => {
@@ -102,16 +96,16 @@ class Graph {
           if (edge2 === fromVertex) {
             flag = true;
           }
-        });  
+        });
       }
     });
     return flag;
   }
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other 
+  // If fromVertex's edges does not include toVertex, push toVertex to fromVertex's edges
+  // If toVertex's edges does not include fromVertex, push fromVertex to toVertex's edges
   addEdge(fromVertex, toVertex) {
-    // If fromVertex's edges does not include toVertex, push toVertex to fromVertex's edges
-    // If toVertex's edges does not include fromVertex, push fromVertex to toVertex's edges
     if (!this.checkIfEdgeExists(fromVertex, toVertex)) {
       fromVertex.pushToEdges(toVertex);
       toVertex.pushToEdges(fromVertex);
@@ -121,7 +115,7 @@ class Graph {
   // After removing the edge, neither vertex should be referencing the other
   // If a vertex would be left without any edges as a result of calling this function, those
   // vertices should be removed as well
- // Pass vertices to checkIfEdgeExits method and return false if it return
+  // Pass vertices to checkIfEdgeExits method and return false if it return
   // Loop over fromVertex's edges array and remove toVertex from it if it is found
   // If fromVertex's edges array is empty, remove fromVertex from Graph's vertices
   // Loop over toVertex's edges array and remove fromVertex from it if it is found
@@ -137,13 +131,9 @@ class Graph {
       this.vertices.splice(this.vertices.indexOf(fromVertex), 1);
     }
     if (toEdges.length === 0) {
-      this.vertices.splice(this.vertices.indexOf(toVertex), 1);      
+      this.vertices.splice(this.vertices.indexOf(toVertex), 1);
     }
   }
 }
-// const graph = new Graph();
-// graph.addVertex('apple');
-// graph.addVertex('john');
-// graph.addVertex('yasin');
-// console.log(graph.contains('111'));
+
 module.exports = Graph;
