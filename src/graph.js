@@ -41,16 +41,24 @@ class Graph {
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
     const vertex = new GraphNode({ value, edges });
-    if (this.vertices.length === 1) {
-      this.vertices[0].pushToEdges(vertex);
-      vertex.pushToEdges(this.vertices[0]);
+    if (this.vertices.length === 1 && value !== this.vertices[0].value) {
+      if (!this.vertices[0].edges.includes(vertex) && !vertex.edges.includes(this.vertices[0])) {
+        this.vertices[0].pushToEdges(vertex);
+        vertex.pushToEdges(this.vertices[0]);
+      } else if (!this.vertices[0].edges.includes(vertex)) {
+        this.vertices[0].pushToEdges(vertex);
+      } else if (!vertex.edges.includes(this.vertices[0])) {
+        vertex.pushToEdges(this.vertices[0]);
+      }
       this.vertices.push(vertex);
-    } else if (this.vertices.length === 0) {
-      this.vertices.push(vertex);
-    } else {
-      edges.forEach((item) => {
-        this.vertices[this.vertices.indexOf(item)].pushToEdges(vertex);
-      });
+    } else if (this.vertices !== 0) {
+      if (edges.length !== 0) {
+        edges.forEach((item) => {
+          if (this.vertices.includes(item) && !item.edges.includes(vertex)) {
+            this.vertices[this.vertices.indexOf(item)].pushToEdges(vertex);
+          } 
+        });
+      }
       this.vertices.push(vertex);
     }
     return vertex;
@@ -126,8 +134,6 @@ class Graph {
       if (toEdges.length === 0) this.vertices.splice(this.vertices.indexOf(toVertex), 1);
       toVertex.edges = toEdges;
       this.vertices[this.vertices.indexOf(toVertex)] = toVertex;
-    } else {
-      return undefined;
     }
   }
 }
