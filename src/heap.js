@@ -74,7 +74,21 @@ class Heap {
 // If the larger of the child elements is larger than the parent, the child element is swapped with the parent
 // This method is only used by the heap itself in order to maintain the heap property
   siftDown(index) {
-    
+    let parentElem = this.storage[index];
+    let childLeftIndex = this.storage[index * 2 + 1];
+    let childRightIndex = this.storage[index * 2 + 2];
+
+    if (childLeftIndex > parentElem && childLeftIndex >= childRightIndex) {
+      this.storage[index] = childLeftIndex;
+      // Swapping elements
+      this.storage[2 * index + 1] = parentElem;
+      this.siftDown(2 * index + 1);
+    } else if (childRightIndex > parentElem && childRightIndex >= childLeftIndex) {
+      this.storage[index] = childRightIndex;
+      // swapping elements
+      this.storage[index * 2] = parentElem;
+      this.siftDown(index * 2);
+    }
   }
 }
 
