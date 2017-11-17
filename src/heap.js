@@ -18,11 +18,11 @@ class Heap {
     }
     // Returns the maximum value in the heap in constant time
     getMax() {
-
+         return this.storage[1];
     }
     // Returns the size of the heap
     getSize() {
-        return this.storage.size;
+        return this.size;
     }
     // Returns the storage array
     getStorage() {
