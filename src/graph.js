@@ -68,15 +68,23 @@ class Graph {
   // // Checks all the vertices of the graph for the target value
   // // Returns true or false
   contains(value) {
-    const arr = this.vertices;
-    return arr.findIndex(v => v.value === value) >= 0;
+    let flag = false;
+    this.vertices.forEach((vertex) => {
+      if (vertex.value === value) {
+        flag = true;
+      }
+    });
+    return flag;
   }
   // Checks the graph to see if a GraphNode with the specified value exists in the graph 
   // and removes the vertex if it is found
   // This function should also handle the removing of all edge references for the removed vertex
   removeVertex(value) {
-    const index = this.vertices.findIndex(v => v.value === value);
-    this.vertices.splice(index, 1);
+    for (let i = 0; i < this.vertices.length; i++) {
+      if (this.vertices[i].value === value) {
+        this.vertices.splice(i, 1);
+      }
+    }
   }
   // Checks the two input vertices to see if each one references the other in their respective edges array
   // Both vertices must reference each other for the edge to be considered valid
@@ -84,33 +92,53 @@ class Graph {
   // Note: You'll need to store references to each vertex's array of edges so that you can use 
   // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
   checkIfEdgeExists(fromVertex, toVertex) {
-    return (
-      fromVertex.edges.indexOf(toVertex) >= 0 &&
-      toVertex.edges.indexOf(fromVertex) >= 0
-    );
+    let flag = false;
+    const theThis = this.vertices; // the linter wants all class methods to use this
+    const fromEdges = fromVertex.edges;
+    const toEdges = toVertex.edges;
+    fromEdges.forEach((edge1) => {
+      if (edge1 === toVertex) {
+        toEdges.forEach((edge2) => {
+          if (edge2 === fromVertex) {
+            flag = true;
+          }
+        });  
+      }
+    });
+    return flag;
   }
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other 
   addEdge(fromVertex, toVertex) {
     // If fromVertex's edges does not include toVertex, push toVertex to fromVertex's edges
     // If toVertex's edges does not include fromVertex, push fromVertex to toVertex's edges
-    if (!fromVertex.edges.contains(toVertex)) {
-      fromVertex.edges.pushToEdges(toVertex);
-    }
-    if (!toVertex.edges.contains(fromVertex)) {
-      toVertex.edges.pushToEdges(fromVertex);
+    if (!this.checkIfEdgeExists(fromVertex, toVertex)) {
+      fromVertex.pushToEdges(toVertex);
+      toVertex.pushToEdges(fromVertex);
     }
   }
   // Removes the edge between the two given vertices if an edge already exists between them
   // After removing the edge, neither vertex should be referencing the other
   // If a vertex would be left without any edges as a result of calling this function, those
   // vertices should be removed as well
-  removeEdge(fromVertex, toVertex) {
  // Pass vertices to checkIfEdgeExits method and return false if it return
-    // Loop over fromVertex's edges array and remove toVertex from it if it is found
-    // If fromVertex's edges array is empty, remove fromVertex from Graph's vertices
-    // Loop over toVertex's edges array and remove fromVertex from it if it is found
-    // If toVertex's edges array is empty, remove toVertex from Graph's vertices
+  // Loop over fromVertex's edges array and remove toVertex from it if it is found
+  // If fromVertex's edges array is empty, remove fromVertex from Graph's vertices
+  // Loop over toVertex's edges array and remove fromVertex from it if it is found
+  // If toVertex's edges array is empty, remove toVertex from Graph's vertices
+  removeEdge(fromVertex, toVertex) {
+    const fromEdges = fromVertex.edges;
+    const toEdges = toVertex.edges;
+    if (this.checkIfEdgeExists(fromVertex, toVertex)) {
+      fromEdges.splice(fromEdges.indexOf(toVertex), 1);
+      toEdges.splice(toEdges.indexOf(fromVertex), 1);
+    }
+    if (fromEdges.length === 0) {
+      this.vertices.splice(this.vertices.indexOf(fromVertex), 1);
+    }
+    if (toEdges.length === 0) {
+      this.vertices.splice(this.vertices.indexOf(toVertex), 1);      
+    }
   }
 }
 // const graph = new Graph();
