@@ -2,6 +2,8 @@
 /* eslint-disable global-require */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
+const Queue = require('../src/queue-helper');
+
 class BinarySearchTree {
   constructor(value) {
     this.value = value;
@@ -22,13 +24,11 @@ class BinarySearchTree {
           currentLocation.right = insertedNode;
           return;
         }
-      } else { // is insert value smaller than the current value?
-        if (currentLocation.left) {
-          currentLocation = currentLocation.left;
-        } else {
-          currentLocation.left = insertedNode;
-          return;
-        }
+      } else if (currentLocation.left) { // is insert value smaller than the current value?
+        currentLocation = currentLocation.left;
+      } else {
+        currentLocation.left = insertedNode;
+        return;
       }
     }
   }
@@ -79,24 +79,6 @@ class BinarySearchTree {
     while (!breadthQueue.isEmpty()) {
       cb(breadthQueue.dequeue());
     }
-  }
-}
-
-class Queue {
-  constructor() {
-    this.storage = [];
-  }
-
-  enqueue(x) {
-    this.storage.push(x);
-  }
-
-  dequeue() {
-    return this.storage.shift();
-  }
-
-  isEmpty() {
-    return this.storage.length === 0;
   }
 }
 

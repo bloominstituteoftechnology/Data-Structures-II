@@ -1,5 +1,6 @@
  /* eslint-disable no-undef */
  const Heap = require('../src/heap');
+
  describe('Heap', () => {
    let heap;
    beforeEach(() => {
@@ -52,4 +53,3 @@
      expect(descendingOrder).toEqual([10, 8, 7, 6, 5, 5, 2, 1]);
    });
  });
-
