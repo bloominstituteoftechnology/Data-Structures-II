@@ -20,11 +20,14 @@ class Heap {
     // Calls siftDown in order to reorganize the heap with a new max/min
     // In some specifications, this method is also called `poll`
     delete() {
+      if (this.size < 1) return this.storage.pop();
+      const result = this.storage[0];
       this.storage[0] = this.storage.pop();
       this.size--;
       if (this.size >= 1) {
       this.siftDown(0);
       }
+      return result;
     }
     // Returns the maximum value in the heap in constant time
     getMax() {

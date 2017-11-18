@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-trailing-spaces */
+/* eslint-disable class-methods-use-this */
 // Do not modify this GraphNode class
 // Use any of its methods as you see fit to implement your graph
 class GraphNode {
@@ -43,6 +44,17 @@ class Graph {
   // Returns the newly-added vertex
   // Wraps the input value in a new GraphNode and adds it to the array of vertices
   addVertex(value, edges = []) {
+    /* teacher code 
+    const newNode = new GraphNode ({ value, edges });
+    newNode.edges.forEach(vertex => {
+      this.addEdge(newNode, vertex);
+    });
+    if (this.vertices.length === 1){
+      this.addEdge(newNode, vertices[0]);
+    }
+    this.vertices.push(newNode);
+    return newNode;
+    */
     const newNode = new GraphNode({
       value,
       edges: [],
@@ -62,6 +74,19 @@ class Graph {
   // // Checks all the vertices of the graph for the target value
   // // Returns true or false
   contains(value) {
+    /* teacher code
+    for (let i = 0; i < this.vertices.length) {
+      if (this.vertices[i].value === value) return true;
+    }
+    return false;
+    // or
+    // return this.vertices.some(vertex => vertex.value === value);
+    // or
+    // this.vertices.forEach(vertex => {
+    //   if (vertex.value === value) return true;
+    // });
+    // return false;
+    */
     let flag = false;
     this.vertices.forEach((vertex) => {
       if (vertex.value === value) {
@@ -74,6 +99,31 @@ class Graph {
   // and removes the vertex if it is found
   // This function should also handle the removing of all edge references for the removed vertex
   removeVertex(value) {
+    /* teacher code
+    this.vertices = this.vertices.filter(vertex => vertex.value !== value);
+    this.vertices = this.vertices.filter(vertex => {
+      const filteredEdges = vertex.edges.filter(edge => edge.value !==value);
+      vertex.edges = filteredEdges;
+      return vertex.edges !== undefined;
+    })
+    // OR
+    if (!this.contains(value)) return;
+    const forRemoval = this.vertices.filter(vertex => vertex.value === value)[0];
+    // OR
+    const filteredVertices = [];
+    let forRemoval;
+    for (let i = 0; i < this.vertices.length; i++) {
+      if (this.vertices[i].value === value) {
+        forRemoval = this.vertices[i];
+      } else {
+        filteredVertices.push(this.vertices[i]);
+      }
+    }
+    this.vertices = filteredVertices;
+    forRemoval.edges.forEach(vertex => {
+      this.removeEdge(forRemoval, vertex);
+    });
+    */
     for (let i = 0; i < this.vertices.length; i++) {
       if (this.vertices[i].value === value) {
         this.vertices.splice(i, 1);
@@ -86,6 +136,9 @@ class Graph {
   // Note: You'll need to store references to each vertex's array of edges so that you can use 
   // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
   checkIfEdgeExists(fromVertex, toVertex) {
+    /* teacher code
+    return (fromVertex.edges.includes(toVertex) && toVertex.edges.includes(fromVertex));
+    */
     let flag = false;
     const theThis = this.vertices;
     const fromEdges = fromVertex.edges;
@@ -106,6 +159,14 @@ class Graph {
   // If fromVertex's edges does not include toVertex, push toVertex to fromVertex's edges
   // If toVertex's edges does not include fromVertex, push fromVertex to toVertex's edges
   addEdge(fromVertex, toVertex) {
+    /* teacher code -he created the 2 lines directly below last
+    if (!fromVertex.edges.includes(toVertex)) fromVertex.pushToEdges(toVertex);
+    if(!toVertex.edges.includes(fromVertex)) toVertex.pushToEdges(fromVertex);
+    // his initial code that he decided to change was below
+    // if (checkIfEdgeExists(fromVertex, toVertex)) return;
+    // fromVertex.pushToEdges(toVertex);
+    // toVertex.pushToEdges(fromVertex);
+    */
     if (!this.checkIfEdgeExists(fromVertex, toVertex)) {
       fromVertex.pushToEdges(toVertex);
       toVertex.pushToEdges(fromVertex);
@@ -121,6 +182,12 @@ class Graph {
   // Loop over toVertex's edges array and remove fromVertex from it if it is found
   // If toVertex's edges array is empty, remove toVertex from Graph's vertices
   removeEdge(fromVertex, toVertex) {
+    /* teacher code
+    if (!this.checkIfEdgeExists(fromVertex, toVertex)) return false;
+    fromVertex.edges = fromVertex.edges.filter(vertex => vertex.value !== toVertex.value);
+    toVertex.edges = toVertex.edges.filter(vertex => vertex.value !== fromVertex.value);
+    if (fromVertex.numberOfEdges === 0) this.removeVertex(toVertex.value);
+    */
     const fromEdges = fromVertex.edges;
     const toEdges = toVertex.edges;
     if (this.checkIfEdgeExists(fromVertex, toVertex)) {
