@@ -17,15 +17,15 @@ class Heap {
     }
     // Returns the maximum value in the heap in constant time
     getMax() {
-
+        return this.getStorage()[0];
     }
     // Returns the size of the heap
     getSize() {
-
+        return this.size;
     }
     // Returns the storage array
     getStorage() {
-
+        return this.storage;
     }
     // Moves the element at the specified index "up" by swapping it with its parent 
     // if its parent value is less than the value located at the input index
