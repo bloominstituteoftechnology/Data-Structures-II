@@ -63,11 +63,11 @@ class Graph {
   // This function should also handle the removing of all edge references for the removed vertex
   removeVertex(value) {
     this.vertices = this.vertices.filter(vertex => vertex.value !== value);
-    this.vertices = this.vertices.filter(vertex => {
+    this.vertices = this.vertices.filter((vertex) => {
       const filteredEdges = vertex.edges.filter(edge => edge.value !== value);
       vertex.edges = filteredEdges;
       return vertex.edges !== undefined;
-    })
+    });
   }
   // Checks the two input vertices to see if each one references the other in their respective edges array
   // Both vertices must reference each other for the edge to be considered valid
@@ -88,11 +88,11 @@ class Graph {
   // If a vertex would be left without any edges as a result of calling this function, those
   // vertices should be removed as well
   removeEdge(fromVertex, toVertex) {
-    if(!this.checkIfEdgeExists(fromVertex, toVertex)) return false;
+    if (!this.checkIfEdgeExists(fromVertex, toVertex)) return false;
     fromVertex.edges = fromVertex.edges.filter(vertex => vertex.value !== toVertex.value);
     toVertex.edges = toVertex.edges.filter(vertex => vertex.value !== fromVertex.value);
-    if(fromVertex.numberOfEdges === 0) this.removeVertex(fromVertex.value);
-    if(toVertex.numberOfEdges === 0) this.removeVertex(toVertex.value);
+    if (fromVertex.numberOfEdges === 0) this.removeVertex(fromVertex.value);
+    if (toVertex.numberOfEdges === 0) this.removeVertex(toVertex.value);
   }
 }
 
