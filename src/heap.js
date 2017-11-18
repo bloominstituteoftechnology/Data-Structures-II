@@ -23,7 +23,7 @@ class Heap {
       delete this.storage[0];
       this.size--;
       if (this.size > 1) {
-      this.siftDown(this.size);
+      this.siftDown(1);
       }
     }
     // Returns the maximum value in the heap in constant time
@@ -43,7 +43,7 @@ class Heap {
     // This method is only used by the heap itself in order to maintain the heap property
     bubbleUp(index) {
         let parent = Math.floor(index/2);
-        while (index > 1) {
+        while (index >= 1) {
           if (this.storage[index] > this.storage[parent]) {
               const bigger = this.storage[index];
               const smaller = this.storage[parent];
