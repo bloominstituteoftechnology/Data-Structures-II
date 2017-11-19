@@ -8,7 +8,7 @@ Topics:
 
 
 #### Trees
-
+ 
   * Should have the methods: `addChild`, and `contains`
   * Each node on the tree should have a `value` property and a `children` array.
   * `addChild(value)` should accept a value and add it to that node's `children` array.

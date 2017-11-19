@@ -11,7 +11,7 @@ class GraphNode {
 
   get value() {
     return this._value;
-  }
+  }return this._value; 
 
   get edges() {
     return this._edges;
@@ -40,40 +40,97 @@ class Graph {
   // Optionally accepts an array of other GraphNodes for the new vertex to be connected to
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
-
+    const newVertex = new GraphNode({ value, edges}); //Create a new instance of Graph node and pass it the provided value and edges 
+    const graph = this.vertices; 
   }
-  // Checks all the vertices of the graph for the target value
-  // Returns true or false
-  contains(value) {
+  graph.push(newVertex); // Push the new GraphNode to the Graph vertices
+  
+  if (graph.length === 2) { // If the length of vertices equals 2, add both to the other's edges add both to the other's edges    
+    this.addEdge(graph[0], graph[1]);
+} else if (graph.length > 2 && edges !== [] {
+  edges.forEach((edge) => {
+    this.addEdge(edge, newVertex);
+  });
+  if (!this.checkIfEdgeExists(fromVertex, toVertex)) { 
+    // if My [From - To] does not exist
+         
+   if (!toVertex.edges.includes(fromVertex)) { 
+    // if my [To - From] is not included
+          
+  toVertex.pushToEdges(fromVertex);  // add it!
+          }
+        
+  if (!fromVertex.edges.includes(toVertex)) {
+     // if my [From - to] is not included
+       
+  fromVertex.pushToEdges(toVertex);
+     // add it!
+          }
+        }
+      }(y) {
+}
+return newVertex; 
+}
+// Checks all the vertices of the graph for the target value
+// Returns true or false
+contains(value) {
+let flag = false;   }
+this.vertices.forEach((vertex)) => {
+  if (value === vertex.value) {
+    // console.log(vertex.value);
+    // console.log(value);
+    flag = true; 
+  });  return flag; }
 
-  }
   // Checks the graph to see if a GraphNode with the specified value exists in the graph 
   // and removes the vertex if it is found
   // This function should also handle the removing of all edge references for the removed vertex
   removeVertex(value) {
-
-  }
-  // Checks the two input vertices to see if each one references the other in their respective edges array
+    this.vertices.forEach((vertex) => {
+      if (vertex.value === value) {
+        vertex.edges.forEach((edge => {
+        this.removeEdge(vertex, edge);
+      });
+      if (this.vertices.indexOf(vertex) !== -1) {
+        this.vertices.splice(this.vertices.indexOf(vertex), 1);
+      }      return;       }     }); 
+    } //Checks the two input vertices to see if each one references the other in their respective edges array
   // Both vertices must reference each other for the edge to be considered valid
   // If only one vertex references the other but not vice versa, should not return true
   // Note: You'll need to store references to each vertex's array of edges so that you can use 
   // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
   checkIfEdgeExists(fromVertex, toVertex) {
-
+    const vertex = this; //To Satisfy the Linter only 
+    return (toVertex.edges.includes(fromVertex) && fromVertex.edges.includes(toVertex));
   }
+ 
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other 
   addEdge(fromVertex, toVertex) {
-
+    if (!this.checkIfEdgeExists(fromVertex, toVertex)) { 
   }
   // Removes the edge between the two given vertices if an edge already exists between them
   // After removing the edge, neither vertex should be referencing the other
   // If a vertex would be left without any edges as a result of calling this function, those
   // vertices should be removed as well
   removeEdge(fromVertex, toVertex) {
+    if (!this.checkIfEdgeExists(fromVertex, toVertex)) return; // Default Case: If there is no edge to remove!
+    fromVertex.edges.splice(fromVertex.edges.indexOf(toVertex), 1); // Delete Edge in Fron To Direction.
+    toVertex.edges.splice(toVertex.edges.indexOf(fromVertex), 1); // Delete Edge in To From Direction.
+    // Remove Edgeless Nodes in From Direction
+    if (fromVertex.edges.length === 0) this.vertices.splice(this.vertices.indexOf(fromVertex), 1);
+    // Remove Edgeless Nodes in To Direction
+    if (toVertex.edges.length === 0) this.vertices.splice(this.vertices.indexOf(toVertex), 1);
+  }
+}
 
   }
 }
 
 module.exports = Graph;
 
+const h = new Graph();
+h.addVertex(1);
+h.addVertex(2);
+h.addVertex(3);
+console.log(h)
