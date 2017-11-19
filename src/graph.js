@@ -11,7 +11,7 @@ class GraphNode {
 
   get value() {
     return this._value;
-  }
+  }return this._value; 
 
   get edges() {
     return this._edges;
@@ -40,12 +40,24 @@ class Graph {
   // Optionally accepts an array of other GraphNodes for the new vertex to be connected to
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
-    this.left = 1;
+    const newVertex = new GraphNode({ value, edges}); //Create a new instance of Graph node and pass it the provided value and edges 
+    const graph = this.vertices; 
   }
-  // Checks all the vertices of the graph for the target value
-  // Returns true or false
-  contains(value) {
-    this.left = 1;
+  graph.push(newVertex); // Push the new GraphNode to the Graph vertices
+  
+  if (graph.length === 2) { // If the length of vertices equals 2, add both to the other's edges add both to the other's edges    
+    this.addEdge(graph[0], graph[1]);
+} else if (graph.length > 2 && edges !== [] {
+  edges.forEach((edge) => {
+    this.addEdge(edge, newVertex);
+  });
+}
+return newVertex; 
+}
+// Checks all the vertices of the graph for the target value
+// Returns true or false
+contains(value) {
+this.left = 1;
   }
   // Checks the graph to see if a GraphNode with the specified value exists in the graph 
   // and removes the vertex if it is found
