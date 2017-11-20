@@ -2,11 +2,7 @@
 /* eslint-disable global-require */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
-<<<<<<< HEAD
-// const { Queue } = require('./queue-helper');
-=======
 const { Queue } = require('./queue-helper');
->>>>>>> 71f6d2e6f1a480d753653e14d941a43df311c9ee
 
 class BinarySearchTree {
   constructor(value) {
@@ -26,17 +22,6 @@ class BinarySearchTree {
 */
   insert(value) {
     const newBT = new BinarySearchTree(value);
-<<<<<<< HEAD
-    if (this.value > value) {
-      if (!this.left) { 
-        this.left = newBT; 
-      } else {
-        this.left.insert(value);
-      }
-    } else if (this.value < value) {
-      if (!this.right) { 
-        this.right = newBT; 
-=======
     if (value < this.value) {
       if (!this.left) {        // if (this.left === null) this.left = new BinarySearchTree(value)
         this.left = newBT;     
@@ -47,7 +32,6 @@ class BinarySearchTree {
     if (value > this.value) {
       if (!this.right) {     // if (this.right === null) this.right = new BinarySearchTree(value)
         this.right = newBT;
->>>>>>> 71f6d2e6f1a480d753653e14d941a43df311c9ee
       } else {
         this.right.insert(value);
       }
@@ -64,21 +48,11 @@ class BinarySearchTree {
 
   */
   contains(target) {
-<<<<<<< HEAD
-    if (target === this.value) return true;
-    if (this.value > target && this.left) return this.left.contains(target);
-    if (this.value < target && this.right) return this.right.contains(target);
-    return false;
-  
-    // recurse(this);
-  //  return foundVal;
-=======
     if (this.value === target) return true;
     // be careful using single line if-statements, can be problematic when debugging.
     if (this.value < target && this.right) return this.right.contains(target);
     if (this.value > target && this.left) return this.left.contains(target);
     return false;
->>>>>>> 71f6d2e6f1a480d753653e14d941a43df311c9ee
   }
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
@@ -88,11 +62,6 @@ class BinarySearchTree {
 
   */ 
   depthFirstForEach(cb) {
-<<<<<<< HEAD
-    
-
-    }
-=======
     cb((value) => {
       value = this.value;
       if (this.left) {
@@ -107,7 +76,6 @@ class BinarySearchTree {
      if (this.left !== null) this.left.depthFirstForEach(cb);
      ... do this for the right as well
     */
->>>>>>> 71f6d2e6f1a480d753653e14d941a43df311c9ee
   }
   // Traverses the tree in a breadth-first manner, i.e. in layers, starting
   // at the root node, going down to the root node's children, and iterating
@@ -116,10 +84,6 @@ class BinarySearchTree {
   // You'll need the queue-helper file for this. Or could you roll your own queue
   // again. Whatever floats your boat.
   breadthFirstForEach(cb) {
-<<<<<<< HEAD
-    
-
-=======
     const queue = new Queue();
     queue.enqueue(this);
     while (!queue.isEmpty()) {
@@ -134,7 +98,6 @@ class BinarySearchTree {
         queue.enqueue(node.right);
       }
     }
->>>>>>> 71f6d2e6f1a480d753653e14d941a43df311c9ee
   }
   /* Ivans solution:
     const queue = [];
@@ -146,17 +109,6 @@ class BinarySearchTree {
     }
   */
 }
-<<<<<<< HEAD
-const myTree = new BinarySearchTree(9);
-console.log(myTree.contains(4));
-console.log(myTree.insert(3));
-console.log(myTree.insert(5));
-console.log(myTree.insert(12));
-console.log(myTree.insert(8));
-console.log(myTree.insert(66));
-console.log(myTree.insert(4));
-=======
->>>>>>> 71f6d2e6f1a480d753653e14d941a43df311c9ee
 
 module.exports = BinarySearchTree;
 
