@@ -41,40 +41,27 @@ class Graph {
   // Optionally accepts an array of other GraphNodes for the new vertex to be connected to
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
-    const newVert = new GraphNode({ value, edges });
-    if (this.vertices.length === 1) {
-      newVert.pushToEdges(this.vertices[0]);
-      this.vertices[0].pushToEdges(newVert);
-    }
-    this.vertices.push(newVert);
-    if (this.vertices.length > 2 && edges.length !== 0) {
-      edges.forEach((edge) => {
-        const indexOfEdgeInVerts = this.vertices.indexOf(edge);
-        if (indexOfEdgeInVerts !== -1) {
-          this.vertices[indexOfEdgeInVerts].pushToEdges(newVert);
-        }
-      });
-    }
-    return newVert;
+    // Create a new instance of GraphNode and pass it the provided value and edges
+    // For all provided edges, iterate over and add new GraphNode to each vertex
+    // If the length of verticies equals 1, add both to the other's edges
+    // Push the new GraphNode to the Graph vertices
+    // Return the new GraphNode
   }
   // Checks all the vertices of the graph for the target value
   // Returns true or false
   contains(value) {
-    if (this.vertices.length === 0) return false;
-    for (let i = 0; i < this.vertices.length; i++) {
-      if (this.vertices[i].value === value) {
-        return true;
-      }
-    }
-    return false;
+    // Loop over the Graph's vertices
+    // Check each vertex's value and compare it to the provided value
+    // Return true if found, and return false otherwise    
   }
   // Checks the graph to see if a GraphNode with the specified value exists in the graph
   // and removes the vertex if it is found
   // This function should also handle the removing of all edge references for the removed vertex
   removeVertex(value) {
-    this.vertices = this.vertices.filter((vertex) => {
-      return vertex.value !== value;
-    });
+    // Pass value to contains method and return if contains returns false
+    // Temporarily store GraphNode intended for removal
+    // Filter out the GraphNode containing the provided value from the Graph's vertices
+    // Iterate over all of the Graph's verticies and pass the GraphNode intended for removal and each vertex into removeEdge
   }
   // Checks the two input vertices to see if each one references the other in their respective edges array
   // Both vertices must reference each other for the edge to be considered valid
@@ -82,40 +69,33 @@ class Graph {
   // Note: You'll need to store references to each vertex's array of edges so that you can use
   // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
   checkIfEdgeExists(fromVertex, toVertex) {
-    const fromEdges = fromVertex.edges;
-    const toEdges = toVertex.edges;
-    if (fromEdges.indexOf(toVertex) !== -1 && toEdges.indexOf(fromVertex) !== -1) {
-      return true;
-    }
-    return false;
+    // If fromVertex includes toVertex and toVertex includes from Vertex, return true
+    // Otherwise, return false
   }
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other
   addEdge(fromVertex, toVertex) {
-    fromVertex.pushToEdges(toVertex);
-    toVertex.pushToEdges(fromVertex);
+    // If fromVertex's edges does not include toVertex, push toVertex to fromVertex's edges
+    // If toVertex's edges does not include fromVertex, push fromVertex to toVertex's edges
   }
   // Removes the edge between the two given vertices if an edge already exists between them
   // After removing the edge, neither vertex should be referencing the other
   // If a vertex would be left without any edges as a result of calling this function, those
   // vertices should be removed as well
   removeEdge(fromVertex, toVertex) {
-    const inFromIndex = fromVertex.edges.indexOf(toVertex);
-    const inToIndex = toVertex.edges.indexOf(fromVertex);
+    // Pass vertices to checkIfEdgeExists method and return false if not found
+    // Loop over fromVertex's edges array and remove toVertex from it if it is found
+    // If fromVertex's edges array is empty, remove fromVertex from Graph's vertices
+    // Loop over toVertex's edges array and remove fromVertex to it if it is found
+    // If toVertex's edges array is empty, remove toVertex from the Graph's vertices
 
-    if (inFromIndex !== -1) {
-      fromVertex.edges.splice(inFromIndex, 1);
-    }
-    if (inToIndex !== -1) {
-      toVertex.edges.splice(inToIndex, 1);
-    }
-
-    if (fromVertex.edges.length === 0) {
-      this.vertices.splice(this.vertices.indexOf(fromVertex), 1);
-    }
-    if (toVertex.edges.length === 0) {
-      this.vertices.splice(this.vertices.indexOf(toVertex), 1);
-    }
+    // Moises' Example:
+    // Pass vertices to checkIfEdgeExists method, and if it returns false: stop
+    // Pass vertices to checkIfEdgeExists method, and if it returns true:
+    //  + Loop over fromVertex's edges and remove toVertex if found;
+    //  //  + if fromVertex's edges array is empty remove fromVertex from Graph.
+    //  + Loop over toVertex's edges and remove fromVertex if found;
+    //  //  + if toVertex's edges array is empty remove toVertex from Graph.
   }
 }
 
