@@ -24,5 +24,7 @@ class Tree {
     return false;
   }
 }
-
+const myTree = new Tree(8);
+console.log(myTree.addChild(8));
+console.log(myTree.contains(4));
 module.exports = Tree;
