@@ -50,19 +50,24 @@ class Graph {
    */
   addVertex(value, edges = []) {
     const newNode = new GraphNode({ value, edges });
+<<<<<<< HEAD
     newNode.edges = edges;
     newNode[value] = value;
+=======
+    newNode.edges.forEach((edge) => {
+      this.addEdge(newNode, value);
+    });
+    if (this.vertices.length) this.addEdge(newNode, value); 
+>>>>>>> origin/master
     this.vertices.push(newNode);
-    return this.vertices;
+    return newNode;
   }
   // Checks all the vertices of the graph for the target value
   // Returns true or false
   // check vertex's value and compare it to the provide value
   // return true if found, and return false otherewise
   contains(value) {
-    Graph.vertices.forEach((vertex) => {
-      return !!this.vertices[value];
-    });
+    return this.vertices.some(vertex => vertex.value === value);
   }
   // Checks the graph to see if a GraphNode with the specified value exists in the graph 
   // and removes the vertex if it is found
@@ -72,6 +77,7 @@ class Graph {
   // filter out the graphNode containing the provided value from the Graph's vertices
   // iterate over all of the Graph's vertices and pass the GraphNode intended for removal and each vertex into removeEdge
   removeVertex(value) {
+<<<<<<< HEAD
     const checkNode = new GraphNode();
 
     if (this.vertices.contains(value)) {
@@ -79,6 +85,14 @@ class Graph {
       delete checkNode.edges[this.vertices[value][1]];     
       delete this.vertices[value];
     }
+=======
+    this.vertices = this.vertices.forEach(vertex => vertex.value === value);
+    this.vertices = this.vertices.filter((vertex) => {
+      const filteredEdge = vertex.edges.filter(edge => edge.value !== value);
+      vertex.edges = filteredEdge;
+      return vertex.edges !== undefined;
+    });
+>>>>>>> origin/master
   }
   // Checks the two input vertices to see if each one references the other in their respective edges array
   // Both vertices must reference each other for the edge to be considered valid
@@ -87,6 +101,7 @@ class Graph {
   // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
   // if fromVertex includes toVertex and toVertex includes from Verteex return true otherwise false
   checkIfEdgeExists(fromVertex, toVertex) {
+<<<<<<< HEAD
     const checkNode = new GraphNode();
     let key;
     for (key in checkNode.edges) {
@@ -95,16 +110,24 @@ class Graph {
       if (first || second) return true;
     }
     return false;
+=======
+    return (fromVertex.edges.includes(toVertex) && toVertex.edges.includes(fromVertex));
+>>>>>>> origin/master
   }
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other 
   // if fromvertex's edges does not include toVertex, push toVertex to from Vertex's edges
   // if to vertex's edges does not include fromVertex, push fromVertex to toVertex's edges.
   addEdge(fromVertex, toVertex) {
+<<<<<<< HEAD
     const checkNode = new GraphNode();
     if (checkNode.checkIfEdgeExists(fromVertex, toVertex)) {
       checkNode.numberOfEdges.get(fromVertex).pushToEdges(toVertex);
     }  
+=======
+    if (!fromVertex.edges.includes(toVertex)) fromVertex.pushToEdges(toVertex);
+    if (!toVertex.edges.inlcudes(fromVertex)) toVertex.pushTOEdges(fromVertex);
+>>>>>>> origin/master
   }
   // Removes the edge between the two given vertices if an edge already exists between them
   // After removing the edge, neither vertex should be referencing the other
@@ -116,7 +139,9 @@ class Graph {
   // Loop Over Tovertex's edges array and remove fromVertex from it if it is found
   // if toVertex's edges array is empty, remove toVertex from Graph's vertices.
   removeEdge(fromVertex, toVertex) {
-
+    if (!this.checkIfEdgeExists(fromVertex, toVertex)) fromVertex.edges = fromVertex.filter(vertex => vertex.value !== fromVertex.value);
+    if (fromVertex.numberOfEdges === 0) this.removeVertex(fromVertex.value);
+    if (toVertex.numberOfEdges === 0) this.removeVertex(toVertex.value);
   }
 }
 
