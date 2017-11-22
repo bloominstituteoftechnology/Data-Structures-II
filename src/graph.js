@@ -90,7 +90,7 @@ class Graph {
   }
 }
 const myNode = new GraphNode(5, 2);
-this.vertices.addVertex(4);
+myNode.addVertex(4);
 console.log(myNode);
 module.exports = Graph;
 
