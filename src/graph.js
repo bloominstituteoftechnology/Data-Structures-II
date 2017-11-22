@@ -70,13 +70,14 @@ class Graph {
   // Note: You'll need to store references to each vertex's array of edges so that you can use 
   // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
   checkIfEdgeExists(fromVertex, toVertex) {
-    return (fromVertex.edges.includes(toVertex) && toVertex.edges.includes(fromVertex));
+    const node = new GraphNode();
+    return (this.node.edges.includes(toVertex) && this.node.edges.includes(fromVertex));
   }
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other 
   addEdge(fromVertex, toVertex) {
-    if (!fromVertex.edges.includes(toVertex)) fromVertex.pushToEdges(toVertex);
-    if (!toVertex.edges.inlcudes(fromVertex)) toVertex.pushTOEdges(fromVertex);
+    if (!this.fromVertex.edges.includes(toVertex)) fromVertex.pushToEdges(toVertex);
+    if (!this.toVertex.edges.inlcudes(fromVertex)) toVertex.pushTOEdges(fromVertex);
   }
   // Removes the edge between the two given vertices if an edge already exists between them
   // After removing the edge, neither vertex should be referencing the other
@@ -88,6 +89,8 @@ class Graph {
     if (toVertex.numberOfEdges === 0) this.removeVertex(toVertex.value);
   }
 }
-
+const myNode = new GraphNode(5, 2);
+this.vertices.addVertex(4);
+console.log(myNode);
 module.exports = Graph;
 
