@@ -1,5 +1,5 @@
 /* eslint-disable */
-class Heap {
+/* class Heap {
     constructor() {
         this.storage = [null];
         this.size = 0;
@@ -39,6 +39,6 @@ class Heap {
     siftDown(index) {
       
     }
-}
+} */
 
 module.exports = Heap;

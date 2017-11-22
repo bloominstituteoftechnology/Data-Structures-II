@@ -16,6 +16,6 @@ class Queue {
     isEmpty() {
         return this.storage.length === 0;
     }
-}
+} 
 
 module.exports = Queue;
