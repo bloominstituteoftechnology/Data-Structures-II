@@ -70,17 +70,16 @@ class BinarySearchTree {
   // again. Whatever floats your boat.
   breadthFirstForEach(cb) {
     const helper = new Queue();
-    let currentNode = this.value;
-    cb(currentNode);
-    if (this.left) {
-      this.left.breadthFirstForEach(cb);
-    }
-    helper.enqueue(this.left);
-    if (this.right) {
-      this.right.breadthFirstForEach(cb);
-      helper.enqueue(this.right);
-      currentNode = helper[0];
-      helper.dequeue();
+    helper.enqueue(this);
+    while (!helper.isEmpty()) {
+      const currentNode = helper.dequeue();
+      if (currentNode.left) {
+        helper.enqueue(currentNode.left);
+      }
+      if (currentNode.right) {
+        helper.enqueue(currentNode.right);
+      }
+      cb(currentNode.value);
     }
   }
 }
