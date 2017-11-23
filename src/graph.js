@@ -61,7 +61,7 @@ class Graph {
     this.vertices = this.vertices.filter((vertex) => {
       const filteredEdge = vertex.edges.filter(edge => edge.value !== value);
       vertex.edges = filteredEdge;
-      return vertex.edges !== undefined;
+      return (vertex.edges !== undefined);
     });
   }
   // Checks the two input vertices to see if each one references the other in their respective edges array
@@ -89,8 +89,5 @@ class Graph {
     if (toVertex.numberOfEdges === 0) this.removeVertex(toVertex.value);
   }
 }
-const myNode = new GraphNode(5, 2);
-myNode.addVertex(4);
-console.log(myNode);
 module.exports = Graph;
 

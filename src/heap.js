@@ -3,27 +3,25 @@ class Heap {
     constructor() {
         this.storage = [null];
         this.size = 0;
+    
     }
+    
     // Inserts the given value in the heap
     // Calls bubbleUp in order to put the newly-inserted element in the right place in the heap
     insert(val) {
-        if (this.getSize() === this.storage.length) {
-            this.size ++;
-            this.storage[this.getSize() - 1] = val;
-            this.bubbleUp(this.getSize() - 1);
-        }
-
+        this.storage.push(val);
+        this.bubbleUp(this.storage.length -1)
     }
     // Deletes the element located at the front of the heap (the max if a max heap, or a min if a min heap)
     // Calls siftDown in order to reorganize the heap with a new max/min
     // In some specifications, this method is also called `poll`
     delete() {
-        if (this.getSize() !== null) {
-        let storage = this.storage[0];
-        this.storage[0] = this.getSize() -1
-        this.size--;
-        this.siftDown(index);    
+        let delItem;
+        this.storage[0] = delItem;
+        for (let i = 0; i < this.storage.length; i++) {
+            this.siftDown(i);
         }
+       
     }
     // Returns index of left Child
     getLeftChildIndex(parentIndex) {
@@ -39,22 +37,28 @@ class Heap {
     }
     // Returns boolean value for left child
     hasLeftChild(index) {
-        return (getLeftChildIndex(index) < this.size);
+        const myHeap = new Heap();
+        return (myHeap.getLeftChildIndex(index) < this.size);
     }
     // Returns boolean for child on right
     hasRightChild(index) {
-        return (getRightChildIndex(index) < this.size);
+        const myHeap = new Heap();
+        return (myHeap.getRightChildIndex(index) < this.size);
     }
     // Returns boolean for Parent
     hasParent(index) {
-        return (this.storage[getParentIndex(index)]);
+        return (this.storage[this.storage.getParentIndex(index)]);
     }
     // Returns the maximum value in the heap in constant time
     getMax() {
-        return this.storage[0];
+        this.storage.filter(value => { 
+            return ((value > this.storage[0]) ? value : storage[0]);
+        });
+        return this;
     }
     // Returns the size of the heap
     getSize() {
+        this.size = this.storage.length();
         return this.size;
     }
     // Returns the storage array
@@ -70,25 +74,28 @@ class Heap {
     // if its parent value is less than the value located at the input index
     // This method is only used by the heap itself in order to maintain the heap property
     bubbleUp(index) { 
-     index = this.getSize() -1;
-     while (this.hasParent(index) && parent(index) > this.storage.index) {
-         swap(this.getParentIndex(index), index);
-         index = this.getParentIndex(index);
-     }
+        while (index > 0) {
+            let parentNode = Math.floor((index +1) / 2) -1;
+            let parent =  this.storage[parentNode];
+            if (parent >= this.storage[index]) break;
+            this.storage[parentNode] = index;
+            this.storage[index] = parent;
+            index = parentNode;
+        }
     }
     
     // First grabs the indices of this element's children and determines which of the children are larger
     // If the larger of the child elements is larger than the parent, the child element is swapped with the parent
     // This method is only used by the heap itself in order to maintain the heap property
     siftDown(index) {
-      if (this.getSize === 0) return undefined;
+      if (this.storage.length === 0) return undefined;
       let storage = this.storage[0];
-      stoarage = this.storage[this.getSize() -1];
+      storage = this.storage[this.storage.length -1];
       this.size--;
       index = 0;
-      while (hasLeftChild(index)) {
+      while (this.hasLeftChild(index) !== null) {
           let smallerChildIndex = this.getLeftChildIndex(index);
-          if (hasRightChild(index) && rightChild(index) < leftChild(index)) {
+          if (this.hasRightChild(index) && this.hasrightChild(index) < this.leftChild(index)) {
               smallerChildIndex = this.getRightChildIndex(index);
           }
           if (this.storage[index] < this.storage[smallerChildIndex]) {
@@ -101,5 +108,11 @@ class Heap {
 
     }
 }
-
+const arr = [10, 3, 4, 8, 2, 9, 7, 1, 2, 6, 5];
+const heap = new Heap(function(x){return x;});
+arr.forEach(item => heap.insert(item));
+      
+heap.delete();
+while (heap.size() > 0)
+  print(heap.pop());
 module.exports = Heap;
