@@ -14,14 +14,16 @@ class Tree {
   // have been checked
   contains(value) {
     const node = this;
+    let found = false;
     if (node.value === value) return true;
     if (node.children.length > 0) {
       for (let i = 0; i < node.children.length; i++) {
-        if (node.children[i].contains(value)) return true;
+        if (node.children[i].contains(value)) {
+          found = true;
+        }
       }
-    } else {
-      return false;
     }
+    return found;
   }
 }
 
