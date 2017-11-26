@@ -9,8 +9,6 @@ class Tree {
   addChild(value) {
     const child = new Tree(value);
     this.children.push(child);
-=======
-    const newNode = .next.value
   }
   // Checks this node's children to see if any of them matches the given value
   // Continues recursively until the value has been found or all of the children
@@ -20,13 +18,10 @@ class Tree {
       return true;
     }
     for (let i = 0; i < this.children.length; i++) {
-      if (this.children[i].contains(value)) {
-        return true;
-      }
+      if (this.children[i].contains(value)) return true;
     }
     return false;
   }
 }
-
 
 module.exports = Tree;

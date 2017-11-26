@@ -90,7 +90,7 @@ class Graph {
     if (!this.edges.contains(toVertex)) {
       fromVertex.pushToEdges(toVertex);
       toVertex.pushToEdges(fromVertex);
-    }
+    } 
   } 
   // Removes the edge between the two given vertices if an edge already exists between them
   // After removing the edge, neither vertex should be referencing the other
