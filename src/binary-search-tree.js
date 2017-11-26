@@ -33,6 +33,11 @@ class BinarySearchTree {
       else if (node.left) {
         return node.left.contains(target);
       }
+    } else if (target > node.value) {
+      if (!node.right) return false;
+      else if (node.right) {
+        return node.right.contains(target);
+      }
     }
   }
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
