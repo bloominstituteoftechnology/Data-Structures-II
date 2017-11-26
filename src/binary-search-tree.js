@@ -13,6 +13,9 @@ class BinarySearchTree {
   // depending on its value
   insert(value) {
     const node = this;
+    if (value <= node.value) {
+      if (!node.left) node.left = new BinarySearchTree(value);
+    }
   }
   // Checks the binary search tree for the input target
   // Can be written recursively or iteratively
