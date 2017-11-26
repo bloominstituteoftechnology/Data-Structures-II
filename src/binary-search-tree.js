@@ -45,8 +45,8 @@ class BinarySearchTree {
   depthFirstForEach(cb) {
     const node = this;
     cb(node.value);
-    if (node.left) depthFirstForEach(node.left);
-    if (node.right) depthFirstForEach(node.right);
+    if (node.left) node.left.depthFirstForEach(cb);
+    if (node.right) node.right.depthFirstForEach(cb);
     return;
   }
   // Traverses the tree in a breadth-first manner, i.e. in layers, starting 
