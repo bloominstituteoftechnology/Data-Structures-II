@@ -27,6 +27,13 @@ class BinarySearchTree {
   // Can be written recursively or iteratively
   contains(target) {
     const node = this;
+    if (target === node.value) return true;
+    if (target <= node.left) {
+      if (!node.left) return false;
+      else if (node.left) {
+        return node.left.contains(target);
+      }
+    }
   }
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
