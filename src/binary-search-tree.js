@@ -15,6 +15,12 @@ class BinarySearchTree {
     const node = this;
     if (value <= node.value) {
       if (!node.left) node.left = new BinarySearchTree(value);
+      else {
+        node.left.insert(value);
+      }
+    } else if (value > node.value) {
+      if (!node.right) node.right = new BinarySearchTree(value);
+      else (node.right.insert(value));
     }
   }
   // Checks the binary search tree for the input target
