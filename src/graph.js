@@ -60,9 +60,17 @@ class Graph {
     this.vertices = this.vertices.forEach(vertex => vertex.value === value);
     this.vertices = this.vertices.filter((vertex) => {
       const filteredEdge = vertex.edges.filter(edge => edge.value !== value);
-      vertex.edges = filteredEdge;
+      // vertex.edges = filteredEdge;
       return (vertex.edges !== undefined);
     });
+    // const index = this.vertices.indexOf(value);
+    // if (index) {
+    //   this.vertices.splice(index, 1);
+    // }
+    // while (this.edges[value].length) {
+    //   const adjacentVertex = this.edges[value].pop();
+    //   this.removeEdge(adjacentVertex, value);
+    // }
   }
   // Checks the two input vertices to see if each one references the other in their respective edges array
   // Both vertices must reference each other for the edge to be considered valid
@@ -78,6 +86,7 @@ class Graph {
   addEdge(fromVertex, toVertex) {
     if (!this.fromVertex.edges.includes(toVertex)) fromVertex.pushToEdges(toVertex);
     if (!this.toVertex.edges.inlcudes(fromVertex)) toVertex.pushTOEdges(fromVertex);
+    this.edges += 1; 
   }
   // Removes the edge between the two given vertices if an edge already exists between them
   // After removing the edge, neither vertex should be referencing the other
@@ -87,7 +96,17 @@ class Graph {
     if (!this.checkIfEdgeExists(fromVertex, toVertex)) fromVertex.edges = fromVertex.filter(vertex => vertex.value !== fromVertex.value);
     if (fromVertex.numberOfEdges === 0) this.removeVertex(fromVertex.value);
     if (toVertex.numberOfEdges === 0) this.removeVertex(toVertex.value);
+  //   const index1 = this.edges[fromVertex] ? this.edges[fromVertex].indexOf(toVertex) : -1;
+  //   const index2 = this.edges[toVertex] ? this.edges[toVertex].indexOf(fromVertex) : -1;
+  //   if (fromVertex) {
+  //     this.edges[fromVertex].splice(fromVertex, 1);
+  //     this.edges(this.numberOfEdges() - 1);
+  //   }
+  //   if (toVertex) {
+  //     this.edges[toVertex].splice(toVertex, 1);
+  //   }
   }
+
 }
 module.exports = Graph;
 

@@ -17,18 +17,21 @@ class Tree {
   // Continues recursively until the value has been found or all of the children
   // have been checked
   contains(value) {
-    if (this.value === null) {
-      return false;
-    }
-    if (this.value === value) {
+    // if (this.value === null) {
+    //   return false;
+  //  }
+    if (this.value === value || this.children[value] === value) {
       return true;
     }
     this.children.forEach((child) => {
       if (child && child.contains(value)) return true;
+      child.contains(value);
     });
+    return false;
   }
 }
-const myTree = new Tree(8);
-console.log(myTree.contains(8));
+const myTree = new Tree(5);
+console.log(myTree.addChild(2));
+console.log(myTree.contains(2));
 module.exports = Tree;
 
