@@ -2,19 +2,18 @@
 class Heap {
     constructor() {
         this.storage = [null];
-        this.size = 0;
-    
+        this.size = 0; 
     }
-    
     // Inserts the given value in the heap
     // Calls bubbleUp in order to put the newly-inserted element in the right place in the heap
     insert(val) {
+        //fill the first spot if array is empty
         if (this.storage !== null) {
             this.storage.push(val);
             this.bubbleUp(this.storage[val]);
-        
+       //update the size 
        this.getSize();
-    
+        //call bubbleUp()  on all other elements and nested elements
         for(let i = 0; i < this.storage.length; i++) {
             val = this.storage[i];
             let j = i - 1;
@@ -35,7 +34,7 @@ class Heap {
       let max = this.getMax();
       this.storage[0] = null;
       this.getSize();
-      this.siftDown(0);   
+      this.siftDown(max);   
     }
     // Returns the maximum value in the heap in constant time
     getMax() {
@@ -55,7 +54,7 @@ class Heap {
     getStorage() {
         return this.storage;
     }
-    // swap two indices
+    // swap two indices 
     swap(indexOne, indexTwo) {
         let tmp = this.storage[indexOne];
         this.storage[indexOne] = this.storage[indexTwo];
@@ -65,7 +64,7 @@ class Heap {
     // if its parent value is less than the value located at the input index
     // This method is only used by the heap itself in order to maintain the heap property
     bubbleUp(index) { 
-       
+        // first determine the root node, if it is larger than the current node, swap it.
         if (this.storage[index] !== null) 
             while (index > 0) {
                 let parentNode = Math.floor((index +1) / 2) -1;
@@ -81,31 +80,21 @@ class Heap {
     // This method is only used by the heap itself in order to maintain the heap property
     siftDown(index) {
         while (true) {
+            //set the child and sibling indices; 
             let child = (index + 1) * 2;
             let nextChild = child -1;
             let swapThis = null;
+            //swap values with all those that are less until the largest until the smallest value is first and the largest is last
             if (this.storage[index] > this.storage[child]) swapThis = child;
             if (this.storage[index] > this.storage[nextChild] && (this.storage[child] === null || (this.storage[child] !== null && this.storage[nextChild] < this.storage[child]))) {
                 swapThis = nextChild;
             }
+            //continue comparing child to sibling
             if (swapThis === null) break;
             this.swap(swapThis, index);
             index = swapThis;
             }    
-           // this.getSize();
     }
 }
-const arr = [10, 3, 4, 8, 2, 9, 7, 1, 2, 6, 5];
-const heap = new Heap();
-heap.insert(4);
-heap.insert(8);
-heap.insert(9);
-heap.insert(100);
-console.log(heap);
-heap.delete();
-console.log(heap);    
-console.log(heap.getMax());
-console.log(heap);
-console.log(heap.getStorage());
 module.exports = Heap;
 

@@ -30,8 +30,5 @@ class Tree {
     return false;
   }
 }
-const myTree = new Tree(5);
-console.log(myTree.addChild(2));
-console.log(myTree.contains(2));
 module.exports = Tree;
 
