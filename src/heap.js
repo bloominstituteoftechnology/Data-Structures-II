@@ -7,6 +7,7 @@ class Heap {
     // Inserts the given value in the heap
     // Calls bubbleUp in order to put the newly-inserted element in the right place in the heap
     insert(val) {
+        
 
     }
     // Deletes the element located at the front of the heap (the max if a max heap, or a min if a min heap)
@@ -17,15 +18,15 @@ class Heap {
     }
     // Returns the maximum value in the heap in constant time
     getMax() {
-
+         return this.storage[1];
     }
     // Returns the size of the heap
     getSize() {
-
+        return this.size;
     }
     // Returns the storage array
     getStorage() {
-
+        return this.storage;
     }
     // Moves the element at the specified index "up" by swapping it with its parent 
     // if its parent value is less than the value located at the input index
