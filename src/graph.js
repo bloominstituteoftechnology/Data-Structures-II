@@ -1,79 +1,104 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable no-trailing-spaces */
-// Do not modify this GraphNode class
-// Use any of its methods as you see fit to implement your graph
-class GraphNode {
-  constructor({ value, edges }) {
-    this._value = value;
-    this._edges = edges;
-  }
-
-  get value() {
-    return this._value;
-  }
-
-  get edges() {
-    return this._edges;
-  }
-
-  get numberOfEdges() {
-    return this._edges.length;
-  }
-
-  set edges(x) {
-    this._edges = x;
-  }
-
-  pushToEdges(y) {
-    this._edges.push(y);
-  }
-}
-
 class Graph {
   constructor() {
-    this.vertices = [];
+    this.data = {};
+    this.nodesArray = [];
+    this.edges = [];
   }
-  // Wraps the input value in a new GraphNode and adds it to the array of vertices
-  // If there are only two nodes in the graph, they need to be automatically 
-  // connected via an edge
-  // Optionally accepts an array of other GraphNodes for the new vertex to be connected to
-  // Returns the newly-added vertex
-  addVertex(value, edges = []) {
 
-  }
-  // Checks all the vertices of the graph for the target value
-  // Returns true or false
-  contains(value) {
 
-  }
-  // Checks the graph to see if a GraphNode with the specified value exists in the graph 
-  // and removes the vertex if it is found
-  // This function should also handle the removing of all edge references for the removed vertex
-  removeVertex(value) {
 
-  }
-  // Checks the two input vertices to see if each one references the other in their respective edges array
-  // Both vertices must reference each other for the edge to be considered valid
-  // If only one vertex references the other but not vice versa, should not return true
-  // Note: You'll need to store references to each vertex's array of edges so that you can use 
-  // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
-  checkIfEdgeExists(fromVertex, toVertex) {
+  addVertex(node) {
+    if(Object.values(arguments).length > 1) {
+      if(!this.data[node]) {
 
-  }
-  // Adds an edge between the two given vertices if no edge already exists between them
-  // Again, an edge means both vertices reference the other 
-  addEdge(fromVertex, toVertex) {
+        this.data[Object.values(arguments)[0]] = [];
+        this.nodesArray.push(Object.values(arguments)[0]);
 
-  }
-  // Removes the edge between the two given vertices if an edge already exists between them
-  // After removing the edge, neither vertex should be referencing the other
-  // If a vertex would be left without any edges as a result of calling this function, those
-  // vertices should be removed as well
-  removeEdge(fromVertex, toVertex) {
+        Object.values(arguments).forEach((arg, i) => {
+          if(this.nodesArray.indexOf(arg) !== -1) {
+            Object.values(arguments).forEach((el, z) => {
+              if (Array.isArray(el)) {
+                if(this.checkIfEdgeExists(arg, el[0]) === false){
+                  this.addEdge(arg, el[0]);
+                }
+              } else {
+                if(this.checkIfEdgeExists(arg, el) === false){
+                  this.addEdge(arg, el);
+                }
+              }
+            });
+          }
+        });
+      }
+    }
 
+    if (!this.data[node]) {
+      let a = Object.keys(this.data);
+      this.data[node] = [];
+      this.nodesArray.push(node);
+
+      if(a.length == 1) {
+        this.addEdge(a[0], node);
+      }
+    }
+    return node;
   }
-}
+
+  contains(item) {
+    return this.data[item] ? true : false;
+  }
+
+
+  removeVertex(node) {
+    var refsToRemove = this.data[node];
+    delete this.data[node];
+    refsToRemove.forEach(function(ref){
+      if(this.data[ref].includes(node)){
+        var item = this.data[ref].indexOf(node);
+        this.data[ref].splice(item, 1);
+      }
+    }.bind(this));
+
+
+    var idxToRemove = this.nodesArray.indexOf(node);
+
+    this.nodesArray.splice(idxToRemove, 1);
+    delete this.data[node];
+  }
+
+  checkIfEdgeExists(fromNode, toNode) {
+    if(
+      this === undefined ||
+      this.data === undefined ||
+      this.data[fromNode] === undefined ||
+      this.data[toNode] === undefined
+    ) {
+      return false;
+    }
+
+    return this.data[fromNode].includes(toNode);
+  }
+
+
+  addEdge(fromNode, toNode) {
+    this.data[fromNode].push(toNode);
+    this.data[toNode].push(fromNode);
+  }
+
+  removeEdge(fromNode, toNode) {
+    var param1 = this.data[fromNode].indexOf(toNode);
+    var param2 = this.data[toNode].indexOf(fromNode);
+    this.data[fromNode] = this.data[fromNode].filter((el, i) => i !== param1);
+    this.data[toNode] = this.data[toNode].filter((el, i) => i !== param2);
+    if(this.data[fromNode].length === 0) {
+      this.removeVertex(fromNode);
+    }
+
+    if(this.data[toNode].length === 0) {
+      this.removeVertex(toNode);
+    }
+  }
+};
+
 
 module.exports = Graph;
-
