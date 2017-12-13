@@ -2,6 +2,7 @@
 /* eslint-disable global-require */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
+/* eslint-disable no-lonely-if */
 
 class BinarySearchTree {
   constructor(value) {
@@ -11,27 +12,19 @@ class BinarySearchTree {
   }
 
   insert(value) {
-    const assignValueAt = (node) => {
-      // if the left child is empty
-      if (value <= node.value && node.left === null) {
-        node.left = new BinarySearchTree(value);
-        return;
+    if (value <= this.value) {
+      if (this.left) {
+        this.left.insert(value);
+      } else {
+        this.left = new BinarySearchTree(value);
       }
-      // if the right child is empty
-      if (value > node.value && node.right === null) {
-        node.right = new BinarySearchTree(value);
-        return;
+    } else {
+      if (this.right) {
+        this.right.insert(value);
+      } else {
+        this.right = new BinarySearchTree(value);
       }
-      // else there are children
-      // traverse left
-      if (value <= node.value) {
-        assignValueAt(node.left);
-        return;
-      }
-      // traverse right
-      assignValueAt(node.right);
-    };
-    assignValueAt(this);
+    }
   }
 
   contains(target) {
