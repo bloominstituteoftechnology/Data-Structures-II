@@ -3,6 +3,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable no-lonely-if */
+/* eslint-disable no-else-return */
 
 class BinarySearchTree {
   constructor(value) {
@@ -28,20 +29,19 @@ class BinarySearchTree {
   }
 
   contains(target) {
-    const searchBST = (node) => {
-      // if there are no children,  return if the node value is the target
-      if (node.left === null && node.right === null) return node.value === target;
-      // if the value is found, just return true
-      // regardless of where in the tree we are
-      if (node.value === target) return true;
-      // search left
-      // if did not return true earlier, must be false
-      if (target < node.value) return false || searchBST(node.left);
-      // search right
-      // if did not return true earlier, must be false
-      return false || searchBST(node.right);
-    };
-    return searchBST(this);
+    if (this.value === target) return true;
+    if (target <= this.value) {
+      if (this.left) {
+        return this.left.contains(target);        
+      }
+      return false;
+    } else {
+      if (this.right) {
+        return this.right.contains(target);
+      } else {
+        return false;        
+      }
+    }
   }
 
   depthFirstForEach(cb) {
