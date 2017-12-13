@@ -45,16 +45,14 @@ class BinarySearchTree {
   }
 
   depthFirstForEach(cb) {
-    const searchDFS = (node) => {
-      cb(node.value);
-      if (node.left === null && node.right === null) {
-        return;
-      }
-      if (node.left !== null) searchDFS(node.left);
-      searchDFS(node.right);
-      return;
-    };
-    searchDFS(this);
+    cb(this.value);
+    if (this.left) {
+      this.left.depthFirstForEach(cb);
+    }
+    if (this.right) {
+      this.right.depthFirstForEach(cb);      
+    }
+    return;
   }
 
   breadthFirstForEach(cb) {
