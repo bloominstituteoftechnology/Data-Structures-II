@@ -2,8 +2,6 @@
 /* eslint-disable global-require */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
-/* eslint-disable no-lonely-if */
-/* eslint-disable no-else-return */
 const Queue = require('./queue-helper');
 
 class BinarySearchTree {
@@ -20,12 +18,10 @@ class BinarySearchTree {
       } else {
         this.left = new BinarySearchTree(value);
       }
+    } else if (this.right) {
+      this.right.insert(value);      
     } else {
-      if (this.right) {
-        this.right.insert(value);
-      } else {
-        this.right = new BinarySearchTree(value);
-      }
+      this.right = new BinarySearchTree(value);
     }
   }
 
@@ -53,6 +49,7 @@ class BinarySearchTree {
 
   breadthFirstForEach(cb) {
     const queue = new Queue();
+
     let layerHasChildren = true;
     let parentArr = [this];
     let childrenArr = [];
