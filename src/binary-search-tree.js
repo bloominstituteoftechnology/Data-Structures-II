@@ -9,9 +9,7 @@ class BinarySearchTree {
     this.left = null;
     this.right = null;
   }
-  // Wraps the input value in a new BinarySearchTree and
-  // assigns it to either the left or right subtree,
-  // depending on its value
+
   insert(value) {
     const assignValueAt = (node) => {
       // if the left child is empty
@@ -35,8 +33,7 @@ class BinarySearchTree {
     };
     assignValueAt(this);
   }
-  // Checks the binary search tree for the input target
-  // Can be written recursively or iteratively
+
   contains(target) {
     const searchBST = (node) => {
       // if there are no children,  return if the node value is the target
@@ -53,8 +50,7 @@ class BinarySearchTree {
     };
     return searchBST(this);
   }
-  // Traverses the tree in a depth-first manner, i.e. from top to bottom
-  // Applies the given callback to each tree node in the process
+
   depthFirstForEach(cb) {
     const searchDFS = (node) => {
       cb(node.value);
