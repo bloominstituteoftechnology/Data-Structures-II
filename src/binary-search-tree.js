@@ -4,6 +4,7 @@
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable no-lonely-if */
 /* eslint-disable no-else-return */
+const Queue = require('./queue-helper');
 
 class BinarySearchTree {
   constructor(value) {
@@ -30,18 +31,13 @@ class BinarySearchTree {
 
   contains(target) {
     if (this.value === target) return true;
-    if (target <= this.value) {
-      if (this.left) {
-        return this.left.contains(target);        
-      }
-      return false;
-    } else {
-      if (this.right) {
-        return this.right.contains(target);
-      } else {
-        return false;        
-      }
+    if (this.left) {
+      if (this.left.contains(target)) return true;
     }
+    if (this.right) {
+      if (this.right.contains(target)) return true;
+    }
+    return false;
   }
 
   depthFirstForEach(cb) {
@@ -56,6 +52,7 @@ class BinarySearchTree {
   }
 
   breadthFirstForEach(cb) {
+    const queue = new Queue();
     let layerHasChildren = true;
     let parentArr = [this];
     let childrenArr = [];
