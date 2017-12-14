@@ -18,6 +18,7 @@ class BinarySearchTree {
     }
     if (value < this.value && this.left !== null) {
       this.left.insert(value);
+      return;
     }
     if (value >= this.value && this.right === null) {
       this.right = new BinarySearchTree(value);
@@ -25,6 +26,7 @@ class BinarySearchTree {
     }
     if (value >= this.value && this.right !== null) {
       this.right.insert(value);
+      return;
     }
   }
 
