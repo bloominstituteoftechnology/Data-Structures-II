@@ -40,12 +40,14 @@ class Graph {
   addVertex(value, edges = []) {
     const newVertex = new GraphNode({ value, edges });
     this.vertices.push(newVertex);
-    // if pre-existing edges exist
+    // if pre-existing edges were sent as params
     if (edges.length > 0) {
-      for (let i = 0; i < edges.length; i++) {
-        this.addEdge(newVertex, edges[0]);
-      }
+      // if so, add each edge to current vertex
+      edges.forEach((edge) => {
+        this.addEdge(newVertex, edge);
+      });
     }
+    // check if there are only two vertices here
     if (this.vertices.length === 2) {
       this.addEdge(this.vertices[0], this.vertices[1]);
     }
@@ -62,10 +64,9 @@ class Graph {
 
   removeVertex(value) {
     // vertices passed in should already have been checked for no edges
-    const copyOfVertices = this.vertices;
-    for (let i = 0; i < copyOfVertices.length; i++) {
-      if (copyOfVertices[i].value === value) {
-        copyOfVertices.splice(i, 1);
+    for (let i = 0; i < this.vertices.length; i++) {
+      if (this.vertices[i].value === value) {
+        this.vertices.splice(i, 1);
         break;
       }
     }
