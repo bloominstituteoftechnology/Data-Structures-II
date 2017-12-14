@@ -40,7 +40,6 @@ class BinarySearchTree {
     cb(this.value);
     if (this.left !== null) this.left.depthFirstForEach(cb);
     if (this.right !== null) this.right.depthFirstForEach(cb);
-    return;
   }
 
   breadthFirstForEach(cb) {
