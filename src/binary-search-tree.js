@@ -38,12 +38,8 @@ class BinarySearchTree {
 
   depthFirstForEach(cb) {
     cb(this.value);
-    if (this.left) {
-      this.left.depthFirstForEach(cb);
-    }
-    if (this.right) {
-      this.right.depthFirstForEach(cb);
-    }
+    if (this.left) this.left.depthFirstForEach(cb);
+    if (this.right) this.right.depthFirstForEach(cb);
     return;
   }
 
