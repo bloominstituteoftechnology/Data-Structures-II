@@ -11,20 +11,13 @@ class Tree {
   }
 
   contains(value) {
-    const searchTree = (node) => {
-      // if there are no more children, just return the node value === target value
-      if (node.children[0].children === undefined) return node.value === value;      
-      // if the node has more than one child
-      // Array.slice returns an Array so just take the [0] index
-      if (node.children.length > 1) return searchTree(node.children[0]) || searchTree(node.children.slice(1)[0]);
-      // else the node only has one node
-      const child = node.children[0];
-      // if node has no children
-      if (child.children.length === 0) return child.value === value;
-      // else the node has children (nested)
-      return searchTree(child.children);
-    };
-    return searchTree(this);
+    if (this.value === value) return true;
+    for (let i = 0; i < this.children.length; i++) {
+      const child = this.children[i];
+      if (child.value === value) return true;
+      if (child.children[0] && child.contains(value)) return true;
+    }
+    return false;
   }
 }
 
