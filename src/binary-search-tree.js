@@ -48,8 +48,8 @@ class BinarySearchTree {
     while (!queue.isEmpty()) {
       const node = queue.dequeue();
       cb(node.value);
-      if (node.left) queue.enqueue(node.left);
-      if (node.right) queue.enqueue(node.right);
+      if (node.left !== null) queue.enqueue(node.left);
+      if (node.right !== null) queue.enqueue(node.right);
     }
   }
 }
