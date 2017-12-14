@@ -59,9 +59,7 @@ class Graph {
     });
     return isFound;
   }
-  // Checks the graph to see if a GraphNode with the specified value exists in the graph 
-  // and removes the vertex if it is found
-  // This function should also handle the removing of all edge references for the removed vertex
+
   removeVertex(value) {
     // vertices passed in should already have been checked for no edges
     const copyOfVertices = this.vertices;
@@ -77,7 +75,7 @@ class Graph {
     // if either vertex has no edge, return false
     if (fromVertex.edges.length === 0 || toVertex.edges.length === 0) return false;
     // else both vertices have edges
-    let edgeExists = false;    
+    let edgeExists = false;
     const fromArr = fromVertex.edges;
     const toArr = toVertex.edges;
     // for each vertex's edge
@@ -111,7 +109,7 @@ class Graph {
         }
       });
       // if there are no duplicates, push the edge
-      if (!dupEdgeExists) fromVertex.pushToEdges(toVertex);      
+      if (!dupEdgeExists) fromVertex.pushToEdges(toVertex);
       // do the same for the other vertex
       dupEdgeExists = false;
       toArr.forEach((edge) => {
@@ -149,20 +147,6 @@ class Graph {
     if (toVertex.numberOfEdges === 0) this.removeVertex(toVertex.value);
   }
 }
-
-// `let graph = new Graph();
-// const monkey = graph.addVertex('monkey');
-// const human = graph.addVertex('human');
-// const crocodile = graph.addVertex('crocodile', [human]);
-// console.log(graph);
-// console.log(graph.vertices[2]);
-// console.log(graph.checkIfEdgeExists(monkey, human));
-// console.log(graph.checkIfEdgeExists(monkey, crocodile));
-// graph.addEdge(crocodile, monkey);
-// graph.removeEdge(monkey, human);
-// console.log(graph.checkIfEdgeExists(monkey, human));
-// console.log(graph.checkIfEdgeExists(monkey, crocodile));`
-
 
 module.exports = Graph;
 
