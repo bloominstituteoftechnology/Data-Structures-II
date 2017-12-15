@@ -12,22 +12,10 @@ class BinarySearchTree {
   }
 
   insert(value) {
-    if (value < this.value && this.left === null) {
-      this.left = new BinarySearchTree(value);
-      return;
-    }
-    if (value < this.value && this.left !== null) {
-      this.left.insert(value);
-      return;
-    }
-    if (value >= this.value && this.right === null) {
-      this.right = new BinarySearchTree(value);
-      return;
-    }
-    if (value >= this.value && this.right !== null) {
-      this.right.insert(value);
-      return;
-    }
+    if (value < this.value && this.left !== null) this.left.insert(value);
+    if (value < this.value && this.left === null) this.left = new BinarySearchTree(value);
+    if (value > this.value && this.right !== null) this.right.insert(value);
+    if (value > this.value && this.right === null) this.right = new BinarySearchTree(value);
   }
 
   contains(target) {
