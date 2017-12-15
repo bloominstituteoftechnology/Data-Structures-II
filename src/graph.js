@@ -75,13 +75,10 @@ class Graph {
     // check if an edge does not already exist
     if (!(this.checkIfEdgeExists(fromVertex, toVertex))) {
       // if not, add an edge
-      const fromArr = fromVertex.edges;
-      const toArr = toVertex.edges;
       // check if from vertex edge has the other vertex
       // to avoid duplicate edges
-      // if there are no duplicates, push the edge
-      if (!fromArr.includes(toVertex)) fromVertex.pushToEdges(toVertex);
-      if (!toArr.includes(fromVertex)) toVertex.pushToEdges(fromVertex);
+      if (!fromVertex.edges.includes(toVertex)) fromVertex.pushToEdges(toVertex);
+      if (!toVertex.edges.includes(fromVertex)) toVertex.pushToEdges(fromVertex);
     }
   }
 
