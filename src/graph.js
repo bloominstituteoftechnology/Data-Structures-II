@@ -44,7 +44,7 @@ class Graph {
     if (edges.length > 0) {
       // if so, add each edge to current vertex
       edges.forEach((edge) => {
-        this.addEdge(newVertex, edge);
+        edge.pushToEdges(newVertex);
       });
     }
     // check if there are only two vertices here
@@ -98,6 +98,18 @@ class Graph {
     // if no edges exist, remove it
     if (fromVertex.numberOfEdges === 0) this.removeVertex(fromVertex.value);
     if (toVertex.numberOfEdges === 0) this.removeVertex(toVertex.value);
+  }
+
+  depthFirstSearch(value) {
+    let isFound = false;
+    const searchEdge = (edge) => {
+      if (edge.value === value) return true;
+      if (edge.numberOfEdges === 0) return;
+      if (edge.numberOfEdges === 1) return searchEdge(edge.edges[0]);
+      return searchEdge(edge.edges[0]) || searchEdge(edge.edges.splice(1));
+    };
+    isFound = searchEdge(this.vertices[0]);
+    return isFound || false;
   }
 }
 
