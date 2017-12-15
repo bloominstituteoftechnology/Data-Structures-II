@@ -73,26 +73,7 @@ class Graph {
   }
 
   checkIfEdgeExists(fromVertex, toVertex) {
-    // if either vertex has no edge, return false
-    if (fromVertex.edges.length === 0 || toVertex.edges.length === 0) return false;
-    // else both vertices have edges
-    let edgeExists = false;
-    const fromArr = fromVertex.edges;
-    const toArr = toVertex.edges;
-    // for each vertex's edge
-    fromArr.forEach((fromEdge) => {
-      // if the edge matches the other vertex
-      if (fromEdge === toVertex) {
-        // check the other vertex
-        toArr.forEach((toEdge) => {
-          // for a reference to the first vertex
-          if (toEdge === fromVertex) {
-            edgeExists = true;
-          }
-        });
-      }
-    });
-    return edgeExists;
+    return (fromVertex.edges.includes(toVertex) && toVertex.edges.includes(fromVertex));
   }
 
   addEdge(fromVertex, toVertex) {
