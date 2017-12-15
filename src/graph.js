@@ -82,11 +82,10 @@ class Graph {
       // if not, add an edge
       const fromArr = fromVertex.edges;
       const toArr = toVertex.edges;
-      // check each vertex's edge for the other vertex
+      // check if from vertex edge has the other vertex
       // to avoid duplicate edges
       // if there are no duplicates, push the edge
       if (!fromArr.includes(toVertex)) fromVertex.pushToEdges(toVertex);
-      // do the same for the other vertex
       if (!toArr.includes(fromVertex)) toVertex.pushToEdges(fromVertex);
     }
   }
@@ -94,23 +93,15 @@ class Graph {
   removeEdge(fromVertex, toVertex) {
     // if no edge exists, do nothing
     if (!(this.checkIfEdgeExists(fromVertex, toVertex))) return;
-    // else an edge exists
-    const fromArr = fromVertex.edges;
-    const toArr = toVertex.edges;
-    // for each of the vertex's edge
-    fromArr.forEach((fromArrEdge) => {
-      // if the edge is equal to the other vertex
-      if (fromArrEdge === toVertex) {
-        // remove the other vertex reference
-        fromArr.splice(fromArr.indexOf(fromArrEdge), 1);
-      }
-    });
-    // do the same for the other vertex
-    toArr.forEach((toArrEdge) => {
-      if (toArrEdge === fromVertex) {
-        toArr.splice(toArr.indexOf(toArrEdge), 1);
-      }
-    });
+    // else an edge exists between two vertices
+    const findEdgeIndex = (edges, otherVertex) => {
+      return edges.findIndex((edge) => {
+        return edge === otherVertex;
+      });
+    };
+    const badEdge = fromVertex.edges[findEdgeIndex(fromVertex.edges, toVertex)];
+    fromVertex.edges.splice(fromVertex.edges.indexOf(badEdge));
+    toVertex.edges.splice(toVertex.edges.indexOf(badEdge));
     // check both vertices to see if it has any edges
     // if no edges exist, remove it
     if (fromVertex.numberOfEdges === 0) this.removeVertex(fromVertex.value);
