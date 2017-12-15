@@ -62,12 +62,9 @@ class Graph {
 
   removeVertex(value) {
     // vertices passed in should already have been checked for no edges
-    for (let i = 0; i < this.vertices.length; i++) {
-      if (this.vertices[i].value === value) {
-        this.vertices.splice(i, 1);
-        break;
-      }
-    }
+    this.vertices.splice(this.vertices.findIndex((vertex) => {
+      return vertex.value === value;
+    }), 1);
   }
 
   checkIfEdgeExists(fromVertex, toVertex) {
