@@ -62,9 +62,12 @@ class Graph {
 
   removeVertex(value) {
     // vertices passed in should already have been checked for no edges
-    this.vertices.splice(this.vertices.findIndex((vertex) => {
-      return vertex.value === value;
-    }), 1);
+    this.vertices = this.vertices.filter(vertex => vertex.value !== value);
+    this.vertices = this.vertices.filter((vertex) => {
+      const filteredEdges = vertex.edges.filter(edge => edge.value !== value);
+      vertex.edges = filteredEdges;
+      return vertex.numberOfEdges > 0;
+    });
   }
 
   checkIfEdgeExists(fromVertex, toVertex) {
@@ -74,11 +77,8 @@ class Graph {
   addEdge(fromVertex, toVertex) {
     // check if an edge does not already exist
     if (!(this.checkIfEdgeExists(fromVertex, toVertex))) {
-      // if not, add an edge
-      // check if from vertex edge has the other vertex
-      // to avoid duplicate edges
-      if (!fromVertex.edges.includes(toVertex)) fromVertex.pushToEdges(toVertex);
-      if (!toVertex.edges.includes(fromVertex)) toVertex.pushToEdges(fromVertex);
+      fromVertex.pushToEdges(toVertex);
+      toVertex.pushToEdges(fromVertex);
     }
   }
 
@@ -86,29 +86,19 @@ class Graph {
     // if no edge exists, do nothing
     if (!(this.checkIfEdgeExists(fromVertex, toVertex))) return;
     // else an edge exists between two vertices
-    const findEdgeIndex = (edges, otherVertex) => {
-      return edges.findIndex((edge) => {
-        return edge === otherVertex;
-      });
-    };
-    const badEdge = fromVertex.edges[findEdgeIndex(fromVertex.edges, toVertex)];
-    fromVertex.edges.splice(fromVertex.edges.indexOf(badEdge));
-    toVertex.edges.splice(toVertex.edges.indexOf(badEdge));
-    // check both vertices to see if it has any edges
-    // if no edges exist, remove it
+    fromVertex.edges = fromVertex.edges.filter(edge => edge.value !== toVertex.value);
+    toVertex.edges = toVertex.edges.filter(edge => edge.value !== fromVertex.value);
     if (fromVertex.numberOfEdges === 0) this.removeVertex(fromVertex.value);
     if (toVertex.numberOfEdges === 0) this.removeVertex(toVertex.value);
   }
 
   depthFirstSearch(value) {
-    let isFound = false;
     const searchEdge = (edge) => {
-      if (edge.value === value) return true;
-      if (edge.numberOfEdges === 0) return;
+      if (edge.numberOfEdges === 0 && edge.value === value) return true;
       if (edge.numberOfEdges === 1) return searchEdge(edge.edges[0]);
       return searchEdge(edge.edges[0]) || searchEdge(edge.edges.splice(1));
     };
-    isFound = searchEdge(this.vertices[0]);
+    const isFound = searchEdge(this.vertices[0]);
     return isFound || false;
   }
 }
