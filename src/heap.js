@@ -79,7 +79,7 @@ class Heap {
     // if so, create children
     if (iLeftChild <= this.getSize()) leftChild = this.getStorage()[2 * index + 1];
     if (iRightChild <= this.getSize()) rightChild = this.getStorage()[2 * index + 2];
-    // create a for swapping
+    // create a method for swapping
     const swap = (child, childIndex) => {
       // swap (L or R) child and parent
       this.getStorage()[index] = child;
