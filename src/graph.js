@@ -73,7 +73,7 @@ class Graph {
   }
 
   checkIfEdgeExists(fromVertex, toVertex) {
-    return (fromVertex.edges.includes(toVertex) && toVertex.edges.includes(fromVertex));
+    return fromVertex.edges.includes(toVertex) && toVertex.edges.includes(fromVertex);
   }
 
   addEdge(fromVertex, toVertex) {
@@ -84,22 +84,10 @@ class Graph {
       const toArr = toVertex.edges;
       // check each vertex's edge for the other vertex
       // to avoid duplicate edges
-      let dupEdgeExists = false;
-      fromArr.forEach((edge) => {
-        if (edge === toVertex) {
-          dupEdgeExists = true;
-        }
-      });
       // if there are no duplicates, push the edge
-      if (!dupEdgeExists) fromVertex.pushToEdges(toVertex);
+      if (!fromArr.includes(toVertex)) fromVertex.pushToEdges(toVertex);
       // do the same for the other vertex
-      dupEdgeExists = false;
-      toArr.forEach((edge) => {
-        if (edge === fromVertex) {
-          dupEdgeExists = true;
-        }
-      });
-      if (!dupEdgeExists) toVertex.pushToEdges(fromVertex);
+      if (!toArr.includes(fromVertex)) toVertex.pushToEdges(fromVertex);
     }
   }
 
