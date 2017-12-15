@@ -55,11 +55,9 @@ class Graph {
   }
 
   contains(value) {
-    let isFound = false;
-    this.vertices.forEach((vertex) => {
-      if (vertex.value === value) isFound = true;
+    return undefined !== this.vertices.find((vertex) => {
+      return vertex.value === value;
     });
-    return isFound;
   }
 
   removeVertex(value) {
