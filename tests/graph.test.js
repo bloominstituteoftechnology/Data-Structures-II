@@ -15,7 +15,8 @@ describe('Graph', () => {
     expect(typeof graph.addEdge).toBe('function');
     expect(typeof graph.checkIfEdgeExists).toBe('function');
     expect(typeof graph.removeEdge).toBe('function');
-    expect(typeof graph.depthFirstSearch).toBe('function');
+    expect(typeof graph.depthFirstForEach).toBe('function');
+    expect(typeof graph.breadthFirstForEach).toBe('function');
   });
 
   it('should store values as nodes on the graph', () => {
@@ -63,15 +64,36 @@ describe('Graph', () => {
   });
 
 
-  it('should search using depth first search and find value', () => {
+  it('should execute a callback on every value in the graph using "depthFirstForEach" in the correct order', () => {
+    const array = [];
+    const foo = value => ((array.push(value)));
     const pineapple = graph.addVertex('pineapple');
     const banana = graph.addVertex('banana');
     const mango = graph.addVertex('mango', [banana]);
-    const coconut = graph.addVertex('coconut',[mango]);
+    const coconut = graph.addVertex('coconut', [mango]);
+    const vitA = graph.addVertex('vitA', [banana]);
     const apple = graph.addVertex('apple', [banana]);
     const orange = graph.addVertex('orange', [apple]);
-    expect(graph.depthFirstSearch('orange')).toBe(true);
-    expect(graph.depthFirstSearch('kiwi')).toBe(false);
+    const vitB = graph.addVertex('vitB', [orange]);
+    const vitC = graph.addVertex('vitC', [orange]);
+    graph.depthFirstForEach(foo);
+    expect(array).toEqual(['pineapple', 'banana', 'mango', 'coconut', 'vitA', 'apple', 'orange', 'vitB', 'vitC']);
+  });
+
+  it('should execute a callback on every value in the graph using "breadthFirstForEach" in the correct order', () => {
+    const array = [];
+    const foo = value => ((array.push(value)));
+    const pineapple = graph.addVertex('pineapple');
+    const banana = graph.addVertex('banana');
+    const mango = graph.addVertex('mango', [banana]);
+    const coconut = graph.addVertex('coconut', [mango]);
+    const vitA = graph.addVertex('vitA', [banana]);
+    const apple = graph.addVertex('apple', [banana]);
+    const orange = graph.addVertex('orange', [apple]);
+    const vitB = graph.addVertex('vitB', [orange]);
+    const vitC = graph.addVertex('vitC', [orange]);
+    graph.breadthFirstForEach(foo);
+    expect(array).toEqual(['pineapple', 'banana', 'mango', 'vitA', 'apple', 'coconut', 'orange', 'vitB', 'vitC']);
   });
 });
 

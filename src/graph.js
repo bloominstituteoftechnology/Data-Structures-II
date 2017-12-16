@@ -3,6 +3,8 @@
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable class-methods-use-this */
 
+const Queue = require('./queue-helper');
+
 // Do not modify this GraphNode class
 // Use any of its methods as you see fit to implement your graph
 class GraphNode {
@@ -92,18 +94,34 @@ class Graph {
     if (toVertex.numberOfEdges === 0) this.removeVertex(toVertex.value);
   }
 
-  depthFirstSearch(value) {
-    // pass in copies of filtered edges
-    const searchEdgeTree = (edges) => {
-      console.log(edges);
-      if (edges[0].value === value) return true;
-      if (node.numberOfEdges === 1) searchEdgeTree(node.edges.filter(edgeNodes => edgeNodes.value !== node.value)[0]);
-      if (node.numberOfEdges > 1) {
-        node.edges.forEach(edgeNode => searchEdgeTree(edgeNode.edges.filter(edge => edge.value !== node.value)));
-      }
-      return;
+  depthFirstForEach(cb) {
+    // to avoid going around in circles
+    const vertexVals = [];
+    // recur method for depth first search
+    const depthFirstForEachEdge = (edges) => {
+      edges.forEach((edge) => {
+        if (!vertexVals.includes(edge.value)) {
+          cb(edge.value);
+          vertexVals.push(edge.value);
+        }
+        depthFirstForEachEdge(edge.edges.filter(edgeChild => !vertexVals.includes(edgeChild.value)));
+      });
     };
-    return searchEdgeTree(this.vertices) || false;
+    depthFirstForEachEdge([this.vertices[0]]);
+  }
+
+  breadthFirstForEach(cb) {
+    const queue = new Queue();
+    const vertexVals = [];
+    queue.enqueue(this.vertices[0]);
+    while (!queue.isEmpty()) {
+      const vertex = queue.dequeue();
+      cb(vertex.value);
+      vertexVals.push(vertex.value);
+      vertex.edges.forEach((edge) => {
+        if (!vertexVals.includes(edge.value)) queue.enqueue(edge);
+      });
+    }
   }
 }
 
