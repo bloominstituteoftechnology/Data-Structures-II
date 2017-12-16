@@ -93,13 +93,17 @@ class Graph {
   }
 
   depthFirstSearch(value) {
-    const searchEdge = (edge) => {
-      if (edge.numberOfEdges === 0 && edge.value === value) return true;
-      if (edge.numberOfEdges === 1) return searchEdge(edge.edges[0]);
-      return searchEdge(edge.edges[0]) || searchEdge(edge.edges.splice(1));
+    // pass in copies of filtered edges
+    const searchEdgeTree = (edges) => {
+      console.log(edges);
+      if (edges[0].value === value) return true;
+      if (node.numberOfEdges === 1) searchEdgeTree(node.edges.filter(edgeNodes => edgeNodes.value !== node.value)[0]);
+      if (node.numberOfEdges > 1) {
+        node.edges.forEach(edgeNode => searchEdgeTree(edgeNode.edges.filter(edge => edge.value !== node.value)));
+      }
+      return;
     };
-    const isFound = searchEdge(this.vertices[0]);
-    return isFound || false;
+    return searchEdgeTree(this.vertices) || false;
   }
 }
 
