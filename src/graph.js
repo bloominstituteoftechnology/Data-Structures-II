@@ -60,9 +60,20 @@ class Graph {
     // the test implemented by the provided function!
     return this.vertices.some(vertex => vertex.value === value);
     // for (let i = 0; i < this.vertices.length; i++) {
-    //  if (this.vertices[i].value === value) return true;
+    //  if (this.vertices[i].value === value) {
+    //    return true;
+    //  }
     // }
     // return false;
+    //
+    // let hasValue = false;
+    // this.vertices.forEach((node) => {
+    //  if (node.value === value) {
+    //    hasValue = true;
+    //    return;
+    //  }
+    // });
+    // return hasValue;
   }
   // Checks the graph to see if a GraphNode with the specified value exists in the graph
   // and removes the vertex if it is found
@@ -99,6 +110,13 @@ class Graph {
     if (!toVertex.edges.includes(fromVertex)) {
       toVertex.pushToEdges(fromVertex);
     }
+    // .filter() will filters out the possible duplicate that was a result of the code above.
+    fromVertex.edges = fromVertex.edges.filter((edge, i) => {
+      return fromVertex.edges.indexOf(edge) === i;
+    });
+    toVertex.edges = toVertex.edges.filter((edge, i) => {
+      return toVertex.edges.indexOf(edge) === i;
+    });
   }
   // Removes the edge between the two given vertices if an edge already exists between them
   // After removing the edge, neither vertex should be referencing the other
