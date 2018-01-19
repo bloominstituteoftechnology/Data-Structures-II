@@ -62,18 +62,18 @@ class Graph {
   // and removes the vertex if it is found
   // This function should also handle the removing of all edge references for the removed vertex
   removeVertex(value) {
-    const filteredVertices = [];
-    let vertexforDeletion;
+    const keepThese = [];
+    let removeThis;
     for (let i = 0; i < this.vertices.length; i++) {
       if (this.vertices[i].value === value) {
-        vertexforDeletion = this.vertices[i];
+        removeThis = this.vertices[i];
       } else {
-        filteredVertices.push(this.vertices[i]);
+        keepThese.push(this.vertices[i]);
       }
     }
-    this.vertices = filteredVertices;
-    vertexforDeletion.edges.forEach((vertex) => {
-      this.removeEdge(vertexforDeletion, vertex);
+    this.vertices = keepThese;
+    removeThis.edges.forEach((vertex) => {
+      this.removeEdge(removeThis, vertex);
     });
   }
   // Checks the two input vertices to see if each one references the other in their respective edges array
@@ -99,11 +99,23 @@ class Graph {
   // If a vertex would be left without any edges as a result of calling this function, those
   // vertices should be removed as well
   removeEdge(fromVertex, toVertex) {
-    if (!this.checkIfEdgeExists(fromVertex, toVertex)) return false;
-    fromVertex.edges = fromVertex.edges.filter(vertex => vertex.value !== toVertex.value); // return boolean, any vertex that passed test then add array
-    toVertex.edges = toVertex.edges.filter(vertex => vertex.value !== fromVertex.value); // return boolean, any vertex that passed test then add array
-    if (fromVertex.numberOfEdges === 0) this.removeVertex(fromVertex.value);
-    if (toVertex.numberOfEdges === 0) this.removeVertex(toVertex.value);
+    if (!this.checkIfEdgeExists(fromVertex, toVertex)) {
+      return false;
+    }
+    // .filter() method creates a new array with all elements that pass the test
+    // implemented by the provided function; The function used below is creating an array
+    // of verticies where the vertex value is not equal to other verticies. Those arrays, now
+    // discluding the filtered edge, are assigned back to their respective edges.
+    fromVertex.edges = fromVertex.edges.filter(vertex => vertex.value !== toVertex.value);
+    toVertex.edges = toVertex.edges.filter(vertex => vertex.value !== fromVertex.value);
+    // Below will remove the respective verticies if the number of vertex edges
+    // falls to zero.
+    if (fromVertex.numberOfEdges === 0) {
+      this.removeVertex(fromVertex.value);
+    }
+    if (toVertex.numberOfEdges === 0) {
+      this.removeVertex(toVertex.value);
+    }
   }
 }
 
