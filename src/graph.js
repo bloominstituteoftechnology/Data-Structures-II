@@ -62,13 +62,22 @@ class Graph {
   // Checks all the vertices of the graph for the target value
   // Returns true or false
   contains(value) {
-    return this.vertices.some(vertex => vertex.value === value);
+    // return this.vertices.some(vertex => vertex.value === value);
+    // return this.vertices.includes(value);
+    let hasValue = false;
+    this.vertices.forEach((node) => {
+      if (node.value === value) {
+        hasValue = true;
+        return;
+      }
+    });
+    return hasValue;
   }
   // Checks the graph to see if a GraphNode with the specified value exists in the graph
   // and removes the vertex if it is found
   // This function should also handle the removing of all edge references for the removed vertex
   removeVertex(value) {
-    const verts = [];
+   /* const verts = [];
     let removed;
     for (let i = 0; i < this.vertices.length; i++) {
       if (this.vertices[i].value === value) {
@@ -80,6 +89,14 @@ class Graph {
     this.vertices = verts;
     removed.edges.forEach((vertex) => {
       this.removeEdge(removed, vertex);
+    }); */
+    const index = this.vertices.findIndex((node) => {
+      return node.value === value;
+    });
+    if (index === -1) return;
+    const removedVertex = this.vertices.splice(index, 1)[0];
+    removedVertex.edges.forEach((node) => {
+      this.removeEdge(removedVertex, node);
     });
   }
   // Checks the two input vertices to see if each one references the other in their respective edges array
@@ -93,10 +110,11 @@ class Graph {
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other
   addEdge(fromVertex, toVertex) {
-    if (!this.checkIfEdgeExists(fromVertex, toVertex)) {
-      fromVertex.pushToEdges(toVertex);
-      toVertex.pushToEdges(fromVertex);
-    }
+    fromVertex.pushToEdges(toVertex);
+    toVertex.pushToEdges(fromVertex);
+    fromVertex.edges = fromVertex.edges.filter((edge, i) => {
+      return fromVertex.edges.indexOf(edge) === i;
+    });
   }
   // Removes the edge between the two given vertices if an edge already exists between them
   // After removing the edge, neither vertex should be referencing the other
