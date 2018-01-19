@@ -1,3 +1,4 @@
+/* eslint-disable */
 // https://msdn.microsoft.com/en-us/library/aa289150(v=vs.71).aspx
 /* eslint-disable global-require */
 /* eslint-disable no-unused-vars */
