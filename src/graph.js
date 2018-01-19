@@ -56,7 +56,13 @@ class Graph {
   // Checks all the vertices of the graph for the target value
   // Returns true or false
   contains(value) {
+    // .some() method tests whether at least one element in the array passes
+    // the test implemented by the provided function!
     return this.vertices.some(vertex => vertex.value === value);
+    // for (let i = 0; i < this.vertices.length; i++) {
+    //  if (this.vertices[i].value === value) return true;
+    // }
+    // return false;
   }
   // Checks the graph to see if a GraphNode with the specified value exists in the graph
   // and removes the vertex if it is found
