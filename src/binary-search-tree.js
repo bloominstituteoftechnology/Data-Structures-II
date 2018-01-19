@@ -2,6 +2,9 @@
 /* eslint-disable global-require */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
+
+/* eslint-disable */
+
 class BinarySearchTree {
   constructor(value) {
     this.value = value;
@@ -12,12 +15,44 @@ class BinarySearchTree {
   // assigns it to either the left or right subtree,
   // depending on its value
   insert(value) {
-
+    if (value <= this.value) {
+      if (!this.left) {
+        this.left = new BinarySearchTree(value);
+      } else {
+        this.left.insert(value);
+      }
+    } else {
+      if (!this.right) {
+        this.right = new BinarySearchTree(value);        
+      } else {
+        this.right.insert(value);
+      }
+    }
   }
   // Checks the binary search tree for the input target
   // Can be written recursively or iteratively
-  contains(target) {
-
+  contains(value) {
+    let result = false;
+    if (this.value !== null && value === this.value) {
+      result = true;
+      return result;
+    }
+    if (value < this.value && this.left !== null) {
+      if (value === this.left.value) {
+        result = true;
+        return result;
+      } else {
+        this.left.contains(value);
+      }
+    } else if (this.right !== null) {
+      if (value === this.right.value) {
+        result = true;
+        return result;
+      } else {
+        this.right.contains(value);
+      }
+    }
+    return result;
   }
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
