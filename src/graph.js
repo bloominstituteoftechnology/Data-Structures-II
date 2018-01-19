@@ -62,10 +62,18 @@ class Graph {
   // Checks all the vertices of the graph for the target value
   // Returns true or false
   contains(value) {
-    this.vertices.forEach((vertex) => {
-      if (vertex === value) return true;
-    });
+    for (let i = 0; i < this.vertices.length; i++) {
+      if (value === this.vertices[i].value) {
+        return true;
+      }
+    }
     return false;
+    // this.vertices.forEach((vertex) => {
+    //   if (vertex === value) {
+    //     return true;
+    //   }
+    //   return false;
+    // });
   }
   // Checks the graph to see if a GraphNode with the specified 
   // value exists in the graph and removes the vertex if it is 
@@ -74,8 +82,8 @@ class Graph {
   // references for the removed vertex
   removeVertex(value) {
     for (let i = 0; i < this.vertices.length; i++) {
-      if (this.vertices[i] === value) {
-        this.vertices[i].pop();
+      if (this.vertices[i].value === value) {
+        this.vertices.splice(i, 1);
       }
     }
   }
