@@ -47,10 +47,10 @@ class Graph {
       this.addEdge(newGraphNode, edge);
     });
     // Connects via edge if there are only two nodes.
-    if (this.vertices.length === 1) { // I dont understand why it'd be 1 instead of 2.
-      this.addEdge(newGraphNode, this.vertices[0]);
-    }
     this.vertices.push(newGraphNode);
+    if (this.vertices.length === 2) { // I understand that I have to push to the edges first now!
+      this.addEdge(this.vertices[0], this.vertices[1]); // then it will count correctly.
+    }
     return newGraphNode;
   }
   // Checks all the vertices of the graph for the target value
