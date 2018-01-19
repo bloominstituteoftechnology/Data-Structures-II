@@ -27,6 +27,20 @@ class BinarySearchTree {
     };
     search(this);
   }
+  // michael's code
+  // insert(value) {
+  //   const whichDir = (value < this.value) ? this.left : this.right; // is it left or right of origin node
+  //   console.log(whichDir);
+  //   const findVal = (direction) => {
+  //     if (direction === null) { // if the next node is empty
+  //       direction = new BinarySearchTree(value); // set its value
+  //     } else { // if it's not empty
+  //       const newDir = (value < direction.value) ? direction.left : direction.right;
+  //       findVal(newDir);
+  //     }
+  //   };
+  //   findVal(whichDir);
+  // }
   // Checks the binary search tree for the input target
   // Can be written recursively or iteratively
     
@@ -36,12 +50,14 @@ class BinarySearchTree {
     const search = (newNode) => {
       if (target >= newNode.value) {
         const rightSide = newNode.right;
-        if (target === rightSide) return containsValue = true;
-        if (rightSide !== null) search(rightSide);
+        if (rightSide === null) return;
+        if (target === rightSide.value) return containsValue = true;
+        search(rightSide);
       } 
       const leftSide = newNode.left;
-      if (target === leftSide) return containsValue = true;
-      if (leftSide !== null) search(leftSide);
+      if (leftSide === null) return;
+      if (target === leftSide.value) return containsValue = true;
+      search(leftSide);
     };
     search(this);
     return containsValue;
