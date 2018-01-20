@@ -98,21 +98,27 @@ class Graph {
   // There is no method to traverse the edge arrays built into 
   // the GraphNode class
   checkIfEdgeExists(fromVertex, toVertex) {
-    if (this.edges(fromVertex)) return true;
-    if (this.edges(toVertex)) return true;
-    return false;
-    // for (let i = 0; i < this.vertices.length; i++) {
-    //   edgesArray.push(edges(this.vertices[i]))
-    // }
+    // check to see if each input vertex references the other
+    const edgeReferences = [];
+    edgeReferences.push(fromVertex.edges);
+    edgeReferences.push(toVertex.edges);
+    for (let i = 0; i < edgeReferences.length; i++) {
+      
+    }
+    }
   }
   // Adds an edge between the two given vertices if no edge 
   // already exists between them
   // Again, an edge means both vertices reference the other 
   addEdge(fromVertex, toVertex) {
-    if (!this.checkIfEdgeExists(fromVertex, toVertex)) {
-      fromVertex.pushToEdges(toVertex);
-      toVertex.pushToEdges(fromVertex);
-    }
+    fromVertex.pushToEdges(toVertex);
+    toVertex.pushToEdges(fromVertex);
+    fromVertex.edges = fromVertex.edges.filter((edge, i) => {
+      return fromVertex.edges.indexOf(edge) === i;
+    });
+    toVertex.edges = toVertex.edges.filter((edge, i) => {
+      return toVertex.edges.indexOf(edge) === i;
+    });
   }
   // Removes the edge between the two given vertices if an edge already exists between them
   // After removing the edge, neither vertex should be referencing the other
@@ -126,6 +132,14 @@ class Graph {
       this.vertices.pop(this.fromVertex);
     }
   }
+  // removeEdge(fromVertex, toVertex) {
+  //   if (this.checkIfEdgeExists(fromVertex, toVertex)) {
+  //     fromVertex.edges = fromVertex.edges.filter(edge => edge.value !== toVertex.value);
+  //     toVertex.edges = toVertex.edges.filter(edge => edge.value !== fromVertex.value);
+  //     if (fromVertex.numberOfEdges === 0) this.removeVertex(fromVertex.value);
+  //     if (toVertex.numberOfEdges === 0) this.removeVertex(toVertex.value);
+  //   }
+  // }
 }
 
 module.exports = Graph;
