@@ -46,6 +46,23 @@ class BinarySearchTree {
     search(this);
     return containsValue;
   }
+  // michael's solution
+  // contains(target) {
+  //   let containsValue = false;
+  //   const passObj = (obj) => {
+  //     if (obj.value === target) return containsValue = true;
+  //     if (target < obj.value) {
+  //       if (obj.left === null) return;
+  //       passObj(obj.left);
+  //     } else if (target >= obj.value) {
+  //       if (obj.right === null) return;
+  //       passObj(obj.right);
+  //     }
+  //   };
+  //   passObj(this);
+  //   return containsValue;
+  // }
+
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
   depthFirstForEach(cb) {
