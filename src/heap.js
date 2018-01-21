@@ -37,7 +37,7 @@ class Heap {
     // If the larger of the child elements is larger than the parent, the child element is swapped with the parent
     // This method is only used by the heap itself in order to maintain the heap property
     siftDown(index) {
-      
+
     }
 }
 

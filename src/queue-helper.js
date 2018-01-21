@@ -5,6 +5,10 @@ class Queue {
         this.storage = [];
     }
 
+    get length() {
+        return this.storage.length;
+    }
+
     enqueue(x) {
         this.storage.push(x);
     }
