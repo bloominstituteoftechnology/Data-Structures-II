@@ -103,10 +103,10 @@ class Graph {
   // If a vertex would be left without any edges as a result of calling this function, those
   // vertices should be removed as well
   removeEdge(fromVertex, toVertex) {
-    if (!this.checkIfEdgeExists(fromVertex, toVertex)) {
+    if (this.checkIfEdgeExists(fromVertex, toVertex)) {
       fromVertex.edges.splice(fromVertex.edges.findIndex((elem) => { return elem.value === toVertex.value; }));
     }
-    if (!this.checkIfEdgeExists(toVertex, fromVertex)) {
+    if (this.checkIfEdgeExists(toVertex, fromVertex)) {
       toVertex.edges.splice(toVertex.edges.findIndex((elem) => { return elem.value === fromVertex.value; }), 1);
     }
     if (fromVertex.edges.length === 0) {
