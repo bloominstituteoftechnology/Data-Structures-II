@@ -3,12 +3,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable */
+const Queue = require('./queue-helper');
 class BinarySearchTree {
   constructor(value) {
     this.value = value;
     this.left = null;
     this.right = null;
-    this.root = null;
   }
   // Wraps the input value in a new BinarySearchTree and
   // assigns it to either the left or right subtree,
@@ -17,14 +17,16 @@ class BinarySearchTree {
     if (value <= this.value) { // if input value is less than or equal to root node value
       if (!this.left) { // check if left child exists
         this.left = new BinarySearchTree(value); // if left child does not exist, assign new BST to that location
-      }
-      else this.left.insert(value); // if left child already exists, call insert again on the left child node
+      } else {
+        this.left.insert(value);
+      } // if left child already exists, call insert again on the left child node
     }
     if (value > this.value) { // if input value is greater than root node value
       if (!this.right) { // check if right child exists
         this.right = new BinarySearchTree(value); // if right child does not exist, assign new BST to that location
+      } else {
+        this.right.insert(value); // if right child already exists, call insert again on the right child node
       }
-      else this.right.insert(value); // if right child already exists, call insert again on the right child node
     }
   }
   // Checks the binary search tree for the input target
@@ -44,7 +46,14 @@ class BinarySearchTree {
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
   depthFirstForEach(cb) {
-
+    cb(this.value);
+    if (this.left) {
+      this.left.depthFirstForEach(cb);
+    }
+    if (this.right) {
+      this.right.depthFirstForEach(cb);
+    }
+    // traverse a branch all the way down to the bottom most node
   }
   // Traverses the tree in a breadth-first manner, i.e. in layers, starting 
   // at the root node, going down to the root node's children, and iterating
@@ -53,7 +62,18 @@ class BinarySearchTree {
   // You'll need the queue-helper file for this. Or could you roll your own queue
   // again. Whatever floats your boat.
   breadthFirstForEach(cb) {
-
+    const queue = new Queue();
+    queue.enqueue(this);
+    while (!queue.isEmpty()) {
+      const node = queue.dequeue();
+      if (node.left) {
+        queue.enqueue(node.left);
+      }
+      if (node.right) {
+        queue.enqueue(node.right);
+      }
+      cb(node.value);
+    }
   }
 }
 
