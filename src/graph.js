@@ -2,6 +2,9 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable class-methods-use-this */
+
+const Queue = require('./queue-helper');
+
 // Do not modify this GraphNode class
 // Use any of its methods as you see fit to implement your graph
 class GraphNode {
@@ -90,6 +93,39 @@ class Graph {
     toVertex.edges.splice(toIndex, 1);
     if (fromVertex.numberOfEdges === 0) this.vertices.splice(this.vertices.indexOf(fromVertex), 1);
     if (toVertex.numberOfEdges === 0) this.vertices.splice(this.vertices.indexOf(toVertex), 1); 
+  }
+
+  depthFirstSearch(value, startVertex = this.vertices[0], alreadyTried = [], returnAlreadyTried = false) {
+    if (startVertex.value === value) {
+      if (returnAlreadyTried) return [startVertex, alreadyTried];
+      return startVertex;
+    }
+    alreadyTried.push(startVertex);
+    const nextVertices = startVertex.edges.filter(otherVertex => !alreadyTried.includes(otherVertex));
+    let result = null;
+    nextVertices.forEach((vertex) => {
+      const rawResult = this.depthFirstSearch(value, vertex, alreadyTried, true);
+      result = rawResult[0];
+      alreadyTried = rawResult[1];
+      if (result !== null) return;
+    });
+    if (returnAlreadyTried) return [result, alreadyTried];
+    return result;
+  }
+
+  breadthFirstSearch(value, startVertex) {
+    const queue = new Queue();
+    const alreadyTried = [];
+    queue.enqueue(startVertex);
+    while (!queue.isEmpty()) {
+      const vertex = queue.dequeue();
+      if (vertex.value === value) return vertex;
+      alreadyTried.push(vertex);
+      vertex.edges.forEach((nextVertex) => {
+        if (!alreadyTried.includes(nextVertex)) queue.enqueue(nextVertex);
+      });
+    }
+    return null;
   }
 }
 
