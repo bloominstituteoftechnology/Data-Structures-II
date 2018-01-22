@@ -3,8 +3,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
 
-/* eslint-disable */
-
 class BinarySearchTree {
   constructor(value) {
     this.value = value;
@@ -21,7 +19,8 @@ class BinarySearchTree {
       } else {
         this.left.insert(value);
       }
-    } else {
+    } 
+    if (value > this.value) {
       if (!this.right) {
         this.right = new BinarySearchTree(value);        
       } else {
@@ -32,32 +31,29 @@ class BinarySearchTree {
   // Checks the binary search tree for the input target
   // Can be written recursively or iteratively
   contains(value) {
-    let result = false;
     if (this.value !== null && value === this.value) {
-      result = true;
-      return result;
+      return true;
     }
     if (value < this.value && this.left !== null) {
       if (value === this.left.value) {
-        result = true;
-        return result;
-      } else {
-        this.left.contains(value);
+        return true;
       }
-    } else if (this.right !== null) {
-      if (value === this.right.value) {
-        result = true;
-        return result;
-      } else {
-        this.right.contains(value);
-      }
+      this.left.contains(value);
     }
-    return result;
+    if (this.right !== null) {
+      if (value === this.right.value) {
+        return true;
+      }
+      this.right.contains(value);
+    }
+    return false;
   }
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
   depthFirstForEach(cb) {
-
+    cb(this.value);
+    if (this.left) this.left.depthFirstForEach(cb);
+    if (this.right) this.right.depthFirstForEach(cb);
   }
   // Traverses the tree in a breadth-first manner, i.e. in layers, starting 
   // at the root node, going down to the root node's children, and iterating
@@ -66,7 +62,14 @@ class BinarySearchTree {
   // You'll need the queue-helper file for this. Or could you roll your own queue
   // again. Whatever floats your boat.
   breadthFirstForEach(cb) {
-
+    const queue = [];
+    queue.unshift(this);
+    while (queue.length !== 0) {
+      const node = queue.pop();
+      if (node.left) queue.unshift(node.left);
+      if (node.right) queue.unshift(node.right);
+      cb(node.value);
+    }
   }
 }
 
