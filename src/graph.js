@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-trailing-spaces */
@@ -40,18 +41,41 @@ class Graph {
   // Optionally accepts an array of other GraphNodes for the new vertex to be connected to
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
-
+    const newNode = new GraphNodes({
+      value, 
+      edges,
+    });
+    if (edges.length > 0) {
+      edges.forEach((edge) => {
+        this.addEdge(newNode, edge);
+      });
+    }
+    this.vertices.push(newNode);
+    // we need to check if there are exactly two nodes in the graph and they do 
+    // not have a connection between them
+    if (this.vertices.length === 2) {
+      this.addEdge(this.vertices[0], this.vertices[1]);
+    }
+    return newNode;
   }
   // Checks all the vertices of the graph for the target value
   // Returns true or false
   contains(value) {
-
+    let hasValue = false;
+    this.vertices.forEach((node) => {
+      if (node.value === value) {
+        hasValue = true;
+        return;
+      }
+    });
+    
+    return hasValue;
   }
   // Checks the graph to see if a GraphNode with the specified value exists in the graph 
   // and removes the vertex if it is found
   // This function should also handle the removing of all edge references for the removed vertex
   removeVertex(value) {
-
+    
   }
   // Checks the two input vertices to see if each one references the other in their respective edges array
   // Both vertices must reference each other for the edge to be considered valid
@@ -64,7 +88,10 @@ class Graph {
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other 
   addEdge(fromVertex, toVertex) {
-
+    if (!this.checkIfEdgeExists(fromVertex, toVertex)) {
+      fromVertex.pushToEdges(toVertex);
+      toVertex.pushToEdges(fromVertex);
+    }
   }
   // Removes the edge between the two given vertices if an edge already exists between them
   // After removing the edge, neither vertex should be referencing the other
