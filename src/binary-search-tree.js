@@ -4,7 +4,34 @@
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable no-lonely-if */
 
-const Queue = require('./queue-helper.js');
+// Wrap Queue in an IIFE to create closure over storage variable:
+// The problem with wrapping Queue in an IIFE is that we can't extend it later :/
+const Queue = (function() {
+  // Use a WeakMap to make this.storage a private value:
+  const storage = new WeakMap();
+  class Queue {
+    constructor() {
+      storage.set(this, []);
+    }
+
+    enqueue(x) {
+      const s = storage.get(this);
+      s.push(x);
+    }
+
+    dequeue() {
+      const r = storage.get(this);
+      return r.shift();
+    }
+
+    isEmpty() {
+      const s = storage.get(this);
+      return s.length === 0;
+    }
+  }
+  // return Queue so we have access to the constructor we just made:
+  return Queue;
+})();
 
 class BinarySearchTree {
   constructor(value) {
