@@ -20,11 +20,12 @@ class Tree {
     let result = false;
     if (this.value === value) return true;
 
-    const recurse = children => {
-      children.forEach(child => {
-	if (child.value === value) result = true;
-	if (child.children.length > 0)
-	  recurse(child.children);
+    const recurse = (children) => {
+      children.forEach((child) => {
+        if (child.value === value) result = true;
+        if (child.children.length > 0) {
+          recurse(child.children);
+        }
       });
     };
 

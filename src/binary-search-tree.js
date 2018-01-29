@@ -2,8 +2,9 @@
 /* eslint-disable global-require */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
+/* eslint-disable no-lonely-if */
 
-const Queue = require('./queue-helper.js')
+const Queue = require('./queue-helper.js');
 
 class BinarySearchTree {
   constructor(value) {
@@ -25,24 +26,16 @@ class BinarySearchTree {
     }
   }
 
-    //const child = new BinarySearchTree(value);
-    //if (child.value < this.value && !this.left) return this.left = child;
-    //else if (child.value > this.value && !this.right) return this.right = child;
-    //else if (child.value < this.value)
-    //  this.left.insert(value);
-    //else this.right.insert(value);
-
   // Checks the binary search tree for the input target
   // Can be written recursively or iteratively
   contains(target) {
     if (this.value === target) return true;
     else if (target < this.value) {
       return !!this.left && this.left.contains(target);
-    }
-    else if (target > this.value) {
+    } else if (target > this.value) {
       return !!this.right && this.right.contains(target);
     }
-    else return false;
+    return false;
   }
 
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
@@ -60,10 +53,16 @@ class BinarySearchTree {
   // You'll need the queue-helper file for this. Or could you roll your own queue
   // again. Whatever floats your boat.
   breadthFirstForEach(cb) {
-    const queue = new Queue(this);
+    const queue = new Queue();
+    queue.enqueue(this);
 
-    
-    
+    while (!queue.isEmpty()) {
+      const node = queue.dequeue();
+      cb(node.value);
+
+      if (node.left) queue.enqueue(node.left);
+      if (node.right) queue.enqueue(node.right);
+    }
   }
 }
 
