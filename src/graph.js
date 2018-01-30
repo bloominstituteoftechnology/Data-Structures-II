@@ -34,12 +34,20 @@ class Graph {
   constructor() {
     this.vertices = [];
   }
+
   // Wraps the input value in a new GraphNode and adds it to the array of vertices
   // If there are only two nodes in the graph, they need to be automatically 
   // connected via an edge
   // Optionally accepts an array of other GraphNodes for the new vertex to be connected to
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
+    const node = new GraphNode(value, edges);
+    this.vertices.push(node);
+    if (this.vertices.length === 2) {
+      this.vertices
+    }
+    
+
 
   }
   // Checks all the vertices of the graph for the target value
