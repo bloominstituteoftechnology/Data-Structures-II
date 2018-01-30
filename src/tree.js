@@ -15,13 +15,13 @@ class Tree {
   // have been checked
   contains(value) {
     let result = false;
-    const transverse = (node) => {
+    const traverse = (node) => {
       if (node.value === value) result = true;
       for (let i = 0; i < node.children.length; i++) {
-        transverse(node.children[i]);
+        traverse(node.children[i]);
       }
     };
-    transverse(this);
+    traverse(this);
     return result;
   }
 }
