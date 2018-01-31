@@ -14,38 +14,56 @@ class BinarySearchTree {
   insert(value) {
     if (this.value === null) {
       let bst = new BinarySearchTree(value);
-      console.log('new', value);
       return;
     }
     if (value > this.value) {
-      console.log('greater than', value);
       if (!this.right) {
-        this.right = value;
-        console.log('this.right', value);
+        this.right = new BinarySearchTree(value);
         return;
       }
-      let right = this.right;
-      console.log(right.insert(value));
-      right.insert(value);
-    }
+      return this.right.insert(value);
+      }
     if (value <= this.value) {
       if (!this.left) {
-        this.left = value;
+        this.left = new BinarySearchTree(value);
         return;
       }
-      let left = this.left;
-      console.log(left.insert(value));
-      left.insert(value);
+      return this.left.insert(value);
     }
   }
+
   // Checks the binary search tree for the input target
   // Can be written recursively or iteratively
   contains(target) {
-
+    if (this.value === target) {
+      return true;
+    }
+    if (this.value === null) {
+      return false;
+    }
+    if (target > this.value && this.right !== null) {
+      return this.right.contains(target);
+    }
+    if (target <= this.value && this.left !== null) {
+      return this.left.contains(target);
+    }
+    return false;
   }
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
   depthFirstForEach(cb) {
+    if (this.value === null) { return; }
+    cb(this.value);
+    if (this.left.value) {
+      cb(this.left);
+      return this.left.depthFirstForEach(cb);
+    }
+    if (this.right) {
+      cb(this.right.value);
+      return this.right.depthFirstForEach(cb);
+    }
+    if (this.right === null && this.left === null) { return; }
+
 
   }
   // Traverses the tree in a breadth-first manner, i.e. in layers, starting
