@@ -54,17 +54,13 @@ class BinarySearchTree {
   depthFirstForEach(cb) {
     if (this.value === null) { return; }
     cb(this.value);
-    if (this.left.value) {
-      cb(this.left);
-      return this.left.depthFirstForEach(cb);
+    if (this.left) {
+      this.left.depthFirstForEach(cb);
     }
     if (this.right) {
-      cb(this.right.value);
-      return this.right.depthFirstForEach(cb);
+      this.right.depthFirstForEach(cb);
     }
     if (this.right === null && this.left === null) { return; }
-
-
   }
   // Traverses the tree in a breadth-first manner, i.e. in layers, starting
   // at the root node, going down to the root node's children, and iterating
@@ -73,7 +69,15 @@ class BinarySearchTree {
   // You'll need the queue-helper file for this. Or could you roll your own queue
   // again. Whatever floats your boat.
   breadthFirstForEach(cb) {
-
+    if (this.value === null) { return; }
+    cb(this.value);
+    if (this.left) {
+      this.left.depthFirstForEach(cb);
+    }
+    if (this.right) {
+      this.right.depthFirstForEach(cb);
+    }
+    if (this.right === null && this.left === null) { return; }
   }
 }
 
