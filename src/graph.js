@@ -57,12 +57,10 @@ class Graph {
   // Checks all the vertices of the graph for the target value
   // Returns true or false
   contains(value) {
-    let result = false;
-
     for (let i = 0; i < this.vertices.length; i++) {
-      if (this.vertices[i].value === value) result = true;
+      if (this.vertices[i].value === value) return true;
     }
-    return result;
+    return false;
   }
   // Checks the graph to see if a GraphNode with the specified value exists in the graph 
   // and removes the vertex if it is found
@@ -72,10 +70,10 @@ class Graph {
       return node.value === value;
     });
     if (index === -1) return;
-    const removedNode = this.vertices.splice(index, 1)[0];
-    const removedEdges = removedNode.edges;
-    for (let i = 0; i < removedEdges.length; i++) {
-      this.removeEdge(removedNode, removedEdges[i]);
+    const vertex = this.vertices.splice(index, 1)[0];
+    const edges = vertex.edges;
+    for (let i = 0; i < edges.length; i++) {
+      this.removeEdge(vertex, edges[i]);
     }
   }
   // Checks the two input vertices to see if each one references the other in their respective edges array
