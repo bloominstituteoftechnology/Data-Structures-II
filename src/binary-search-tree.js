@@ -2,6 +2,24 @@
 /* eslint-disable global-require */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
+class Queue {
+    constructor() {
+        this.storage = [];
+    }
+
+    enqueue(x) {
+        this.storage.push(x);
+    }
+
+    dequeue() {
+        return this.storage.shift();
+    }
+
+    isEmpty() {
+        return this.storage.length === 0;
+    }
+}
+
 class BinarySearchTree {
   constructor(value) {
     this.value = value;
@@ -69,22 +87,33 @@ class BinarySearchTree {
   // You'll need the queue-helper file for this. Or could you roll your own queue
   // again. Whatever floats your boat.
   breadthFirstForEach(cb) {
+    let q = new Queue;
     if (this.value === null) { return; }
-    cb(this.value);
-    if (this.left) {
-      this.left.depthFirstForEach(cb);
+    q.enqueue(this.value);
+    console.log(q);
+    let currentNode = this;
+    console.log(currentNode)
+    while (currentNode !== null) {
+      if (currentNode.left) {
+        q.enqueue(this.left.value);
+      }
+      if (currentNode.right) {
+        q.enqueue(this.right.value);
+      }
+      cb(q.dequeue());
+      currentNode = q.dequeue();
     }
-    if (this.right) {
-      this.right.depthFirstForEach(cb);
-    }
-    if (this.right === null && this.left === null) { return; }
   }
 }
 
 let binarySearchTree = new BinarySearchTree(5);
-binarySearchTree.insert(2);
+const array = [];
+const foo = value => ((array.push(value)));
 binarySearchTree.insert(3);
-binarySearchTree.insert(7);
-binarySearchTree.insert(6);
+binarySearchTree.insert(4);
+binarySearchTree.insert(10);
+binarySearchTree.insert(9);
+binarySearchTree.insert(11);
+binarySearchTree.breadthFirstForEach(foo);
 
 module.exports = BinarySearchTree;
