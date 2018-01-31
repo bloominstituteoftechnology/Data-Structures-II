@@ -89,31 +89,19 @@ class BinarySearchTree {
   breadthFirstForEach(cb) {
     let q = new Queue;
     if (this.value === null) { return; }
-    q.enqueue(this.value);
-    console.log(q);
+    q.enqueue(this);
     let currentNode = this;
-    console.log(currentNode)
-    while (currentNode !== null) {
+    while (!q.isEmpty()) {
+      currentNode = q.dequeue();
       if (currentNode.left) {
-        q.enqueue(this.left.value);
+        q.enqueue(currentNode.left);
       }
       if (currentNode.right) {
-        q.enqueue(this.right.value);
+        q.enqueue(currentNode.right);
       }
-      cb(q.dequeue());
-      currentNode = q.dequeue();
+      cb(currentNode.value);
     }
   }
 }
-
-let binarySearchTree = new BinarySearchTree(5);
-const array = [];
-const foo = value => ((array.push(value)));
-binarySearchTree.insert(3);
-binarySearchTree.insert(4);
-binarySearchTree.insert(10);
-binarySearchTree.insert(9);
-binarySearchTree.insert(11);
-binarySearchTree.breadthFirstForEach(foo);
 
 module.exports = BinarySearchTree;
