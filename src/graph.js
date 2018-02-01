@@ -88,7 +88,6 @@ class Graph {
 
     fromVertex.edges = fromVertex.edges
       .filter(edge => edge.value === toVertex.value);
-
     toVertex.edges = fromVertex.edges
       .filter(edge => edge.value === fromVertex.value);
 
