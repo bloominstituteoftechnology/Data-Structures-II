@@ -2,23 +2,7 @@
 /* eslint-disable global-require */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
-class Queue {
-    constructor() {
-        this.storage = [];
-    }
-
-    enqueue(x) {
-        this.storage.push(x);
-    }
-
-    dequeue() {
-        return this.storage.shift();
-    }
-
-    isEmpty() {
-        return this.storage.length === 0;
-    }
-}
+const Queue = require('./queue-helper');
 
 class BinarySearchTree {
   constructor(value) {
@@ -31,7 +15,7 @@ class BinarySearchTree {
   // depending on its value
   insert(value) {
     if (this.value === null) {
-      let bst = new BinarySearchTree(value);
+      this.value = new BinarySearchTree(value);
       return;
     }
     if (value > this.value) {
@@ -53,12 +37,8 @@ class BinarySearchTree {
   // Checks the binary search tree for the input target
   // Can be written recursively or iteratively
   contains(target) {
-    if (this.value === target) {
-      return true;
-    }
-    if (this.value === null) {
-      return false;
-    }
+    if (this.value === target) return true;
+    if (this.value === null) return false;
     if (target > this.value && this.right !== null) {
       return this.right.contains(target);
     }
