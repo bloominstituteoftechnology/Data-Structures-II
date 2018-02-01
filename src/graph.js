@@ -42,10 +42,8 @@ class Graph {
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
     const node = new GraphNode({ value, edges });
-    if (edges.length > 0) {
-      for (let i = 0; i < edges.length; i++) {
-        this.addEdge(node, edges[i]);
-      }
+    for (let i = 0; i < edges.length; i++) {
+      this.addEdge(node, edges[i]);
     } 
     this.vertices.push(node);
     if (this.vertices.length === 2) {
