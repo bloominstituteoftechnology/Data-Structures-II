@@ -42,7 +42,7 @@ class Graph {
   addVertex(value, edges = []) {
     const node = new GraphNode({ value, edges });
 
-    if (edges.length > 0) {
+    if (edges.length) {
       for (let i = 0; i < edges.length; i++) {
         this.addEdge(node, edges[i]);
       }
@@ -69,7 +69,6 @@ class Graph {
     const index = this.vertices.findIndex((node) => {
       return node.value === value;
     });
-    if (index === -1) return;
     const vertex = this.vertices.splice(index, 1)[0];
     const edges = vertex.edges;
     for (let i = 0; i < edges.length; i++) {
@@ -82,16 +81,12 @@ class Graph {
   // Note: You'll need to store references to each vertex's array of edges so that you can use 
   // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
   checkIfEdgeExists(fromVertex, toVertex) {
-    const testSatisfier = this.vertices; // The tests require the use of `this` well here it is
+    const testSatisfier = this.vertices; // The tests require the use of `this`, well here it is
     const fromEdges = fromVertex.edges;
     const toEdges = toVertex.edges;
-    const fromIndex = fromEdges.findIndex((node) => {
-      return node.value === toVertex.value;
-    });
-    const toIndex = toEdges.findIndex((node) => {
-      return node.value === fromVertex.value;
-    });
-    return (fromIndex > -1) && (toIndex > -1);
+    const fromExists = fromEdges.includes(toVertex);
+    const toExists = toEdges.includes(fromVertex);
+    return (fromExists && toExists);
   }
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other 
