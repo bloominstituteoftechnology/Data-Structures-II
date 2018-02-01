@@ -1,30 +1,20 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable no-trailing-spaces */
-// Do not modify this GraphNode class
-// Use any of its methods as you see fit to implement your graph
 class GraphNode {
   constructor({ value, edges }) {
     this._value = value;
     this._edges = edges;
   }
-
   get value() {
     return this._value;
   }
-
   get edges() {
     return this._edges;
   }
-
   get numberOfEdges() {
     return this._edges.length;
   }
-
   set edges(x) {
     this._edges = x;
   }
-
   pushToEdges(y) {
     this._edges.push(y);
   }
@@ -41,16 +31,17 @@ class Graph {
   // Optionally accepts an array of other GraphNodes for the new vertex to be connected to
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
-    const node = new GraphNode({ value, edges });
-    if (edges.length) {
-      node.pushToEdges(...edges);
+    const vertex = new GraphNode({ value, edges });
+    if(edges.length) {
+      edges.forEach(edge => {
+	this.addEdge(vertex, edge)
+      })
     }
-    this.vertices.push(node);
-
-    if (this.vertices.length === 2) {
-      this.vertices[0].pushToEdges(node.value)
-      this.vertices[1].pushToEdges(this.vertices[0].value)
+    this.vertices.push(vertex)
+    if(this.vertices.length === 2) {
+      this.addEdge(this.vertices[0], this.vertices[1])
     }
+    return vertex;
   }
 
   // Checks all the vertices of the graph for the target value
@@ -63,12 +54,10 @@ class Graph {
   // and removes the vertex if it is found
   // This function should also handle the removing of all edge references for the removed vertex
   removeVertex(value) {
-    // pulled off `removed` in case we wanted to go through the graph and remove all references to the removed vertex later
-    const [removed, index] = this.vertices.reduce((acc, v, idx) => {
+    const [rmValue, index] = this.vertices.reduce((acc, v, idx) => {
       if (v.value === value) return [v.value, idx]
       return acc
     }, [])
-
     return this.vertices.splice(index)
   }
 
@@ -78,14 +67,16 @@ class Graph {
   // Note: You'll need to store references to each vertex's array of edges so that you can use 
   // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
   checkIfEdgeExists(fromVertex, toVertex) {
-    
-
+    return fromVertex.edges.some(edge => edge.value === toVertex.value)
+      && toVertex.edges.some(edge => edge.value === fromVertex.value)
   }
 
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other 
   addEdge(fromVertex, toVertex) {
-
+    if (this.checkIfEdgeExists(fromVertex, toVertex)) return;
+    fromVertex.pushToEdges(toVertex)
+    toVertex.pushToEdges(fromVertex)
   }
 
   // Removes the edge between the two given vertices if an edge already exists between them
@@ -93,16 +84,17 @@ class Graph {
   // If a vertex would be left without any edges as a result of calling this function, those
   // vertices should be removed as well
   removeEdge(fromVertex, toVertex) {
+    if (!this.checkIfEdgeExists(fromVertex, toVertex)) return;
 
+    fromVertex.edges = fromVertex.edges
+      .filter(edge => edge.value === toVertex.value);
+
+    toVertex.edges = fromVertex.edges
+      .filter(edge => edge.value === fromVertex.value);
+
+    if (!fromVertex.edges.length) this.removeVertex(fromVertex);
+    if (!toVertex.edges.length) this.removeVertex(toVertex);
   }
 }
 
-const myGraph = new Graph()
-myGraph.addVertex('guido')
-myGraph.addVertex('bianca')
-myGraph.addVertex('grizzly', ['guido', 'bianca'])
-
-console.log(myGraph)
-
 module.exports = Graph;
-
