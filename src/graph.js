@@ -96,34 +96,47 @@ class Graph {
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other
   addEdge(fromVertex, toVertex) {
-    if (!this.checkIfEdgeExists(fromVertex, toVertex)) {
-      console.log('edge does not exist');
-      fromVertex.pushToEdges(toVertex);
-      toVertex.pushToEdges(fromVertex);
-    }
+    if (this.checkIfEdgeExists(fromVertex, toVertex)) return;
+    fromVertex.pushToEdges(toVertex);
+    toVertex.pushToEdges(fromVertex);
   }
   // Removes the edge between the two given vertices if an edge already exists between them
   // After removing the edge, neither vertex should be referencing the other
   // If a vertex would be left without any edges as a result of calling this function, those
   // vertices should be removed as well
   removeEdge(fromVertex, toVertex) {
-    let index = fromVertex.edges.indexOf(toVertex);
+    if (this.checkIfEdgeExists(fromVertex, toVertex)) {
+      console.log('edge exists');
+      let fromIndex = fromVertex.edges.indexOf(toVertex);
+      fromVertex.edges.splice(fromIndex, 1);
+      let toIndex = toVertex.edges.indexOf(fromVertex);
+      toVertex.edges.splice(toIndex, 1);
+    }
+    if (!fromVertex.edges) {
+      this.removeEdge(fromVertex);
+    }
+    if (!toVertex.edges) {
+      this.removeEdge(toVertex);
+    }
   }
 }
 
-// let graph = new Graph();
+let graph = new Graph();
 // graph.addVertex('Hello World!');
 // graph.addVertex('hi there');
 // // graph.removeVertex('hi there');
 // const pineapple = graph.addVertex('pineapple');
 // const banana = graph.addVertex('banana');
 // const mango = graph.addVertex('mango', [pineapple]);
-// const monkey = graph.addVertex('monkey');
-// const human = graph.addVertex('human');
-// const crocodile = graph.addVertex('crocodile', [human]);
-// graph.addEdge(crocodile, monkey);
+const monkey = graph.addVertex('monkey');
+const human = graph.addVertex('human');
+const crocodile = graph.addVertex('crocodile', [human]);
+graph.addEdge(crocodile, monkey);
+console.log('croc edges', crocodile.edges);
+console.log('monkey edges', monkey.edges);
 // graph.removeEdge(monkey, human);
-// graph.checkIfEdgeExists(crocodile, monkey);
+console.log('check if monkey croc edge exists:');
+graph.checkIfEdgeExists(crocodile, monkey);
 // const A = graph.addVertex('A');
 // const b = graph.addVertex('b');
 // graph.removeEdge(A, b);
