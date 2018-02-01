@@ -85,13 +85,9 @@ class Graph {
     const testSatisfier = this.vertices;
     const fromEdges = fromVertex.edges;
     const toEdges = toVertex.edges;
-    const fromIndex = fromEdges.findIndex((node) => {
-      return node.value === toVertex.value;
-    });
-    const toIndex = toEdges.findIndex((node) => {
-      return node.value === fromVertex.value;
-    });
-    return (fromIndex > -1) && (toIndex > -1);
+    const fromExists = fromEdges.includes(toVertex);
+    const toExists = toEdges.includes(fromVertex);
+    return (fromExists && toExists);
   }
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other 
