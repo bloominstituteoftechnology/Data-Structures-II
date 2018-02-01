@@ -3,6 +3,8 @@
 /* eslint-disable no-trailing-spaces */
 // Do not modify this GraphNode class
 // Use any of its methods as you see fit to implement your graph
+/* eslint-disable */
+
 class GraphNode {
   constructor({ value, edges }) {
     this._value = value;
