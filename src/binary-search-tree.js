@@ -32,10 +32,8 @@ class BinarySearchTree {
       if (this.left) {
         return this.left.contains(target);
       }
-    } else if (target > this.value) {
-      if (this.right) {
-        return this.right.contains(target);
-      }
+    } else if (this.right) {
+      return this.right.contains(target);
     }
     return false;
   }

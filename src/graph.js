@@ -42,9 +42,7 @@ class Graph {
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
     const node = new GraphNode({ value, edges });
-    for (let i = 0; i < edges.length; i++) {
-      this.addEdge(node, edges[i]);
-    } 
+    edges.forEach(edge => this.addEdge(node, edge));
     this.vertices.push(node);
     if (this.vertices.length === 2) {
       this.addEdge(this.vertices[0], this.vertices[1]);
@@ -69,9 +67,7 @@ class Graph {
     if (index === -1) return;
     const vertex = this.vertices.splice(index, 1)[0];
     const edges = vertex.edges;
-    for (let i = 0; i < edges.length; i++) {
-      this.removeEdge(vertex, edges[i]);
-    }
+    edges.forEach(edge => this.removeEdge(vertex, edge));
   }
  
   // Checks the two input vertices to see if each one references the other in their respective edges array
