@@ -101,6 +101,7 @@ class Graph {
   // If a vertex would be left without any edges as a result of calling this function, those
   // vertices should be removed as well
   removeEdge(fromVertex, toVertex) {
+
     if (this.checkIfEdgeExists(fromVertex, toVertex)) {
       const fromEdges = fromVertex.edges;
       const toEdges = toVertex.edges;
