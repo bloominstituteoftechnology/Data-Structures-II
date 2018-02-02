@@ -24,7 +24,7 @@ class BinarySearchTree {
         return;
       }
       return this.right.insert(value);
-      }
+    }
     if (value <= this.value) {
       if (!this.left) {
         this.left = new BinarySearchTree(value);
@@ -64,7 +64,7 @@ class BinarySearchTree {
   // You'll need the queue-helper file for this. Or could you roll your own queue
   // again. Whatever floats your boat.
   breadthFirstForEach(cb) {
-    let q = new Queue;
+    const q = new Queue();
     if (this.value === null) { return; }
     q.enqueue(this);
     let currentNode = this;

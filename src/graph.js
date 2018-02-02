@@ -40,9 +40,9 @@ class Graph {
   // Optionally accepts an array of other GraphNodes for the new vertex to be connected to
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
-    let ngn = new GraphNode({ value, edges });
+    const ngn = new GraphNode({ value, edges });
     for (let i = 0; i < edges.length; i++) {
-      let edgeIndex = this.vertices.indexOf(edges[i]);
+      const edgeIndex = this.vertices.indexOf(edges[i]);
       this.vertices[edgeIndex].pushToEdges(ngn);
     }
     this.vertices.push(ngn);
@@ -61,7 +61,7 @@ class Graph {
       if (this.vertices[i].value === value) {
         return true;
       }
-    return false;
+      return false;
     }
   }
   // Checks the graph to see if a GraphNode with the specified value exists in the graph
@@ -86,17 +86,17 @@ class Graph {
       for (let i = 0; i < this.vertices.length; i++) {
         if (this.vertices[i].value === value) {
           removed = this.vertices[i];
-          let newVertices = this.vertices.filter(vert => vert.value !== value);
+          const newVertices = this.vertices.filter(vert => vert.value !== value);
           this.vertices = newVertices;
-          if (removed.edges.length > 0) {
-            for (edge in removed.edges) {
-              removeEdge(removed, edge);
-          }
         }
+      }
+      if (removed.edges.length > 0) {
+        removed.edges.forEach((edge) => {
+          this.removeEdge(removed, edge);
+        });
       }
     }
   }
-}
 
   // Checks the two input vertices to see if each one references the other in their respective edges array
   // Both vertices must reference each other for the edge to be considered valid
@@ -105,10 +105,11 @@ class Graph {
   // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
   // CRC: Can also use includes method on array
   checkIfEdgeExists(fromVertex, toVertex) {
-      if (fromVertex.edges.indexOf(toVertex) === -1 || toVertex.edges.indexOf(fromVertex) === -1) {
-        return false;
-      }
-      return true;
+    this.contains(fromVertex); // 
+    if (fromVertex.edges.indexOf(toVertex) === -1 || toVertex.edges.indexOf(fromVertex) === -1) {
+      return false;
+    }
+    return true;
   }
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other
@@ -127,8 +128,8 @@ class Graph {
   //   return acc;
   // }, [])
   removeEdge(fromVertex, toVertex) {
-    fromVertex.edges = fromVertex.edges.filter( (edge) => edge.value !== toVertex.value );
-    toVertex.edges = toVertex.edges.filter( (edge) => edge.value !== fromVertex.value ); 
+    fromVertex.edges = fromVertex.edges.filter(edge => edge.value !== toVertex.value);
+    toVertex.edges = toVertex.edges.filter(edge => edge.value !== fromVertex.value); 
     if (fromVertex.numberOfEdges === 0) this.removeVertex(fromVertex.value);
     if (toVertex.numberOfEdges === 0) this.removeVertex(toVertex.value);
   }

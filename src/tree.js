@@ -7,7 +7,7 @@ class Tree {
   }
   // Adds a new Tree node with the input value to the current Tree node
   addChild(value) {
-    let newChild = new Tree(value);
+    const newChild = new Tree(value);
     this.children.push(newChild);
   }
   // Checks this node's children to see if any of them matches the given value
