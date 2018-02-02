@@ -80,7 +80,9 @@ class BinarySearchTree {
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
   depthFirstForEach(cb) {
-
+  cb(this.value);
+    if (this.left !== null) this.left.breadthFirstForEach(cb);
+    if (this.right !== null) this.right.depthFirstForEach(cb);
   }
   // Traverses the tree in a breadth-first manner, i.e. in layers, starting 
   // at the root node, going down to the root node's children, and iterating
@@ -89,8 +91,25 @@ class BinarySearchTree {
   // You'll need the queue-helper file for this. Or could you roll your own queue
   // again. Whatever floats your boat.
   breadthFirstForEach(cb) {
-
+ const queue = [];
+    queue.push(this);
+    for (let i = 0; i < queue.length; i++) {
+      cb(queue[i].value);
+      if (queue[i].left) queue.push(queue[i].left);
+      if (queue[i].right) queue.push(queue[i].right);
+    }
   }
 }
+/* with enqueue
+const queue = new Queue;
+queue.enqueue(this);
+while (!queue.isEmpty()) {
+  const current = queue.dequeue();
+  cb(current.value);
+  if (current.left) queue.enqueue(current.left);
+  if (current.right) queue.enqueue(current.right);
+}
+}
+} */
 
 module.exports = BinarySearchTree;
