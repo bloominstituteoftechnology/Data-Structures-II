@@ -38,7 +38,6 @@ class BinarySearchTree {
   // Can be written recursively or iteratively
   contains(target) {
     if (this.value === target) return true;
-    if (this.value === null) return false;
     if (target > this.value && this.right !== null) {
       return this.right.contains(target);
     }
@@ -50,7 +49,6 @@ class BinarySearchTree {
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
   depthFirstForEach(cb) {
-    if (this.value === null) { return; }
     cb(this.value);
     if (this.left) {
       this.left.depthFirstForEach(cb);
@@ -58,7 +56,6 @@ class BinarySearchTree {
     if (this.right) {
       this.right.depthFirstForEach(cb);
     }
-    if (this.right === null && this.left === null) { return; }
   }
   // Traverses the tree in a breadth-first manner, i.e. in layers, starting
   // at the root node, going down to the root node's children, and iterating

@@ -50,7 +50,6 @@ class Graph {
       this.vertices[0].pushToEdges(ngn);
       this.vertices[1].pushToEdges(this.vertices[0]);
     }
-    console.log('vertices are now', this.vertices);
     return ngn;
   }
 
@@ -68,6 +67,18 @@ class Graph {
   // Checks the graph to see if a GraphNode with the specified value exists in the graph
   // and removes the vertex if it is found
   // This function should also handle the removing of all edge references for the removed vertex
+
+  // CRC: removeVertex with reduce.
+  // this.vertices = this.vertices.reduce( (acc, vertex) ) => {
+  //   if (vertex.value === value) {
+  //     vertex.edges.forEach( (edge) => {
+  //       this.removeEdge(item, edge);
+  //     })
+  //     return acc;
+  //   }
+  //   acc.push(vertex);
+  //   return acc;
+  // }
   removeVertex(value) {
     let removed;
     if (!this.contains(value)) return;
@@ -75,9 +86,9 @@ class Graph {
       for (let i = 0; i < this.vertices.length; i++) {
         if (this.vertices[i].value === value) {
           removed = this.vertices[i];
-          let newVertices = this.vertices.filter(val => val.value !== value);
+          let newVertices = this.vertices.filter(vert => vert.value !== value);
           this.vertices = newVertices;
-          if (removed.edges) {
+          if (removed.edges.length > 0) {
             for (edge in removed.edges) {
               removeEdge(removed, edge);
           }
@@ -86,17 +97,17 @@ class Graph {
     }
   }
 }
+
   // Checks the two input vertices to see if each one references the other in their respective edges array
   // Both vertices must reference each other for the edge to be considered valid
   // If only one vertex references the other but not vice versa, should not return true
   // Note: You'll need to store references to each vertex's array of edges so that you can use
   // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
+  // CRC: Can also use includes method on array
   checkIfEdgeExists(fromVertex, toVertex) {
       if (fromVertex.edges.indexOf(toVertex) === -1 || toVertex.edges.indexOf(fromVertex) === -1) {
-        console.log('check edge', fromVertex, toVertex, false);
         return false;
       }
-      console.log('check edge', fromVertex, toVertex, true);
       return true;
   }
   // Adds an edge between the two given vertices if no edge already exists between them
@@ -110,23 +121,17 @@ class Graph {
   // After removing the edge, neither vertex should be referencing the other
   // If a vertex would be left without any edges as a result of calling this function, those
   // vertices should be removed as well
+  // CRC: Solution for getting rid of edge-less vertices using reduce
+  // this.vertices = this.vertices.reduce( (acc, vertex) => {
+  //   if (vertex.edges.length !== 0) acc.push(vertex);
+  //   return acc;
+  // }, [])
   removeEdge(fromVertex, toVertex) {
-    if (this.checkIfEdgeExists(fromVertex, toVertex)) {
-      console.log('edge exists');
-      let fromIndex = fromVertex.edges.indexOf(toVertex);
-      fromVertex.edges.splice(fromIndex, 1);
-      let toIndex = toVertex.edges.indexOf(fromVertex);
-      toVertex.edges.splice(toIndex, 1);
-    }
-    if (!fromVertex.edges) {
-      this.removeEdge(fromVertex);
-    }
-    if (!toVertex.edges) {
-      this.removeEdge(toVertex);
-    }
+    fromVertex.edges = fromVertex.edges.filter( (edge) => edge.value !== toVertex.value );
+    toVertex.edges = toVertex.edges.filter( (edge) => edge.value !== fromVertex.value ); 
+    if (fromVertex.numberOfEdges === 0) this.removeVertex(fromVertex.value);
+    if (toVertex.numberOfEdges === 0) this.removeVertex(toVertex.value);
   }
 }
-
-
 
 module.exports = Graph;
