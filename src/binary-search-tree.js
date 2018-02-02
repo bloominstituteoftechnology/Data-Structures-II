@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
 
-const Queue = require('./queue-helper')
+const Queue = require('./queue-helper');
 
 class BinarySearchTree {
   constructor(value) {
@@ -17,20 +17,20 @@ class BinarySearchTree {
   // depending on its value
   insert(value) {
     const child = new BinarySearchTree(value);  // newBST = value
-    if(child.value < this.value) {
-	if(this.left === null) {
-	this.left = child;
-	} else {
-	this.left.insert(value);
-	}
+    if (child.value < this.value) {
+      if (this.left === null) {
+        this.left = child;
+      } else {
+        this.left.insert(value);
+      }
     }
 
-    if(child.value > this.value) {
-	if(this.right === null) {
-	this.right = child;
-	} else {
-	this.right.insert(value);
-	}
+    if (child.value > this.value) {
+      if (this.right === null) {
+        this.right = child;
+      } else {
+        this.right.insert(value);
+      }
     }
   }
 
@@ -70,11 +70,11 @@ class BinarySearchTree {
     const queue = new Queue();
     queue.enqueue(this);
 
-    while(!queue.isEmpty()) {
+    while (!queue.isEmpty()) {
       const { value, left, right } = queue.dequeue();
       cb(value);
-      if (left) queue.enqueue(left)
-      if (right) queue.enqueue(right)
+      if (left) queue.enqueue(left);
+      if (right) queue.enqueue(right);
     }
   }
 }
