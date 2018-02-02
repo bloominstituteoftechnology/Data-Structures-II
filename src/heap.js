@@ -7,20 +7,16 @@ class Heap {
 
   getLeftIdx(pIndex) { return 2 * pIndex; }
   getRightIdx(pIndex) { return 2 * pIndex + 1; }
-  getParentIdx(cIndex) { return Math.floor(cIndex / 2); }
+  getParentIdx(cIndex) {
+    return Math.floor(cIndex / 2);
+  }
 
   /* Inserts the given value in the heap
    * Calls bubbleUp in order to put the newly-inserted element in the right place in the heap */
   insert(val) {
     this.storage.push(val);
+    this.bubbleUp(++this.size);
 
-    let cIndex = ++this.size;
-    let pIndex = this.getParentIdx(cIndex);
-    let parent = this.storage[pIndex];
-
-    while (this.storage[cIndex] > this.storage[pIndex] && this.storage[pIndex]) {
-      this.bubbleUp(cIndex);
-    }
   }
 
   /* Deletes the element located at the front of the heap (the max if a max heap, or a min if a min heap)
@@ -31,7 +27,7 @@ class Heap {
   }
 
   // Returns the maximum value in the heap in constant time
-  getMax() { return this.storage[0]; }
+  getMax() { return this.storage[1]; }
 
   // Returns the size of the heap
   getSize() {
@@ -43,20 +39,32 @@ class Heap {
 
   }
 
+    //let cIndex = ++this.size;
+    //let pIndex = this.getParentIdx(cIndex);
+    //let parent = this.storage[pIndex];
+
+    //while (this.storage[cIndex] > this.storage[pIndex] && this.storage[pIndex]) {
+    //  this.bubbleUp(cIndex);
+    //}
+
   /* Moves the element at the specified index "up" by swapping it with its parent 
    * if its parent value is less than the value located at the input index
    * This method is only used by the heap itself in order to maintain the heap property */
   bubbleUp(index) {
     const pIndex = this.getParentIdx(index);
-    [this.storage[index], this.storage[pIndex]] = [this.storage[pIndex], this.storage[index]];
+    const parent = this.storage[pIndex];
+    const child = this.storage[index];
+
+    if (parent && child > parent) {
+      [this.storage[index], this.storage[pIndex]] = [this.storage[pIndex], this.storage[index]];
+      this.bubbleUp(pIndex);
+    }
   }
 
   /* First grabs the indices of this element's children and determines which of the children are larger
    * If the larger of the child elements is larger than the parent, the child element is swapped with the parent
    * This method is only used by the heap itself in order to maintain the heap property */
   siftDown(index) {
-    const pIndex = this.getParentIdx(index);
-    [this.storage[index], this.storage[pIndex]] = [this.storage[pIndex], this.storage[index]];
 
     }
 }
@@ -72,15 +80,13 @@ heap.insert(9)
 heap.insert(5)
 heap.insert(11)
 
-
 console.log(heap)
 
 // ????
-/*            10
- *        9       9
- *     11   1   8    9
- *   5   6
+/*            11
+ *         10       9
+ *      9     1   8   9
+ *    5   6
 */
-
 
 module.exports = Heap;
