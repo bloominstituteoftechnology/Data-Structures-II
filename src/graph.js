@@ -41,6 +41,10 @@ class Graph {
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
     let ngn = new GraphNode({ value, edges });
+    for (let i = 0; i < edges.length; i++) {
+      let edgeIndex = this.vertices.indexOf(edges[i]);
+      this.vertices[edgeIndex].pushToEdges(ngn);
+    }
     this.vertices.push(ngn);
     if (this.vertices.length === 2) {
       this.vertices[0].pushToEdges(ngn);
@@ -121,24 +125,6 @@ class Graph {
   }
 }
 
-let graph = new Graph();
-// graph.addVertex('Hello World!');
-// graph.addVertex('hi there');
-// // graph.removeVertex('hi there');
-// const pineapple = graph.addVertex('pineapple');
-// const banana = graph.addVertex('banana');
-// const mango = graph.addVertex('mango', [pineapple]);
-const monkey = graph.addVertex('monkey');
-const human = graph.addVertex('human');
-const crocodile = graph.addVertex('crocodile', [human]);
-graph.addEdge(crocodile, monkey);
-console.log('croc edges', crocodile.edges);
-console.log('monkey edges', monkey.edges);
-// graph.removeEdge(monkey, human);
-console.log('check if monkey croc edge exists:');
-graph.checkIfEdgeExists(crocodile, monkey);
-// const A = graph.addVertex('A');
-// const b = graph.addVertex('b');
-// graph.removeEdge(A, b);
+
 
 module.exports = Graph;
