@@ -1,14 +1,12 @@
-/* eslint-disable class-methods-use-this */
-
 class Heap {
   constructor() {
     this.storage = [null];
     this.size = 0;
   }
 
-  getLeftIdx(pIndex) { return 2 * pIndex; }
-  getRightIdx(pIndex) { return (2 * pIndex) + 1; }
-  getParentIdx(cIndex) { return Math.floor(cIndex / 2); }
+  static getLeftIdx(pIndex) { return 2 * pIndex; }
+  static getRightIdx(pIndex) { return (2 * pIndex) + 1; }
+  static getParentIdx(cIndex) { return Math.floor(cIndex / 2); }
 
   getMax() { return this.storage[1]; }
   getSize() { return this.size; }
@@ -25,7 +23,7 @@ class Heap {
    * if its parent value is less than the value located at the input index
    * This method is only used by the heap itself in order to maintain the heap property */
   bubbleUp(index) {
-    const pIndex = this.getParentIdx(index);
+    const pIndex = Heap.getParentIdx(index);
     const parent = this.storage[pIndex];
     const child = this.storage[index];
 
@@ -60,8 +58,8 @@ class Heap {
   siftDown(index) {
     if (!this.getSize()) return;
 
-    let left = this.storage[this.getLeftIdx(index)];
-    let right = this.storage[this.getRightIdx(index)];
+    let left = this.storage[Heap.getLeftIdx(index)];
+    let right = this.storage[Heap.getRightIdx(index)];
     const parent = this.storage[index];
 
     /* Hacky! these two lines need to be here because setting
