@@ -1,4 +1,5 @@
-/* eslint-disable */
+/* eslint-disable class-methods-use-this */
+
 class Heap {
   constructor() {
     this.storage = [null];
@@ -6,8 +7,9 @@ class Heap {
   }
 
   getLeftIdx(pIndex) { return 2 * pIndex; }
-  getRightIdx(pIndex) { return 2 * pIndex + 1; }
+  getRightIdx(pIndex) { return (2 * pIndex) + 1; }
   getParentIdx(cIndex) { return Math.floor(cIndex / 2); }
+
   getMax() { return this.storage[1]; }
   getSize() { return this.size; }
   getStorage() { return this.storage; }
@@ -19,7 +21,7 @@ class Heap {
     this.bubbleUp(++this.size);
   }
 
-  /* Moves the element at the specified index "up" by swapping it with its parent 
+  /* Moves the element at the specified index "up" by swapping it with its parent
    * if its parent value is less than the value located at the input index
    * This method is only used by the heap itself in order to maintain the heap property */
   bubbleUp(index) {
@@ -28,7 +30,7 @@ class Heap {
     const child = this.storage[index];
 
     if (parent && child > parent) {
-      [this.storage[index], this.storage[pIndex]] = [this.storage[pIndex], this.storage[index]];
+      [this.storage[index], this.storage[pIndex]] = [parent, child];
       this.bubbleUp(pIndex);
     }
   }
@@ -37,13 +39,15 @@ class Heap {
    * Calls siftDown in order to reorganize the heap with a new max/min
    * In some specifications, this method is also called `poll` */
   delete() {
-    this.storage.shift(); // remove null from head
+    // Why I'm unshifting null
+    this.storage.shift();
     const removed = this.storage.shift();
     this.size--;
 
-    // put tail at head to be sifted down
-    this.storage.unshift(this.storage.pop())
+    // Put tail at head to be sifted down
+    this.storage.unshift(this.storage.pop());
 
+    // Put null back at head
     this.storage.unshift(null);
     this.siftDown(1);
 
@@ -54,7 +58,7 @@ class Heap {
    * If the larger of the child elements is larger than the parent, the child element is swapped with the parent
    * This method is only used by the heap itself in order to maintain the heap property */
   siftDown(index) {
-    if(!this.getSize()) return;
+    if (!this.getSize()) return;
 
     let left = this.storage[this.getLeftIdx(index)];
     let right = this.storage[this.getRightIdx(index)];
@@ -64,22 +68,21 @@ class Heap {
      * child to the greater of left or right creates a weird bug
      * because when one of the values is undefined, the statement
      * always evaluates to false. */
-    if (!left) left = 0
-    if (!right) right = 0
+    if (!left) left = 0;
+    if (!right) right = 0;
 
     const child = left > right ? left : right;
     const cIndex = this.storage.indexOf(child);
 
     if (parent < child) {
-      [this.storage[cIndex], this.storage[index]] = [this.storage[index], this.storage[cIndex]];
+      [this.storage[cIndex], this.storage[index]] = [parent, child];
       return this.siftDown(cIndex);
     }
 
     if (parent < child) {
-      [this.storage[cIndex], this.storage[index]] = [this.storage[index], this.storage[cIndex]];
+      [this.storage[cIndex], this.storage[index]] = [parent, child];
       return this.siftDown(cIndex);
     }
-
   }
 }
 
