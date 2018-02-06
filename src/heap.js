@@ -1,7 +1,6 @@
 class Heap {
   constructor() {
-    this.storage = [null];
-    this.size = 0;
+    Object.assign(this, { storage: [null], size: 0 });
   }
 
   static getLeftIdx(pIndex) { return 2 * pIndex; }

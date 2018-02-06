@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable class-methods-use-this */
+
 class GraphNode {
   constructor({ value, edges }) {
     this._value = value;
