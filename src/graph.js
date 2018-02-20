@@ -52,9 +52,7 @@ class Graph {
   // Checks all the vertices of the graph for the target value
   // Returns true or false
   contains(value) {
-    for (let i = 0; i < this.vertices.length; i++) {
-      if (this.vertices[i].value === value) return true;
-    }
+    if (this.vertices.find(vertice => vertice.value === value)) return true;
     return false;
   }
   // Checks the graph to see if a GraphNode with the specified value exists in the graph 
