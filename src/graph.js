@@ -3,8 +3,10 @@
 
 class GraphNode {
   constructor({ value, edges }) {
-    this._value = value;
-    this._edges = edges;
+    Object.assign(this, {
+      _value: value,
+      _edges: edges
+    })
   }
   get value() {
     return this._value;
