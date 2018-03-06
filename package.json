@@ -4,6 +4,8 @@
   "description": "LambdaSchool's Data Structures II",
   "main": "index.js",
   "scripts": {
+    "test:nolint": "jest --verbose",
+    "mytest": "npm run test:nolint -- --watch",
     "test": "eslint tests/*.js && eslint src/*.js && jest --verbose",
     "lint": "eslint",
     "test:watch": "npm test -- --watch"
